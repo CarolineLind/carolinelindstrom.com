@@ -11,6 +11,16 @@
 	<meta property="og:url" content="https://carolinelindstrom.com/" />
     <meta property="og:type" content="website" />
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7BCC6RX3DT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7BCC6RX3DT');
+</script>
+
 
 	<?php wp_head();?>
 
@@ -33,6 +43,7 @@
 	
 	<nav class='menu-wrapp' aria-label="Huvudmeny">
 		<button class='menuButton toggleParent mobileOnly' aria-label='Meny'><i class="fas fa-bars"></i></button>
+		
 		<div class="menu-main headingstyle">
 			<?php
 				wp_nav_menu(
@@ -43,14 +54,14 @@
 					)
 				);
 			?>
-			<ul>
+			<!--ul>
 				<li>
 					<a href="/">testlänk 1</a>
 				</li>
 				<li>
 					<a href="/">testlänk 2</a>
 				</li>
-			</ul>
+			</ul-->
 		</div>
 	</nav>
 

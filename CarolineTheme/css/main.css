@@ -51,17 +51,18 @@ body {
 	-webkit-tap-highlight-color: transparent; /* for removing the highlight */
 }
 body::-webkit-scrollbar {
-	width: 14px
+	width: 16px
 }
 body::-webkit-scrollbar-track {
 	background: var(--base-white);
+	background-color: #e9ecec;
 }
 body::-webkit-scrollbar-thumb {
 	background-color: var(--theme-color2-hover);
-	border-radius: 7px;
-	border: 3px solid var(--base-white);
+	border-radius: 6px;
+	border: 3px solid #e9ecec;
 	cursor: pointer;
-	transition: background-color 0.4s ease;
+	transition: all 0.4s ease;
 }
 body::-webkit-scrollbar-thumb:hover {
 	background-color: var(--theme-color2);
@@ -86,19 +87,19 @@ img {max-width: 100%; height: auto;}
 	.page-wrapper>.section {max-width: 100%;} 
 }
 /* Mobile */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 47.99em) {
 	.desktopOnly{
 		display: none;
 	}
 }
-@media screen and (min-width: 601px) {
+@media screen and (min-width: 48em) {
 	.mobileOnly {
 		display: none;
 	}
 }
 
 /* GENERELLT - Text */
-a {color: var(--theme-color2);}
+a {color: var(--theme-color2);text-decoration: none;}
 a:visited {-webkit-appearance: none;}
 h1, h2, h3, h4, h5, h6, .headingstyle {
 	margin: 1em 0 0 0;
@@ -136,12 +137,16 @@ blockquote {
 	background: #fff;
     padding: 1rem 2rem;
     border-left: 3px solid var(--base-color1);
+	box-shadow: 10px 10px 0 -2px #aec0c3;
+}
+cite {
+	font-size: 0.8em;
 }
 blockquote::before,
 blockquote::after {
-	content: '"';
+	/*content: '"';
     font-size: 5em;
-    position: absolute;
+    position: absolute;*/
 }
 blockquote::before {
 	top: -0.3em;
@@ -151,9 +156,28 @@ blockquote::after {
     bottom: -0.85em;
     right: -0.5em;
 }
+.wp-block-pullquote {
+	width: 100%;
+	display: block;
+}
+.wp-block-pullquote blockquote {
+	margin: 0;
+	background-color: transparent;
+	border: 3px solid var(--base-color1);
+	border-left: none;
+	border-right: none;
+	
+}
 ::selection {
 	color: var(--base-white);
 	background: var(--theme-color2);
+}
+hr, hr.wp-block-separator {
+	display: block;
+    opacity: 1;
+	border: none;
+    border-bottom:3px solid var(--lowlight-color1);
+	margin: 3rem 20%;
 }
 @media screen and (max-width: 47.99em) {
 	blockquote {
@@ -309,20 +333,22 @@ input[type="button"], input[type="submit"] {
 
 /* GENERELLT - Element */
 .button {-webkit-appearance: none;cursor: pointer;}
-.button, .button:visited {
+.button, .button:visited, .wp-block-button__link,
+input[type="button"], input[type="submit"] {
 	font-family: 'Josefin Sans', sans-serif;
-	padding: 0 22px;
-	height: 50px;
+	font-family: 'Space Mono', monospace;
+	padding: 0 2em;
+	height: 3em;
 	background: var(--theme-color2);
 	color: var(--base-white);
 	display: inline-flex;
 	align-items: center;
 	text-decoration: none;
-	border-radius: 25px;
-	text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 1px;
-    font-size: 12px;
+	border-radius: 1.5em;
+	/*text-transform: uppercase;*/
+    /*font-weight: 600;*/
+    /*letter-spacing: 2px;*/
+    font-size: 1.1em;
     box-shadow: var(--box-shadow1);
 }
 table, th, td {
@@ -337,6 +363,18 @@ tr:nth-child(odd) {
 }
 th, td {
 	padding: 0.2em 0.4em;
+}
+figure {
+    /*background: #fff;
+    padding: 1em;
+    border-radius: 0.3em;*/
+    display: grid;
+    place-content: center;
+}
+figure figcaption {
+	margin: 0.5em 0;
+	margin-bottom: 0;
+	font-family: 'Space Mono', monospace;
 }
 /* GENERELLT - Paginering */
 .pagination {
@@ -370,7 +408,7 @@ th, td {
 
 
 /* GENERELLT - Hover & Transition */
-input, button, .pagination > *, .button, .button:visited  {
+input, button, .pagination > *, .button, .button:visited, .wp-block-button__link  {
 	transition: all 0.4s ease;
 }
 a { 
@@ -385,11 +423,13 @@ a {
 		background: var(--theme-color2-hover);
 		color: var(--base-w);
 	}
-	button:hover, .button:hover, input[type="button"]:hover, input[type="submit"]:hover {
+	button:hover, .button:hover,.wp-block-button__link:hover, input[type="button"]:hover, input[type="submit"]:hover {
 		box-shadow: rgba(0, 0, 0, 0.4) 0px 4px 12px -3px;
 	}
-	input[type="button"]:hover, input[type="submit"]:hover {
+	button:hover, .button:hover,.wp-block-button__link:hover, input[type="button"]:hover, input[type="submit"]:hover {
 		background: var(--theme-color2-hover); 
+		box-shadow: 4px 4px 0px -1px #955d58;
+		transform: scale(1.05);
 	}
 	input:hover, button:hover, textarea:hover, select:hover, .select-wrapper:hover {
 		background: #fcfdf2;
@@ -445,7 +485,6 @@ a {
 .archive-post i {
 	margin-right: 0;
 }
-/**/
 .wp-block-post-title {
 	width: 100%;
 	order: 2;
@@ -469,8 +508,6 @@ a {
 	opacity: 0;
 	display: none;
 }
-
-
 @media screen and (max-width: 600px) {
 
 	/* IDEELT ARBETE */
@@ -479,6 +516,56 @@ a {
 
 
 
+/* Om mig */
+.profilbild {
+	
+}
+.profilbild figure {
+	position: relative;
+    background: linear-gradient(138deg, #c7d8d5, #6e7899);
+	background: linear-gradient(138deg, #fff39b, #af69a4);
+    border-radius: 50%;
+}
+
+.profilbild figure::after {
+	content: " ";
+	position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    width: calc(100% + -6px);
+    height: calc(100% + -6px);
+    background-color: transparent;
+    /*border: 6px solid var(--theme-color2);*/
+	/*z-index: -1;*/
+	border-radius: 50%;
+	pointer-events: none;
+}
 
 
+.programmingImg {
+	margin: 0 2em 0 0;
+    max-width: 19%;
+
+    display: inline-flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-content: flex-start;
+
+}
+.wp-block-cover {
+    align-items: flex-end;
+}
+.wp-block-cover__inner-container {
+
+}
+.wp-block-cover p.has-large-font-size {
+    font-family: 'Space Mono', monospace;
+	font-weight: 600;
+	font-size: 4.3rem;
+	text-transform: lowercase;
+    text-align: left;
+    margin: 0;
+	filter: drop-shadow(4px 4px 0px #3e248d);
+}
 /*--------------------------------------------------*/
