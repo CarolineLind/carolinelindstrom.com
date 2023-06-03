@@ -38,6 +38,8 @@
 						<li><a href="mailto:lindstrmcaroline@gmail.com"><i class="far fa-envelope"></i>lindstrmcaroline@gmail.com</a></li>
 						<li><a href="https://www.linkedin.com/in/caroline-lindstr%C3%B6m-328a33141/"><i class="fab fa-linkedin-in"></i>LinkedIn</a></li>
 						<li><a href="https://www.instagram.com/carrolinelindstrom/"><i class="fab fa-instagram"></i>Instagram</a></li>
+						<li><a href="https://github.com/CarolineLind"><i class="fab fa-github"></i>Github</a></li>
+						
 					</ul>
 				</div>
 

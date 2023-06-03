@@ -95,31 +95,35 @@ header {
 		transition: transform  0.3s cubic-bezier(0.55, 0.09, 0.53, 0.65);
 	}
 	.menuButton {
-		margin: 0;
+		margin: 0 0 0 3px;
 		position: fixed;
         padding: 0px 10px;
         width: 50px;
         height: 50px;
 		z-index: 1;
+		border-radius: 0 50% 50% 0;
+		background: #585f95;
 	}
     .active  .menuButton i::before {
         content: "\f00d";
     }
 	.active .menuButton {
-		transform: translateX(190px);
+		transform: translateX(210px);
 	}
 	.menu-main {
 		position: fixed;
-		transform: translateX(-190px);
-		min-width: 170px;
+		transform: translateX(-210px);
+		min-width: 200px;
         margin-right: 1em;
 		display: flex;
 		flex-direction: column;
 		margin: 0;
-		padding: 15px 0 10px ;
+		padding: 1rem 0 1rem ;
+		box-shadow: 4px 4px 0px -1px #585f95;
 	}
 	.active .menu-main {
 		transform: translateX(0px); 
+		
 	}
 	.menu-wrapp ul {
 		margin: 0;
@@ -127,13 +131,11 @@ header {
 		width: 100%;
 	}
 	.menu-wrapp li{
-		line-height: 30px;
-		height: 30px;
 	}
 	.menu-wrapp li a{
-		padding: 8px 25px;
-		line-height: 30px;
-		height: 30px;
+		padding: 0.3em 1.5rem;
+		line-height: normal;
+		height: auto;
 	}
     #logo {
         width: 90px;
