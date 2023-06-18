@@ -39,10 +39,17 @@
 </head>
 <body>
 	
-<header class="relative">
+<header class="">
 	
 	<nav class='menu-wrapp' aria-label="Huvudmeny">
-		<button class='menuButton toggleParent mobileOnly' aria-label='Meny'><i class="fas fa-bars"></i></button>
+		<button class='menuButton toggleParent mobileOnly' aria-label='Öppna meny' type="button" aria-expanded="false">
+			<!--i class="fas fa-bars"></i-->
+			<div class="menu_checkbox">
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</button>
 		
 		<div class="menu-main headingstyle">
 			<?php

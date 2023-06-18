@@ -89,10 +89,10 @@ function load_css(){
 	wp_register_style('flexboxgrid', get_template_directory_uri() . '/css/flexboxgrid-6.3.1/css/flexboxgrid.css', array(), false, 'all');
 	wp_enqueue_style('flexboxgrid');
 
-	wp_register_style('main', get_template_directory_uri() . '/css/main.css', array(), false, 'all');
+	wp_register_style('main', get_template_directory_uri() . '/css/main.css', array(),  wp_get_theme()->get('Version'), 'all');
 	wp_enqueue_style('main');
 
-	wp_register_style('header', get_template_directory_uri() . '/css/header.css', array(), false, 'all');
+	wp_register_style('header', get_template_directory_uri() . '/css/header.css', array(),  wp_get_theme()->get('Version'), 'all');
 	wp_enqueue_style('header');
 
 }
@@ -110,7 +110,7 @@ function load_js(){
 	/* footer scripts */
 	wp_enqueue_script('jquery');
 
-	wp_register_script('js-in-footer', get_template_directory_uri() . '/js/js-in-footer.js', 'jquery', false, true);
+	wp_register_script('js-in-footer', get_template_directory_uri() . '/js/js-in-footer.js', 'jquery',  wp_get_theme()->get('Version'), true);
 	wp_enqueue_script('js-in-footer');
 }
 add_action('wp_enqueue_scripts', 'load_js');
@@ -142,19 +142,37 @@ function my_sidebars() {
 
 	register_sidebar (
 		array(
-			'name' => 'Page Sidebar',
-			'id' => 'pageSidebar',
-			'before_title' => '<h4 class="widgetTitle">',
-			'after_title' => '</h4>'
+			'name'          => 'Page Sidebar',
+			'id'            => 'pageSidebar',
+			'description'   => 'Can be used for a sidebar on certain pages',
+			'before_widget' => '<section class="widgetContainer pageSidebar">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widgetTitle">',
+			'after_title'   => '</h2>'
 		)
 	);
 
 	register_sidebar (
 		array(
-			'name' => 'Blog Sidebar',
-			'id' => 'blogSidebar',
-			'before_title' => '<h4 class="widgetTitle">',
-			'after_title' => '</h4>'
+			'name'          => 'Blog Sidebar',
+			'id'            => 'blogSidebar',
+			'description'   => 'Can be used for a sidebar on blog pages',
+			'before_widget' => '<section class="widgetContainer blogSidebar">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widgetTitle">',
+			'after_title'   => '</h2>'
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => 'Footer area one',
+			'id'            => 'footer_area_one',
+			'description'   => 'Can be used to add custom footer content',
+			'before_widget' => '<section class="widgetContainer footer-area-one">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h2 class="widgetTitle">',
+			'after_title'   => '</h2>',
 		)
 	);
 
