@@ -1,0 +1,112 @@
+/*--------------------------------------------------*/
+/*----------------- WELCOME STYLES --------------------*/
+/*--------------------------------------------------*/
+
+
+/* Welcome */
+/*https://bgjar.com/*/
+.welcome-container {
+	position: relative;
+}
+.welcome-container svg{
+	width: 100%;
+    height: auto;
+}
+.welcome-container .text {
+	position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /*width: 100%;
+    height: 100%;*/
+	display: grid;
+    place-content: center;
+	text-align: center;
+}
+.welcome-container .text {
+	font-size: clamp(0.7rem, 4vw, 2rem);
+	color: #fff;
+}
+.welcome-container .text h1 {
+	font-weight: 700;
+	font-size: clamp(1rem, 12vw, 9rem);
+	margin: 0;
+}
+
+@media screen and (max-width: 1024px) {
+	.welcome-container .text {
+		font-size: clamp(0.7rem, 4vw, 2rem);
+	}
+	.welcome-container .text h1 {
+		font-size: clamp(1rem, 12vw, 6rem);
+	}
+}
+.welcome-links .wp-block-cover {
+	min-height: unset;
+    aspect-ratio: 1 / 1;
+	/*border-radius: 50%;*/
+    overflow: hidden;
+	padding: 0;
+}
+.welcome-links .wp-block-column {
+	transition: box-shadow 0.2s  ease-in-out;
+    box-shadow: 6px 6px 0px 0px #a5c2c700;
+}
+.welcome-links .wp-block-column:hover {
+    box-shadow: 6px 6px 0px 0px #a5c2c7;
+}
+.welcome-links .wp-block-cover__inner-container,
+.welcome-links .wp-block-cover__inner-container p,
+.welcome-links .wp-block-cover__inner-container p a {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	margin: 0;
+	padding: 0;
+}
+.welcome-links .wp-block-cover__inner-container p a {
+	position: relative;
+	font-size: 1.5em;
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
+	place-content: center;
+	text-shadow: 0px 0px 15px white;
+	transition: transform 0.4s  ease-in-out;
+}
+.welcome-links .wp-block-cover__inner-container p a:hover {
+    transform: scale(1.05);
+}
+.welcome-links .wp-block-cover__inner-container p a::after {
+	content: '';
+    position: absolute;
+    width: 100%;
+    height: 2em;
+	bottom: calc(50% - 1em);
+	width: 120%;
+	height: 120%;
+	bottom: -10%;
+    left: -10%;
+    background-color: var(--theme-color2);
+    background:linear-gradient(90deg, #dfceff, #ffc6d8, #ffccc7, #ffddbf, #fffcd1);
+    -webkit-transform: scaleX(0);
+    -moz-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    -o-transform: scaleX(0);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.2s;
+	transition-timing-function: ease-in-out;
+	z-index: -1;
+	background:linear-gradient(246deg, #ab81ff00, #ab81ff, #ff80a8, rgb(255, 247, 131), #ffaa80, rgba(255, 247, 131, 0));
+	opacity: 0.5;
+	filter: blur(16px);
+}
+.welcome-links .wp-block-cover__inner-container p a:hover::after {
+	transform-origin: bottom left;
+    -webkit-transform: scaleX(1);
+    -moz-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    -o-transform: scaleX(1);
+    transform: scaleX(1);
+}

@@ -6,7 +6,7 @@
 	<meta name="description" content="En Wordpressida av Caroline Lindström." />
 	<meta name="theme-color" content="rgb(247, 247, 247" />
 	<meta name="HandheldFriendly" content="True" />
-	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=5.0, width=device-width" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=5.0, width=device-width" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta property="og:url" content="https://carolinelindstrom.com/" />
     <meta property="og:type" content="website" />
@@ -79,6 +79,7 @@
 		<?php the_custom_logo(); ?>
 		</a>
 	<?php endif; ?>-->
+	
 
 
 	<?php	
@@ -86,7 +87,7 @@
 	$image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
 	?>
 	<a id="logo" href="/" title="Caroline Lindstrom">
-		<img src="<?php echo $image[0]; ?>" width="726" height="309"  >
+		<img src="<?php echo $image[0]; ?>" width="726" height="309"  alt="Logga för Carolines webbsida. Föreställer texten <cl>">
 	</a>
 
 	 

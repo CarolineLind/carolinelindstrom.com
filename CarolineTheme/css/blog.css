@@ -1,0 +1,100 @@
+/*--------------------------------------------------*/
+/*----------------- BLOG STYLES --------------------*/
+/*--------------------------------------------------*/
+
+/* GENERELLT - Paginering */
+.pagination {
+	display: flex;
+	justify-content: flex-end;
+}
+.pagination > * {
+	font-size: 12px;
+	margin: 0 5px; 
+	text-decoration: none;
+	text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+	background: var(--base-white);
+    height: 30px;
+    min-width: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 15px;
+    box-shadow: var(--box-shadow1);
+}
+.pagination > a {color: var(--base-color1);}
+.pagination > .current {background: var(--theme-color1);color: #fff;}
+.pagination > .next, .pagination > .prev  {font-size: 0; padding: 0 15px;}
+.pagination > .next:before, .pagination > .prev:after {font-size: 12px; font-family: 'Raleway', sans-serif;}
+.pagination > .next:after, .pagination > .prev:before {font-size: 12px; font-family: "Font Awesome 5 Pro";}
+.pagination > .next:before {content:'Nästa';}
+.pagination > .next:after {content:'\f105';}
+.pagination > .prev:before {content:'\f104';}
+.pagination > .prev:after {content:'Föregående';}
+
+
+/* IDEELT ARBETE */
+.archive-post, .wp-block-post-template>li {
+	background: #fff;
+	box-shadow: var(--box-shadow1);
+	margin-bottom: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0;
+	border-radius: 40px;
+	display: flex;
+	max-width: 1024px;
+}
+.postBild {
+	/* width: 35%; */
+	margin-right: 2em;
+	min-width: 30%;
+	display: flex; 
+	align-items: center;
+	order: 1;
+}
+.postBild img {
+	height: 100%;
+    width: auto;
+    border-radius: 40px 0 0 40px;
+}
+.postText {
+	/* width: 60%; 
+	margin-left: 5%; */
+	order: 2;
+	padding: 1em 1em 1em 0;
+}
+.postText a  {
+	text-decoration: none;
+}
+.archive-post i {
+	margin-right: 0;
+}
+.wp-block-post-title {
+	width: 100%;
+	order: 2;
+}
+.wp-block-post-title a  {
+	text-decoration: none;
+}
+.wp-block-post-featured-image {
+	order: 1;
+	display: flex;
+	width: 100%;
+}
+.wp-block-post-excerpt {
+	order: 2;
+}
+.wp-block-post-date {
+	order: 2;
+	width: 100%;
+}
+.wp-block-separator  {
+	opacity: 0;
+	display: none;
+}
+@media screen and (max-width: 600px) {
+
+	/* IDEELT ARBETE */
+	.postBild, .postText  {width: 100%;}
+}
