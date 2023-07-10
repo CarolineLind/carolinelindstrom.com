@@ -2,7 +2,6 @@
 <!-- START footer.php -->
 
 
-
 	<footer>
 		<div class='footer-wrapp'>
 

@@ -140,13 +140,51 @@ input[type="button"], input[type="submit"] {
 	background: var(--theme-color2); 
 
 }
+input[type="range"] {
+	-webkit-appearance: none;
+	padding: 0;
+	min-width: 100px;
+	height: 4px;
+    color: var(--base-white);
+    background-color: #7169C3;
 
+}
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	width: 1.2em;
+	height: 1.2em;
+	background: var(--theme-color2);
+	transition: background .3s ease-in-out;
+	border-radius: 50%;
+	cursor: ew-resize;
+}
+.rangestartstopp {
+	min-width: 1em;
+    color: #7169C3;
+    border: 1px solid #7169C3;
+	font-family: 'Space Mono', monospace;
+	padding: 0.1rem 0.3rem;
+    border-radius: 0.3rem;
+}
+.rangestartstopp + input[type="range"]{
+	margin-left: 0.3rem;
+	margin-right: 0.3rem;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+	background: var(--theme-color2-hover);
+}
+input[type=range]::-webkit-slider-runnable-track  {
+	-webkit-appearance: none;
+	box-shadow: none;
+	border: none;
+	background: transparent;
+}
 /* Focus styling */
 a:focus-visible {
 	outline: 3px solid var(--focus-color1);
 	box-shadow: var(--focus-color1);
-	box-shadow: 0 0 0px 5px #e2d564, 0 0 0px 7px #746cc4 !important;
+	box-shadow: 0 0 0px 5px #e2d564, 0 0 0px 7px #7169C3 !important;
 }
 .welcome-links .wp-block-cover__inner-container p a:focus-visible {
-	box-shadow: inset 0 0 0px 5px #e2d564, inset 0 0 0px 7px #746cc4 !important;
+	box-shadow: inset 0 0 0px 5px #e2d564, inset 0 0 0px 7px #7169C3 !important;
 }

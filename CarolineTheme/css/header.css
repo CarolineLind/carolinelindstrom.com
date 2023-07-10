@@ -143,7 +143,7 @@ header {
         height: 50px;
 		z-index: 1;
 		border-radius: 0 50% 50% 0;
-		background: #585f95;
+		background: #7169C3;
 	}
     .active  .menuButton i::before {
         content: "\f00d";
@@ -207,7 +207,7 @@ header {
 		flex-direction: column;
 		margin: 0;
 		padding: 1rem 0 1rem ;
-		box-shadow: 4px 4px 0px -1px #585f95;
+		box-shadow: 4px 4px 0px -1px #7169C3;
 	}
 	.active .menu-main {
 		transform: translateX(0px); 

@@ -11,21 +11,11 @@
 	<meta property="og:url" content="https://carolinelindstrom.com/" />
     <meta property="og:type" content="website" />
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7BCC6RX3DT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-7BCC6RX3DT');
-</script>
 
 
 	<?php wp_head();?>
 
-	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700|Raleway:300,400,500,600,800&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://use.typekit.net/age5dnw.css">
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	
@@ -42,7 +32,7 @@
 <header class="">
 	
 	<nav class='menu-wrapp' aria-label="Huvudmeny">
-		<button class='menuButton toggleParent mobileOnly' aria-label='Öppna meny' type="button" aria-expanded="false">
+		<button class='menuButton toggleParent js-toggleParent mobileOnly' aria-label='Öppna meny' type="button" aria-expanded="false">
 			<!--i class="fas fa-bars"></i-->
 			<div class="menu_checkbox">
 				<div></div>
