@@ -1,0 +1,101 @@
+/*--------------------------------------------------*/
+/*---------------- FOOTER STYLES -------------------*/
+/*--------------------------------------------------*/
+.circlewrapp {
+	margin: 0;
+	width: 30rem;
+	max-width: 100%;
+	aspect-ratio: 1 / 1;
+	position: relative;
+}
+.circlewrapp .circle {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	position: absolute;
+	border-radius: 50%;
+	--speed: 5s;
+	--easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+	/*animation: rotate1 var(--speed) linear  alternate infinite;*/
+}
+.circles {
+	margin: 0;
+	width: 7rem;
+	max-width: 100%;
+	display: grid;
+	align-content: center;
+	gap: 1rem;
+}
+.circles .circle {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	border-radius: 50%;
+	position: relative;
+}
+
+@keyframes rotate1 {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+.circle.cyan {
+	--pos: 0;
+	background: linear-gradient(var(--pos), #00ffff00, #00ffff);
+	--speed: 7s;
+	--easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+	/*animation: rotate var(--speed) linear  alternate infinite;*/
+}
+.circle.magenta {
+	--pos: 120deg;
+	background: linear-gradient(var(--pos), #ff00ff00, #ff00ff);
+	--speed: 5s;
+	--easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+	/*animation: rotate var(--speed) linear  alternate infinite;*/
+}
+.circle.yellow {
+	--pos: 240deg;
+	background: linear-gradient(var(--pos), #ffff0000, #ffff00);
+	--speed: 9s;
+	--easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+	/*animation: rotate var(--speed) linear  alternate infinite;*/
+}
+.rangeinwrapp {
+	font-family: 'Space Mono', monospace;
+}	
+.rangewrapp input[type="text"] {
+	all: unset;
+	width: 2em;
+}
+input[type="range"]#cyan::-webkit-slider-thumb {
+	background: #00ffff;
+	box-shadow: 1px 1px 5px -2px #7169C387;
+}
+input[type="range"]#magenta::-webkit-slider-thumb {
+	background: #ff00ff;
+	box-shadow: 1px 1px 5px -2px #7169C387;
+}
+input[type="range"]#yellow::-webkit-slider-thumb {
+	background: #ffff00;
+	box-shadow: 1px 1px 5px -2px #7169C387;
+}
+.rangetextwrapp {
+	all: unset;
+    width: 3em;
+    background: var(--base-white);
+	border: 1px solid var(--base-white);
+    color: #333;
+	display: flex;
+	font-family: 'Space Mono', monospace;
+	padding: 0.1rem 0.3rem;
+    border-radius: 0.3rem;
+	margin-left: 0.6rem;
+}
+.rangetextwrapp input {
+	width: 2em;
+	pointer-events: none;
+}
+.test {
+	background: radial-gradient(circle at 50% 50%, rgba(255, 0, 0, 1) 0%, rgba(255, 0, 253, 1) 49%, rgba(255, 53, 0, 1) 100%);
+}
