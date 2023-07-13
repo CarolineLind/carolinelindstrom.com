@@ -47,3 +47,4 @@ function updateRange(input) {
         item.setAttribute('style', '--pos: ' + input.value + 'deg');
     }
 }
+
