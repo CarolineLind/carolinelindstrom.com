@@ -56,6 +56,12 @@
 .welcome-links .wp-block-column:hover {
     box-shadow: 6px 6px 0px 0px #a5c2c7;
 }
+.welcome-links .wp-block-cover:hover img.wp-block-cover__image-background {
+    
+}
+.welcome-links .wp-block-cover:hover img.wp-block-cover__image-background {
+   
+}
 .welcome-links .wp-block-cover__inner-container,
 .welcome-links .wp-block-cover__inner-container p,
 .welcome-links .wp-block-cover__inner-container p a {
