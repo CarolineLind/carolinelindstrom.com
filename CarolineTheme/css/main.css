@@ -17,10 +17,10 @@ http://projekt.test/wp-login.php?redirect_to=http%3A%2F%2Fprojekt.test%2Fwp-admi
 :root {
 	--gutter: 50px;
 	--max-width: 1024px;
-	--base-background1:rgb(219 224 224);
+	--base-background1:#DCE3E8;
 	--base-background2: #b8c8df;
 	--base-background-input: #fdfbf2;
-	--base-color1: #564949;
+	--base-color1: #495654;
 	--base-white: #fff;
 	--theme-color1: #a5c2c7;
 	--theme-color1-hover: #628d94;
@@ -150,14 +150,17 @@ h6 {}
 i {margin: 0 7px;}
 ul {list-style: none;padding: 0;}
 .defaultList ul {list-style: initial; padding-left: 1em;}
-code {
+code, body .wp-block-code code {
     font-family:'courier new', monospace;
 	background: var(--base-background2);
 	padding-left: 0.5em;
     padding-right: 0.5em;
     border-radius: 0.3em;
-    width: 100%;
+    width: auto;
     display: block;
+}
+body .has-black-color {
+	color: var(--base-color1) !important;
 }
 blockquote {
 	opacity: 0.8;
@@ -480,7 +483,18 @@ a {
 	filter: none;
 	background-image: linear-gradient(45deg, #fff3bf, #e9a3d1);
 	background-image: linear-gradient(45deg, #ff6d53, #ff7023);
+	filter: hue-rotate(0deg);
+	transition: filter 800ms;
 }
+.gradient-wrap:hover::after {
+    filter: hue-rotate(-17deg);
+}
+@media (prefers-reduced-motion) {
+	.gradient-wrap::after  {
+		animation: none;
+	}
+}
+
 @media (min-width: 1025px) {
 	.gradient-wrap::after {
 		--size: 50vw;
