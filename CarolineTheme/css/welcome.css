@@ -81,6 +81,7 @@
 	transition: transform 0.4s  ease-in-out;
 }
 .welcome-links .wp-block-cover__inner-container p a:hover {
+	color: var(--basecolor1);
     transform: scale(1.05);
 }
 .welcome-links .wp-block-cover__inner-container p a::after {
@@ -104,7 +105,7 @@
     transition: transform 0.2s;
 	transition-timing-function: ease-in-out;
 	z-index: -1;
-	background:linear-gradient(246deg, #ab81ff00, #ab81ff, #ff80a8, rgb(255, 247, 131), #ffaa80, rgba(255, 247, 131, 0));
+	/*background:linear-gradient(246deg, #ab81ff00, #ab81ff, #ff80a8, rgb(255, 247, 131), #ffaa80, rgba(255, 247, 131, 0));*/
 	opacity: 0.5;
 	filter: blur(16px);
 }

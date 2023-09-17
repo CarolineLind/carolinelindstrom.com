@@ -3,8 +3,11 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="description" content="En Wordpressida av Caroline Lindström." />
-	<meta name="theme-color" content="rgb(247, 247, 247" />
+	<title>Caroline Lindström</title>
+	<meta name="description" content="Tjej från Färgelanda, Dalsland som från en ung ålder blev intresserad i internet och den digitala världen." />
+	<meta name="keywords" content="Frontend, Developer, Karlstad, Färgelanda, HTML, CSS, JavaScript, Askås, Caia, Proteinbolaget, Accessibility, Tillgänglighet, E-Handel, E-Commerce">
+	<meta name="author" content="Caroline Lindström" />
+	<meta name="theme-color" content="#dce3e8" />
 	<meta name="HandheldFriendly" content="True" />
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=5.0, width=device-width" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -19,8 +22,8 @@
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
 	<!-- Place your kit's code here -->
     <script src="https://kit.fontawesome.com/0504f0b87c.js" crossorigin="anonymous"></script>
