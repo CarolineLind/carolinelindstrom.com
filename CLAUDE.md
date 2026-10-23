@@ -108,7 +108,11 @@ The design is a Claude Design canvas: https://claude.ai/code/artifact/336f61ad-6
 
 Decisions made so far:
 
-- **Preferences banner:** one accessible banner on the first visit, covering cookies/third-party content, motion and light/dark mode. Nothing moves and no third-party content loads until the visitor has chosen. System settings are detected and pre-selected. No "click to load" placeholders. It must not hurt load time, layout stability or SEO.
+- **Preferences dialog:** built as a proof of concept, see `docs/decisions/0002-preferences-dialog.md`. Rules every component must follow:
+  - **Motion only runs when `<html>` has `data-motion="on"`.** Never add animations that bypass the rule in `utilities.css`.
+  - **Anything from another domain** (iframes, scripts, images, fonts) **must wait for consent** (`thirdParty: "yes"`). Iframes in content are held back automatically by `inc/embeds.php`; anything else needs the same treatment.
+  - **The header toggles (section 6) must read and write the same saved choices** through `window.clindPrefs`, not their own storage.
+  - **Changing the choices means raising `version`** in `clind_prefs_config()`.
 - **Fonts:** self-hosted and trimmed, see `docs/decisions/0001-self-hosted-fonts.md`. Don't add font weights, italics or characters without updating that record and staying under the 100 KB budget.
 - **Block editor styling:** the editor loads `fonts.css`, `tokens.css` and `typography.css` (`inc/setup.php`), so writing looks like the site, but **always in light mode** (Caroline's choice, easier for long writing). Tell Caroline whenever a change affects how the editor looks.
 - **Content on the draft pages** in WordPress is experimental. Caroline knows about its structural issues; they get fixed when each page is built.

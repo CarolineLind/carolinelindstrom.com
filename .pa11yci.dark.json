@@ -11,9 +11,18 @@
         "--blink-settings=preferredColorScheme=0",
         "--host-resolver-rules=MAP carolinelindstromcom.local 127.0.0.1"
       ]
-    }
+    },
+    "actions": [
+      "click element #clind-prefs .prefs__submit",
+      "wait for element #clind-prefs:not([open]) to be added"
+    ]
   },
   "urls": [
+    {
+      "url": "http://carolinelindstromcom.local/valkommen-v3/",
+      "rootElement": "#clind-prefs",
+      "actions": []
+    },
     "http://carolinelindstromcom.local/valkommen-v3/",
     "http://carolinelindstromcom.local/om-mig/",
     "http://carolinelindstromcom.local/tillganglighet/",

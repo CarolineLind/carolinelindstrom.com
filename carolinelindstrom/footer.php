@@ -8,19 +8,24 @@
 		<?php
 		wp_nav_menu(
 			array(
-				'theme_location' => 'footer',
-				'container'      => 'nav',
-				'container_attr' => array( 'aria-label' => __( 'Sidfotsmeny', 'carolinelindstrom' ) ),
-				'menu_class'     => 'footer-list',
-				'depth'          => 1,
-				'fallback_cb'    => false,
+				'theme_location'       => 'footer',
+				'container'            => 'nav',
+				'container_aria_label' => __( 'Sidfotsmeny', 'carolinelindstrom' ),
+				'menu_class'           => 'footer-list',
+				'depth'                => 1,
+				'fallback_cb'          => false,
 			)
 		);
 		?>
 
+		<?php /* Hidden until preferences.js runs, since it needs JavaScript */ ?>
+		<button type="button" class="site-footer__settings" data-prefs-open hidden><?php esc_html_e( 'Inställningar', 'carolinelindstrom' ); ?></button>
+
 		<a class="totop" href="#main"><?php esc_html_e( 'Till toppen', 'carolinelindstrom' ); ?></a>
 	</div>
 </footer>
+
+<?php get_template_part( 'template-parts/preferences/dialog' ); ?>
 
 <?php wp_footer(); ?>
 </body>

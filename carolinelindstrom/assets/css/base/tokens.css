@@ -143,6 +143,7 @@ Breakpoints (media queries can't read variables):
   --z-header: 40;
   --z-skip: 50;
   --z-progress: 60;
+  --z-dialog: 100;
 }
 
 @media (width <= 720px) {
