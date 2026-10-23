@@ -88,7 +88,11 @@ tools/fonts/                  Source fonts and the scripts that trim them
 - **All design values are CSS variables** in `assets/css/base/tokens.css`: colors, fonts, sizes, spacing, corners and motion. Use the variables; don't hard-code values in other files.
 - **Dark mode is the default.** Light mode overrides the variables under `[data-theme="light"]`. A small script in `<head>` sets `data-theme` before the page draws: the visitor's saved choice first, otherwise their system setting.
 - **The block editor** uses the same fonts, sizes and spacing as the site, always in light mode. It loads `fonts.css`, `tokens.css` and `typography.css` (see `inc/setup.php`).
-- **Motion** stops when the visitor's system asks for reduced motion, or when `data-motion="paused"` is set on `<html>`.
+- **Motion only runs when allowed:** `data-motion="on"` on `<html>`, set from the visitor's choice in the preferences dialog. Before a choice, and without JavaScript, nothing moves.
+
+## Preferences dialog
+
+On the first visit a dialog asks for appearance (light, dark or follow the device), motion (on, off or follow the device) and content from other sites (show or don't show). Content from other sites, like the Spotify player, is held back on the server until allowed. The "Inställningar" button in the footer reopens the dialog. Why and how: [docs/decisions/0002-preferences-dialog.md](../docs/decisions/0002-preferences-dialog.md).
 - **Files load in a fixed order** from the list in `inc/enqueue.php`: tokens → base → layout → components. A new component gets its own file in `assets/css/components/` and a line in that list.
 
 ## Fonts
@@ -133,7 +137,7 @@ npm install
 **Limits of the accessibility test:**
 
 - Automated tests find roughly a third of WCAG problems. Keyboard, VoiceOver, zoom and reduced motion still need testing by hand (checklist section 13).
-- The test pages are listed in `.pa11yci.json` (light) and `.pa11yci.dark.json` (dark).
+- The test pages are listed in `.pa11yci.json` (light) and `.pa11yci.dark.json` (dark). The first entry tests the preferences dialog on its own. For every page, pa11y first clicks "Spara och gå vidare", so the page is tested as a returning visitor sees it.
 - The configs map `carolinelindstromcom.local` to `127.0.0.1`, because the test browser otherwise tries IPv6 first and Local doesn't answer there.
 
 ## Branches and commits

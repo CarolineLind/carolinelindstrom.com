@@ -33,7 +33,8 @@
   list-style: none;
 }
 
-.site-footer a {
+/* Links and the "Inställningar" button look the same */
+.site-footer :is(a, .site-footer__settings) {
   display: inline-flex;
   align-items: center;
   min-height: var(--tap-min);
@@ -42,10 +43,20 @@
   text-decoration: none;
 }
 
-.site-footer a:hover {
+.site-footer__settings {
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.site-footer__settings[hidden] {
+  display: none;
+}
+
+.site-footer :is(a, .site-footer__settings):hover {
   color: var(--color-text);
 }
 
-[data-theme="light"] .site-footer :is(a, .muted) {
+[data-theme="light"] .site-footer :is(a, .muted, .site-footer__settings) {
   color: #4A4566;
 }

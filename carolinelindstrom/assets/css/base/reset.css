@@ -57,8 +57,7 @@ p, li, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
+/* Smooth scrolling is motion too: only when allowed (see utilities.css) */
+html[data-motion="on"] {
+  scroll-behavior: smooth;
 }

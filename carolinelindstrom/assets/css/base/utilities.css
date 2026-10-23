@@ -61,19 +61,14 @@
 
 /* --------------------- MOTION --------------------- */
 
-/* System setting, or the "pausa rörelse" choice saved on <html> */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition: none !important;
-  }
-}
-
-[data-motion="paused"] *,
-[data-motion="paused"] *::before,
-[data-motion="paused"] *::after {
+/*
+Motion runs only when the visitor has allowed it: data-motion="on" on <html>,
+set from their choice in the preferences dialog (inc/preferences.php).
+Before a choice, with motion off, and without JavaScript, nothing moves.
+*/
+html:not([data-motion="on"]) *,
+html:not([data-motion="on"]) *::before,
+html:not([data-motion="on"]) *::after {
   animation: none !important;
   transition: none !important;
 }

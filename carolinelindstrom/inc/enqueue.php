@@ -20,6 +20,8 @@ function clind_enqueue_styles() {
 		'cl-header'     => 'assets/css/layout/header.css',
 		'cl-footer'     => 'assets/css/layout/footer.css',
 		'cl-content'    => 'assets/css/layout/content.css',
+		'cl-prefs'      => 'assets/css/components/preferences.css',
+		'cl-embed'      => 'assets/css/components/embed.css',
 	);
 
 	$previous = array();
@@ -44,31 +46,3 @@ function clind_preload_fonts() {
 	}
 }
 add_action( 'wp_head', 'clind_preload_fonts', 1 );
-
-/*
-Set light/dark and paused motion on <html> before anything is painted, so the page never flashes the wrong colors.
-Saved choice first, else the visitor's system setting. The toggle buttons that write cl-theme / cl-motion come later.
-*/
-function clind_theme_mode_script() {
-	?>
-	<script>
-	(function () {
-		var root = document.documentElement;
-		var theme = null;
-		var motion = null;
-		try {
-			theme = localStorage.getItem('cl-theme');
-			motion = localStorage.getItem('cl-motion');
-		} catch (e) {}
-		if (theme !== 'light' && theme !== 'dark') {
-			theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-		}
-		root.setAttribute('data-theme', theme);
-		if (motion === 'paused') {
-			root.setAttribute('data-motion', 'paused');
-		}
-	})();
-	</script>
-	<?php
-}
-add_action( 'wp_head', 'clind_theme_mode_script', 0 );

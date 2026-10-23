@@ -53,18 +53,25 @@ How to use them: "Quality checks" in `carolinelindstrom/README.md`.
 - [x] Old `CarolineTheme/` excluded from all checks, also in VS Code
 
 ## 5. Preferences banner (cookies, motion, light/dark)
-Decided: one accessible banner on the first visit, **before anything moves**. Third-party content and analytics load only after consent. No "click to load" buttons.
-- [ ] Discuss: exact texts and choices (motion on/off, light/dark/system, third-party content yes/no)
-- [ ] Discuss: what replaces the Spotify player when third-party content is declined (a plain link to the album?)
-- [ ] Discuss: can the dialog be closed without choosing (Escape key), and what do we assume then?
-- [ ] Motion and third-party content stay off until a choice is made
-- [ ] System settings detected and pre-selected (reduced motion, light/dark)
-- [ ] Native `<dialog>`, real heading, labelled controls, focus moved in and returned, works with keyboard, VoiceOver and 400 % zoom
-- [ ] "Accept" and "Decline" equally easy and equally prominent
-- [ ] Choice saved in the browser; a link in the footer reopens the settings
-- [ ] No effect on load time or layout: markup in the page, no library, no layout shift, LCP unaffected
-- [ ] Header toggles for motion and light/dark stay available at all times
+Proof of concept built and working. Decisions: `docs/decisions/0002-preferences-dialog.md`.
+- [x] Discuss: choices (appearance and motion: on/off/"Som min enhet"; third-party content: show/don't show)
+- [x] Discuss: Spotify when declined: a card "Du har valt att inte visa Spotify-spelaren." plus a link to Spotify
+- [x] Discuss: Escape on the first visit saves the pre-selected defaults; later it just closes
+- [x] Motion and third-party content stay off until a choice is made (also without JavaScript)
+- [x] System settings pre-selected ("Som min enhet") and followed live when they change
+- [x] Native `<dialog>`, real heading, labelled controls, focus returned to the "Inställningar" button, 44 px targets, works at phone width
+- [x] Declining is never harder than accepting (third-party defaults to "Visa inte", one button)
+- [x] Choices saved in the browser with a date; asked again after 12 months or when the version changes
+- [x] "Inställningar" button in the footer reopens the dialog
+- [x] No effect on load time or layout: markup in the page, opened before first paint, about 3 KB JavaScript, no library
+- [x] Third-party iframes held back on the server; missing iframe titles added automatically
+- [x] pa11y: dialog tested on its own, pages tested with the dialog closed (0 errors in the theme, both modes)
+- [ ] Discuss: final copy (Caroline will revisit)
+- [ ] Design the dialog and the embed card
+- [ ] Test with VoiceOver (macOS and iOS) and at 400 % zoom by hand
+- [ ] Header toggles for motion and light/dark (section 6) use the same saved choices
 - [ ] Integritetspolicy updated to describe what's stored and why
+- [ ] Add "Statistik" as a fourth choice if analytics stays (section 11); raise the version so everyone is asked again
 
 ## 6. Header components
 - [ ] Mobile menu button (hamburger that becomes an X)
