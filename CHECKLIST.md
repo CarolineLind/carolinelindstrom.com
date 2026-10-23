@@ -37,7 +37,7 @@ Why the fonts look the way they do: `docs/decisions/0001-self-hosted-fonts.md`.
 - [x] Remove Google Fonts from `enqueue.php`, `setup.php` (editor) and the preconnect hints
 - [x] Check the total stays under 100 KB (99.1 KB)
 - [x] Block editor shows the site's fonts and sizes in light mode
-- [ ] Look at the site and the editor: headings, body text, åäö, italics, light background in the editor
+- [x] Look at the site and the editor: headings, body text, åäö, italics, light background in the editor
 
 ## 4. Tools (same setup in VS Code)
 - [ ] Install PHP and Composer with Homebrew; enable the `code` command in VS Code
