@@ -6,9 +6,6 @@
       {
         "message": "Use lowercase block__element--modifier class names (selector-class-pattern)"
       }
-    ],
-    "comment-whitespace-inside": null,
-    "comment-empty-line-before": null,
-    "custom-property-empty-line-before": null
+    ]
   }
 }

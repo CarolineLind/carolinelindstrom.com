@@ -1,7 +1,7 @@
 <?php
-/*--------------------------------------------------*/
-/*-------------------- CLEANUP ---------------------*/
-/*--------------------------------------------------*/
+/* --------------------------------------------------
+ * -------------------- CLEANUP ---------------------
+ * -------------------------------------------------- */
 
 /*
 The site is pages only: no posts, comments, search, feeds or archives.
@@ -9,7 +9,7 @@ Everything WordPress offers for those is turned off here, so it can't be
 used, found or attacked. Lives in the theme since the site only has one theme.
 */
 
-/*-------------------- COMMENTS --------------------*/
+/* -------------------- COMMENTS -------------------- */
 
 function clind_remove_comment_support() {
 	foreach ( get_post_types() as $post_type ) {
@@ -24,7 +24,7 @@ add_filter( 'pings_open', '__return_false', 20 );
 add_filter( 'comments_array', '__return_empty_array', 20 );
 add_filter( 'get_comments_number', '__return_zero', 20 );
 
-/*---------------------- POSTS ---------------------*/
+/* ---------------------- POSTS --------------------- */
 
 /* Hide posts and comments in the admin */
 function clind_remove_admin_menus() {
@@ -63,7 +63,7 @@ function clind_remove_admin_bar_items( $wp_admin_bar ) {
 }
 add_action( 'admin_bar_menu', 'clind_remove_admin_bar_items', 999 );
 
-/*------------- SEARCH, FEEDS, ARCHIVES ------------*/
+/* ------------- SEARCH, FEEDS, ARCHIVES ------------ */
 
 /* Skip the database query for searches; the 404 below handles the response */
 function clind_skip_search_query( $posts, $query ) {
@@ -114,7 +114,7 @@ function clind_sitemap_post_types( $post_types ) {
 }
 add_filter( 'wp_sitemaps_post_types', 'clind_sitemap_post_types' );
 
-/*--------------------- XML-RPC --------------------*/
+/* --------------------- XML-RPC -------------------- */
 
 /* No pingbacks or remote publishing. Blocking the file itself is done on the server. */
 add_filter( 'xmlrpc_enabled', '__return_false' );
@@ -126,7 +126,7 @@ function clind_remove_pingback_header( $headers ) {
 }
 add_filter( 'wp_headers', 'clind_remove_pingback_header' );
 
-/*---------------------- USERS ---------------------*/
+/* ---------------------- USERS --------------------- */
 
 /* The user endpoints reveal login names; only logged-in editors need them */
 function clind_protect_user_endpoints( $result, $server, $request ) {
@@ -144,7 +144,7 @@ function clind_oembed_remove_author( $data ) {
 }
 add_filter( 'oembed_response_data', 'clind_oembed_remove_author' );
 
-/*---------------------- HEAD ----------------------*/
+/* ---------------------- HEAD ---------------------- */
 
 function clind_clean_head() {
 	/* Version number */

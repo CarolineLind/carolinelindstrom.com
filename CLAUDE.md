@@ -83,7 +83,7 @@ Consider all of these in every change. **WCAG 2.2 AA is the acceptance criterion
 - **One CSS file per component** in `assets/css/components/`, registered in the ordered list in `inc/enqueue.php`.
 - **Class names:** block-element style (`.site-footer__inner`, `.logo__bracket--l`), plus the shared helpers in `typography.css` and `utilities.css`.
 - **Comments in English.** User-facing strings in Swedish, wrapped in `__()` / `esc_html_e()`.
-- **File headers:** match the banner style used in the existing files (`/*--- SECTION ---*/`).
+- **Comments:** a file starts with a three-line banner in one comment (`/* ---…` / ` * --- NAME ---` / ` * ---… */`); sections inside a file use one line (`/* --- SECTION --- */`). There's always a space inside `/*` and `*/`, and a blank line before every comment. In `tokens.css`, each group of variables starts with a short comment. Stylelint enforces this.
 - **Templates:** keep them thin. Markup that repeats goes in `template-parts/`.
 
 ## The design

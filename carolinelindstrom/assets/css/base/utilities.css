@@ -1,6 +1,6 @@
-/*--------------------------------------------------*/
-/*------------------- UTILITIES --------------------*/
-/*--------------------------------------------------*/
+/* --------------------------------------------------
+ * ------------------- UTILITIES --------------------
+ * -------------------------------------------------- */
 
 /* Centered max-width wrapper used by header, sections and footer */
 .container {
@@ -24,7 +24,7 @@
   white-space: nowrap;
 }
 
-/*-------------------- SKIP LINK -------------------*/
+/* -------------------- SKIP LINK ------------------- */
 
 .skip-link {
   position: absolute;
@@ -52,14 +52,14 @@
   outline: none;
 }
 
-/*--------------------- FOCUS ----------------------*/
+/* --------------------- FOCUS ---------------------- */
 
 :focus-visible {
   outline: var(--focus-width) solid var(--color-focus);
   outline-offset: var(--focus-offset);
 }
 
-/*--------------------- MOTION ---------------------*/
+/* --------------------- MOTION --------------------- */
 
 /* System setting, or the "pausa rörelse" choice saved on <html> */
 @media (prefers-reduced-motion: reduce) {

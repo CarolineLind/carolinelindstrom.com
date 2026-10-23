@@ -48,7 +48,9 @@ How to use them: "Quality checks" in `carolinelindstrom/README.md`.
 - [x] `.vscode/extensions.json` and `.vscode/settings.json`; the four extensions installed in VS Code
 - [x] `.editorconfig`, `.gitignore`
 - [x] Fix whatever the tools find in the existing code (prefix renamed `cl_` → `clind_`, modern media queries, `clip` → `clip-path`)
-- [ ] Open the repo in VS Code and check that warnings show up in PHP and CSS files
+- [x] Open the repo in VS Code and check that warnings show up in PHP and CSS files
+- [x] All Stylelint rules switched back on; comment banners and token groups adjusted to follow them
+- [x] Old `CarolineTheme/` excluded from all checks, also in VS Code
 
 ## 5. Preferences banner (cookies, motion, light/dark)
 Decided: one accessible banner on the first visit, **before anything moves**. Third-party content and analytics load only after consent. No "click to load" buttons.

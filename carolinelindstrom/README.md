@@ -127,8 +127,8 @@ npm install
 
 - PHP functions, hooks and globals are prefixed `clind_`. WordPress Coding Standards require prefixes of at least three characters.
 - PHP must stay compatible with PHP 8.2 and WordPress 6.4.
-- Stylelint uses its standard rules, with three switched off: the two comment-format rules (they reject the `/*--- SECTION ---*/` banners) and the blank-line rule for custom properties (blank lines group the tokens).
-- Class names follow `block__element--modifier`.
+- Stylelint uses its standard rules, all switched on. The only addition is that class names must follow `block__element--modifier`.
+- The old `CarolineTheme/` is excluded from every check (`phpcs.xml.dist`, `.stylelintignore`), also in VS Code. It is being replaced, not maintained.
 
 **Limits of the accessibility test:**
 
