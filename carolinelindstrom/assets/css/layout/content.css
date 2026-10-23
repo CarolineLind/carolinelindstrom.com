@@ -1,0 +1,79 @@
+/* --------------------------------------------------
+ * -------------------- CONTENT ---------------------
+ * -------------------------------------------------- */
+
+/* Page, post and list layouts around the block editor content */
+
+.entry-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-bottom: var(--space-10);
+}
+
+.entry-header .lead,
+.section > .lead + .lead {
+  margin-top: var(--space-4);
+}
+
+/* ---------------------- LIST ---------------------- */
+
+.entry-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.entry-list__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-block: var(--space-7);
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.entry-list__title a {
+  text-decoration: none;
+}
+
+.entry-list__title a:hover {
+  text-decoration: underline;
+}
+
+.entry-list__meta {
+  font-size: var(--fs-small);
+}
+
+.entry-list__excerpt {
+  max-width: var(--measure);
+}
+
+/* ------------------- PAGINATION ------------------- */
+
+.pagination .nav-links,
+.page-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-9);
+}
+
+/* .post-page-numbers covers both the links and the current page */
+.pagination .page-numbers,
+.page-links .post-page-numbers {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-weight: var(--fw-semibold);
+  text-decoration: none;
+}
+
+.pagination .page-numbers.current {
+  border-color: var(--color-text);
+}

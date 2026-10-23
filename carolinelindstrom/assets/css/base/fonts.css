@@ -1,0 +1,94 @@
+/* --------------------------------------------------
+ * --------------------- FONTS ----------------------
+ * -------------------------------------------------- */
+
+/*
+Self-hosted, trimmed fonts. Why they look the way they do (fixed optical size,
+limited weights, limited characters): docs/decisions/0001-self-hosted-fonts.md
+Rebuild with tools/fonts/subset-fonts.sh.
+*/
+
+/* ------------------- WEB FONTS -------------------- */
+
+/* Headings. Optical size fixed at 96 (the "large text" shape). */
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('../../fonts/bricolage-grotesque.woff2') format('woff2');
+  font-weight: 400 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Body text */
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../../fonts/dm-sans.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Labels and code */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../../fonts/jetbrains-mono.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* -------------------- FALLBACKS ------------------- */
+
+/*
+System fonts resized to take up the same space as the web fonts, so text
+doesn't jump when the web fonts arrive. Values from tools/fonts/fallback-metrics.py.
+*/
+
+@font-face {
+  font-family: 'Bricolage Grotesque Fallback';
+  src: local('Arial'), local('ArialMT');
+  font-weight: 400 599;
+  size-adjust: 95.07%;
+  ascent-override: 97.83%;
+  descent-override: 28.40%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Bricolage Grotesque Fallback';
+  src: local('Arial Bold'), local('Arial-BoldMT');
+  font-weight: 600 800;
+  size-adjust: 93.60%;
+  ascent-override: 99.36%;
+  descent-override: 28.85%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'DM Sans Fallback';
+  src: local('Arial'), local('ArialMT');
+  font-weight: 400 599;
+  size-adjust: 105.05%;
+  ascent-override: 94.43%;
+  descent-override: 29.51%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'DM Sans Fallback';
+  src: local('Arial Bold'), local('Arial-BoldMT');
+  font-weight: 600 700;
+  size-adjust: 102.87%;
+  ascent-override: 96.44%;
+  descent-override: 30.14%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono Fallback';
+  src: local('Courier New'), local('CourierNewPSMT');
+  size-adjust: 99.98%;
+  ascent-override: 102.02%;
+  descent-override: 30.00%;
+  line-gap-override: 0%;
+}

@@ -1,0 +1,44 @@
+/* --------------------------------------------------
+ * --------------------- EMBEDS ---------------------
+ * -------------------------------------------------- */
+
+/* Third-party embeds held back until allowed (inc/embeds.php). Proof of concept. */
+
+.embed-consent {
+  width: 100%;
+}
+
+/* Same height as the player it stands in for, so nothing jumps */
+.embed-consent__fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--embed-height, 200px);
+  padding: var(--space-6);
+  border: var(--border-width) dashed var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  text-align: center;
+}
+
+.embed-consent__fallback[hidden] {
+  display: none;
+}
+
+.embed-consent__text {
+  color: var(--color-muted);
+}
+
+.embed-consent__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  font-weight: var(--fw-bold);
+}
+
+.embed-consent__frame iframe {
+  display: block;
+  width: 100%;
+}

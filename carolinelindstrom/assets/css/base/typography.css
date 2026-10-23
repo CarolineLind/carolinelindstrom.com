@@ -1,0 +1,217 @@
+/* --------------------------------------------------
+ * ------------------ TYPOGRAPHY --------------------
+ * -------------------------------------------------- */
+
+/* Also loaded in the block editor (add_editor_style), so keep it to text styles */
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  transition: background-color var(--dur-slow) ease, color var(--dur-slow) ease;
+}
+
+::selection {
+  background: var(--color-selection-bg);
+  color: var(--color-selection-text);
+}
+
+/* -------------------- HEADINGS -------------------- */
+
+h1, h2, h3, h4,
+.h1, .h2, .h3 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-heavy);
+  line-height: var(--lh-heading);
+  text-wrap: balance;
+}
+
+h1, .h1 {
+  font-size: var(--fs-h1);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-h1);
+}
+
+h2, .h2 {
+  font-size: var(--fs-h2);
+  letter-spacing: var(--ls-h2);
+}
+
+h3, .h3 {
+  font-size: var(--fs-h3);
+  letter-spacing: var(--ls-h2);
+  line-height: 1.05;
+}
+
+h4 {
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0;
+  line-height: var(--lh-snug);
+}
+
+/* -------------------- HELPERS --------------------- */
+
+.display {
+  font-family: var(--font-display);
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.muted {
+  color: var(--color-muted);
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+}
+
+/* Small mono label, e.g. "Caroline Lindström — frontendutvecklare" */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--color-muted);
+}
+
+/* --------------------- LINKS ---------------------- */
+
+a {
+  color: inherit;
+  text-decoration-color: var(--color-line);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--dur-fast), color var(--dur-fast);
+}
+
+a:hover {
+  color: var(--color-accent-text);
+}
+
+/* ----------------- ENTRY CONTENT ------------------ */
+
+/* Text written in the block editor. Left aligned, readable line length. */
+.entry-content,
+.editor-styles-wrapper {
+  font-size: 18px;
+  line-height: var(--lh-lead);
+}
+
+.entry-content > * {
+  max-width: var(--measure);
+}
+
+.entry-content > * + * {
+  margin-top: var(--space-6);
+}
+
+.entry-content > :is(h2, h3, h4) {
+  margin-top: var(--space-11);
+}
+
+.entry-content > :is(h2, h3, h4) + * {
+  margin-top: var(--space-5);
+}
+
+.entry-content > .alignwide {
+  max-width: none;
+}
+
+.entry-content > .alignfull {
+  max-width: 100vw;
+  margin-inline: calc(50% - 50vw);
+}
+
+.entry-content :is(ul, ol) {
+  padding-left: 1.25em;
+}
+
+.entry-content li + li {
+  margin-top: var(--space-2);
+}
+
+.entry-content li::marker {
+  color: var(--color-ring-lilac);
+}
+
+.entry-content blockquote,
+.wp-block-quote {
+  padding-left: var(--space-6);
+  border-left: 3px solid var(--color-ring-lilac);
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 1.35;
+}
+
+.wp-block-quote cite,
+.entry-content blockquote cite {
+  display: block;
+  margin-top: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-small);
+  font-style: normal;
+  color: var(--color-muted);
+}
+
+.entry-content hr,
+.wp-block-separator {
+  border: 0;
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.entry-content figcaption,
+.wp-element-caption {
+  margin-top: var(--space-2);
+  font-size: var(--fs-small);
+  color: var(--color-muted);
+}
+
+.entry-content img {
+  border-radius: var(--radius-lg);
+}
+
+/* Inline code and code blocks */
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+  font-size: .9em;
+}
+
+:not(pre) > code {
+  padding: .1em .35em;
+  border-radius: 6px;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+}
+
+pre,
+.wp-block-code {
+  padding: var(--space-6) var(--space-7);
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  line-height: 1.85;
+}
+
+/* Tables */
+.entry-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-body);
+}
+
+.entry-content :is(th, td) {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border-width) solid var(--color-border);
+  text-align: left;
+}
+
+.entry-content th {
+  font-weight: var(--fw-bold);
+}

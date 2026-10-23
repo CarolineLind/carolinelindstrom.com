@@ -1,0 +1,34 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "runners": [
+      "axe",
+      "htmlcs"
+    ],
+    "timeout": 60000,
+    "chromeLaunchConfig": {
+      "args": [
+        "--blink-settings=preferredColorScheme=1",
+        "--host-resolver-rules=MAP carolinelindstromcom.local 127.0.0.1"
+      ]
+    },
+    "actions": [
+      "click element #clind-prefs .prefs__submit",
+      "wait for element #clind-prefs:not([open]) to be added"
+    ]
+  },
+  "urls": [
+    {
+      "url": "http://carolinelindstromcom.local/valkommen-v3/?a11y-test=preferences-dialog",
+      "rootElement": "#clind-prefs",
+      "actions": []
+    },
+    "http://carolinelindstromcom.local/valkommen-v3/",
+    "http://carolinelindstromcom.local/om-mig/",
+    "http://carolinelindstromcom.local/tillganglighet/",
+    "http://carolinelindstromcom.local/prestanda/",
+    "http://carolinelindstromcom.local/frontend-lead/",
+    "http://carolinelindstromcom.local/integritetspolicy/",
+    "http://carolinelindstromcom.local/finns-inte/"
+  ]
+}

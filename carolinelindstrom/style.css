@@ -1,0 +1,16 @@
+/*
+Theme Name: Caroline Lindström
+Theme URI: https://carolinelindstrom.com/
+Author: Caroline Lindström
+Author URI: https://carolinelindstrom.com/
+Description: Klassiskt tema för carolinelindstrom.com – dels en portfölj, dels en lekplats. Mörkt och ljust läge.
+Version: 0.1.0
+Requires at least: 6.4
+Requires PHP: 8.2
+Text Domain: carolinelindstrom
+*/
+
+/*
+All styling lives in assets/css/ and is loaded from inc/enqueue.php.
+This file only holds the theme header that WordPress reads.
+*/

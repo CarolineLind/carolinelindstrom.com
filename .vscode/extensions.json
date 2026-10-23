@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "valeryanm.vscode-phpsab",
+    "stylelint.vscode-stylelint",
+    "editorconfig.editorconfig",
+    "bmewburn.vscode-intelephense-client"
+  ]
+}

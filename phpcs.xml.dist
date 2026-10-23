@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+PHP_CodeSniffer rules for the theme. Run: composer lint (or npm run lint:php)
+Auto-fix what can be fixed: composer fix
+-->
+<ruleset name="carolinelindstrom">
+	<description>WordPress Coding Standards for the carolinelindstrom theme</description>
+
+	<file>carolinelindstrom</file>
+
+	<!-- The old theme is being replaced and isn't maintained; also keeps VS Code quiet in its files -->
+	<exclude-pattern>*/CarolineTheme/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+
+	<!-- Core style plus the security and best-practice rules. WordPress-Docs is left out:
+	     the theme uses short banner comments instead of docblocks on every function. -->
+	<rule ref="WordPress-Extra"/>
+
+	<!-- Code must run on the PHP version the site uses -->
+	<config name="testVersion" value="8.2-"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- Oldest WordPress version the theme supports (style.css: Requires at least) -->
+	<config name="minimum_wp_version" value="6.4"/>
+
+	<!-- Every translatable string uses the theme's text domain -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="carolinelindstrom"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Every global function, hook and constant starts with clind_ -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="clind"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>
