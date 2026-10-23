@@ -11,6 +11,8 @@ Read `carolinelindstrom/README.md` for the project overview, quality goals, file
 ## Repository layout
 
 - `carolinelindstrom/` – **the new theme. All new work happens here.**
+- `docs/decisions/` – decision records: why something is built the way it is. **Write one whenever a choice trades away something from the design or the quality bar**, and link it from the code it affects.
+- `tools/` – build helpers that are not deployed (e.g. `tools/fonts/` trims the fonts). The theme itself has no build step.
 - `CarolineTheme/` – the old theme that runs the live site today. Don't change it unless asked.
 - `CarolineTheme.zip`, `CarolineTheme.rar` – old archives. Leave them alone.
 
@@ -100,5 +102,5 @@ The design is a Claude Design canvas: https://claude.ai/code/artifact/336f61ad-6
 Decisions made so far:
 
 - **Preferences banner:** one accessible banner on the first visit, covering cookies/third-party content, motion and light/dark mode. Nothing moves and no third-party content loads until the visitor has chosen. System settings are detected and pre-selected. No "click to load" placeholders. It must not hurt load time, layout stability or SEO.
-- **Fonts:** self-hosted (not done yet; still Google Fonts).
+- **Fonts:** self-hosted and trimmed, see `docs/decisions/0001-self-hosted-fonts.md`. Don't add font weights, italics or characters without updating that record and staying under the 100 KB budget.
 - **Content on the draft pages** in WordPress is experimental. Caroline knows about its structural issues; they get fixed when each page is built.

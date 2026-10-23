@@ -73,7 +73,14 @@ carolinelindstrom/
     │   ├── layout/           header, footer, content
     │   └── components/       One file per component
     ├── js/
-    └── fonts/
+    └── fonts/                Self-hosted woff2 files and their licenses
+```
+
+Outside the theme folder, at the repo root:
+
+```
+docs/decisions/               Why things are the way they are, one file per decision
+tools/fonts/                  Source fonts and the scripts that trim them
 ```
 
 ## CSS
@@ -82,6 +89,10 @@ carolinelindstrom/
 - **Dark mode is the default.** Light mode overrides the variables under `[data-theme="light"]`. A small script in `<head>` sets `data-theme` before the page draws: the visitor's saved choice first, otherwise their system setting.
 - **Motion** stops when the visitor's system asks for reduced motion, or when `data-motion="paused"` is set on `<html>`.
 - **Files load in a fixed order** from the list in `inc/enqueue.php`: tokens → base → layout → components. A new component gets its own file in `assets/css/components/` and a line in that list.
+
+## Fonts
+
+Bricolage Grotesque (headings), DM Sans (body text) and JetBrains Mono (labels and code) are self-hosted in `assets/fonts/` and trimmed to 99 KB in total. The trimming means they differ slightly from the design in a few places (fixed optical size, no italics, a limited set of characters). The reasons, the full list of differences and how to rebuild the files are in [docs/decisions/0001-self-hosted-fonts.md](../docs/decisions/0001-self-hosted-fonts.md). The build tools are in `tools/fonts/` at the repo root.
 
 ## Design
 

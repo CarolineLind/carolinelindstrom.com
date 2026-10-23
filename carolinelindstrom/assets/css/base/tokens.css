@@ -56,9 +56,10 @@ Breakpoints (media queries can't read variables):
   --color-dot-hi: #E6E3FF;
 
   /* Typography */
-  --font-display: 'Bricolage Grotesque', 'DM Sans', system-ui, sans-serif;
-  --font-body: 'DM Sans', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  /* Fonts and their size-matched fallbacks live in fonts.css */
+  --font-display: 'Bricolage Grotesque', 'Bricolage Grotesque Fallback', system-ui, sans-serif;
+  --font-body: 'DM Sans', 'DM Sans Fallback', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, monospace;
 
   --fs-h1: clamp(56px, 8.6vw, 136px);
   --fs-h2: clamp(36px, 4.4vw, 60px);
