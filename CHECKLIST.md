@@ -97,7 +97,7 @@ Decided: one accessible banner on the first visit, **before anything moves**. Th
 
 ## 12. Security and SiteGround
 - [x] Live site on a PHP version patched for CVE-2026-109618/109619 (8.2.35; SiteGround updates PHP automatically)
-- [ ] Update Local's PHP to a patched version that matches live (Local runs 8.2.29)
+- [x] Local's PHP updated to 8.2.35, matching live
 - [ ] Force HTTPS
 - [ ] Security headers: HSTS, Content-Security-Policy, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
 - [ ] Review Speed Optimizer settings so they don't clash with the theme
