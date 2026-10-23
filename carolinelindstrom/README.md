@@ -99,6 +99,43 @@ Bricolage Grotesque (headings), DM Sans (body text) and JetBrains Mono (labels a
 
 The design lives in a Claude Design canvas: "carolinelindstrom.com – dark mode". It has dark, light and mobile versions of every page, plus experiments for banners, buttons, icons and effects. The design isn't final; we build the basics first and add components one at a time.
 
+## Quality checks
+
+The tools live at the repo root (`package.json`, `composer.json`). They check code; nothing is compiled.
+
+**First time on a new computer:**
+
+```bash
+brew install php composer
+composer install
+npm install
+```
+
+**Commands** (run from the repo root):
+
+| Command | What it does |
+| --- | --- |
+| `npm run lint` | PHP and CSS checks together. Run before every commit. |
+| `npm run lint:php` | PHP_CodeSniffer with WordPress Coding Standards (`phpcs.xml.dist`) |
+| `npm run lint:css` | Stylelint (`.stylelintrc.json`) |
+| `npm run fix:php` / `npm run fix:css` | Fix what can be fixed automatically |
+| `npm run test:a11y` | pa11y with axe and HTML_CodeSniffer against the local site, in light and then dark mode. Local must be running. |
+
+**VS Code** shows the same warnings as you type. Open the repo root folder and accept the recommended extensions (`.vscode/extensions.json`). The settings in `.vscode/settings.json` point them at the same rule files.
+
+**Rules worth knowing:**
+
+- PHP functions, hooks and globals are prefixed `clind_`. WordPress Coding Standards require prefixes of at least three characters.
+- PHP must stay compatible with PHP 8.2 and WordPress 6.4.
+- Stylelint uses its standard rules, with three switched off: the two comment-format rules (they reject the `/*--- SECTION ---*/` banners) and the blank-line rule for custom properties (blank lines group the tokens).
+- Class names follow `block__element--modifier`.
+
+**Limits of the accessibility test:**
+
+- Automated tests find roughly a third of WCAG problems. Keyboard, VoiceOver, zoom and reduced motion still need testing by hand (checklist section 13).
+- The test pages are listed in `.pa11yci.json` (light) and `.pa11yci.dark.json` (dark).
+- The configs map `carolinelindstromcom.local` to `127.0.0.1`, because the test browser otherwise tries IPv6 first and Local doesn't answer there.
+
 ## Branches and commits
 
 - `main` matches the live site (the old `CarolineTheme`).

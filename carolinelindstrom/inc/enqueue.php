@@ -4,12 +4,12 @@
 /*--------------------------------------------------*/
 
 /* Version from the file's modified time so the browser never shows stale CSS while we build */
-function cl_asset_version( $path ) {
+function clind_asset_version( $path ) {
 	$file = get_template_directory() . '/' . $path;
 	return file_exists( $file ) ? (string) filemtime( $file ) : wp_get_theme()->get( 'Version' );
 }
 
-function cl_enqueue_styles() {
+function clind_enqueue_styles() {
 	/* Load order matters: fonts and tokens first, then base, layout and components */
 	$styles = array(
 		'cl-fonts'      => 'assets/css/base/fonts.css',
@@ -24,18 +24,18 @@ function cl_enqueue_styles() {
 
 	$previous = array();
 	foreach ( $styles as $handle => $path ) {
-		wp_enqueue_style( $handle, get_template_directory_uri() . '/' . $path, $previous, cl_asset_version( $path ) );
+		wp_enqueue_style( $handle, get_template_directory_uri() . '/' . $path, $previous, clind_asset_version( $path ) );
 		$previous = array( $handle );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'cl_enqueue_styles' );
+add_action( 'wp_enqueue_scripts', 'clind_enqueue_styles' );
 
 /*
 Start downloading the fonts used on the first screen right away, before the CSS
 is parsed. JetBrains Mono is left out: it's only used for small labels.
 crossorigin is required for fonts, even from the same domain.
 */
-function cl_preload_fonts() {
+function clind_preload_fonts() {
 	foreach ( array( 'bricolage-grotesque', 'dm-sans' ) as $font ) {
 		printf(
 			'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
@@ -43,13 +43,13 @@ function cl_preload_fonts() {
 		);
 	}
 }
-add_action( 'wp_head', 'cl_preload_fonts', 1 );
+add_action( 'wp_head', 'clind_preload_fonts', 1 );
 
 /*
 Set light/dark and paused motion on <html> before anything is painted, so the page never flashes the wrong colors.
 Saved choice first, else the visitor's system setting. The toggle buttons that write cl-theme / cl-motion come later.
 */
-function cl_theme_mode_script() {
+function clind_theme_mode_script() {
 	?>
 	<script>
 	(function () {
@@ -71,4 +71,4 @@ function cl_theme_mode_script() {
 	</script>
 	<?php
 }
-add_action( 'wp_head', 'cl_theme_mode_script', 0 );
+add_action( 'wp_head', 'clind_theme_mode_script', 0 );

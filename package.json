@@ -1,0 +1,21 @@
+{
+  "name": "carolinelindstrom",
+  "private": true,
+  "description": "Linting and accessibility checks for the carolinelindstrom WordPress theme",
+  "license": "UNLICENSED",
+  "scripts": {
+    "lint": "npm run lint:php && npm run lint:css",
+    "lint:php": "vendor/bin/phpcs",
+    "lint:css": "stylelint \"carolinelindstrom/assets/css/**/*.css\"",
+    "fix:php": "vendor/bin/phpcbf",
+    "fix:css": "stylelint \"carolinelindstrom/assets/css/**/*.css\" --fix",
+    "test:a11y": "pa11y-ci --config .pa11yci.json && pa11y-ci --config .pa11yci.dark.json",
+    "test:a11y:light": "pa11y-ci --config .pa11yci.json",
+    "test:a11y:dark": "pa11y-ci --config .pa11yci.dark.json"
+  },
+  "devDependencies": {
+    "pa11y-ci": "^5.0.0",
+    "stylelint": "^17.16.0",
+    "stylelint-config-standard": "^40.0.0"
+  }
+}

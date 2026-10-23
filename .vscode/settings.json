@@ -1,0 +1,32 @@
+{
+  // PHP: WordPress Coding Standards from phpcs.xml.dist, the same rules as `npm run lint:php`
+  "phpsab.executablePathCS": "./vendor/bin/phpcs",
+  "phpsab.executablePathCBF": "./vendor/bin/phpcbf",
+  "phpsab.autoRulesetSearch": true,
+  "phpsab.snifferMode": "onType",
+
+  // PHP: autocomplete and checks that know WordPress functions
+  "intelephense.environment.phpVersion": "8.2.0",
+  "intelephense.stubs": [
+    "Core", "ctype", "date", "dom", "filter", "hash", "json", "libxml", "mbstring",
+    "pcre", "random", "Reflection", "SimpleXML", "SPL", "standard", "wordpress"
+  ],
+  "intelephense.files.exclude": ["**/node_modules/**", "**/vendor/**", "**/.venv/**", "CarolineTheme/**"],
+
+  // CSS: Stylelint from .stylelintrc.json, the same rules as `npm run lint:css`
+  "css.validate": false,
+  "stylelint.validate": ["css"],
+
+  // Fix what can be fixed automatically when saving CSS
+  "[css]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.stylelint": "explicit"
+    }
+  },
+
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/vendor": true,
+    "**/.venv": true
+  }
+}

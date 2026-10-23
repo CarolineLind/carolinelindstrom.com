@@ -5,7 +5,7 @@ Still to come (components): light/dark and motion toggles, mobile menu button, s
 */
 ?>
 <nav class="nav container" aria-label="<?php esc_attr_e( 'Huvudmeny', 'carolinelindstrom' ); ?>">
-	<?php cl_logo(); ?>
+	<?php clind_logo(); ?>
 
 	<?php
 	wp_nav_menu(

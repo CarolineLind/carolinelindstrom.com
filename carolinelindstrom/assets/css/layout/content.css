@@ -59,8 +59,9 @@
   margin-top: var(--space-9);
 }
 
+/* .post-page-numbers covers both the links and the current page */
 .pagination .page-numbers,
-.page-links a {
+.page-links .post-page-numbers {
   display: inline-flex;
   align-items: center;
   justify-content: center;

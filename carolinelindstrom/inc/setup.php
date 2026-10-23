@@ -8,7 +8,7 @@ if ( ! isset( $content_width ) ) {
 	$content_width = 760;
 }
 
-function cl_setup() {
+function clind_setup() {
 	load_theme_textdomain( 'carolinelindstrom', get_template_directory() . '/languages' );
 
 	/* WordPress prints <title> */
@@ -35,4 +35,4 @@ function cl_setup() {
 		)
 	);
 }
-add_action( 'after_setup_theme', 'cl_setup' );
+add_action( 'after_setup_theme', 'clind_setup' );

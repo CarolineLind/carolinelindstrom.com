@@ -1,0 +1,20 @@
+{
+    "name": "carolinelind/carolinelindstrom",
+    "description": "Linting tools for the carolinelindstrom WordPress theme",
+    "type": "project",
+    "license": "proprietary",
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^3.4",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.2"
+    },
+    "scripts": {
+        "lint": "phpcs",
+        "fix": "phpcbf"
+    }
+}
