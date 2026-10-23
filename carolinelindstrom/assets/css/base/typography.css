@@ -147,8 +147,8 @@ a:hover {
   line-height: 1.35;
 }
 
-.entry-content blockquote cite,
-.wp-block-quote cite {
+.wp-block-quote cite,
+.entry-content blockquote cite {
   display: block;
   margin-top: var(--space-3);
   font-family: var(--font-mono);

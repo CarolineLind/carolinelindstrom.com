@@ -60,7 +60,7 @@ Consider all of these in every change. **WCAG 2.2 AA is the acceptance criterion
 
 ### Security
 - Escape all output (`esc_html`, `esc_attr`, `esc_url`, `wp_kses_post`) and sanitize all input.
-- Prefix all PHP functions with `cl_`. Text domain: `carolinelindstrom`.
+- Prefix all PHP functions, hooks and globals with `clind_` (WordPress Coding Standards require at least 3 characters). Text domain: `carolinelindstrom`.
 - Don't enable anything unused (comments, XML-RPC, REST endpoints the site doesn't need).
 - No third-party scripts without consent.
 
@@ -68,6 +68,13 @@ Consider all of these in every change. **WCAG 2.2 AA is the acceptance criterion
 - Mobile first. Works from 320 px. Breakpoints: 600, 720 and 1000 px.
 - Supports current Chrome, Firefox, Safari and Edge, and iOS Safari from the last two years.
 - Newer CSS (anchor positioning, scroll-driven animations, `corner-shape`, `@starting-style`) only behind `@supports`, with a working fallback.
+
+## Checks before committing
+
+- **`npm run lint` must pass before every commit** (PHPCS with WordPress Coding Standards, plus Stylelint). Fix the code rather than switching rules off. If a rule really has to go, explain why in the config or a `phpcs:ignore` / `stylelint-disable` comment.
+- **After any change to markup, colors or CSS that affects the page, run `npm run test:a11y`** (Local must be running). It tests light and dark mode.
+- Accessibility errors inside page content (`#post-…`, `.entry-content`) come from Caroline's draft content, not the theme. Report them; don't try to fix content from code. Errors anywhere else must be fixed.
+- Running pa11y from a sandboxed shell works; the `--host-resolver-rules` flag in the configs is what makes the `.local` domain reachable.
 
 ## Code conventions
 

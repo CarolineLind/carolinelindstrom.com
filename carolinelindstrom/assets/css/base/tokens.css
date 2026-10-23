@@ -142,7 +142,7 @@ Breakpoints (media queries can't read variables):
   --z-progress: 60;
 }
 
-@media (max-width: 720px) {
+@media (width <= 720px) {
   :root {
     --section-space: var(--space-12);
   }
@@ -160,7 +160,7 @@ selectors that name it untouched, so it doesn't affect the site.
   color-scheme: light;
 
   --color-bg: #FBFAF6;
-  --color-surface: #FFFFFF;
+  --color-surface: #FFF;
   --color-border: #DAD7E8;
   --color-text: #1B1930;
   --color-muted: #55526B;

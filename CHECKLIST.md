@@ -40,13 +40,15 @@ Why the fonts look the way they do: `docs/decisions/0001-self-hosted-fonts.md`.
 - [x] Look at the site and the editor: headings, body text, åäö, italics, light background in the editor
 
 ## 4. Tools (same setup in VS Code)
-- [ ] Install PHP and Composer with Homebrew; enable the `code` command in VS Code
-- [ ] PHPCS with WordPress Coding Standards (`composer.json`)
-- [ ] Stylelint (`package.json`)
-- [ ] pa11y or axe for automated accessibility checks against the Local site
-- [ ] `.vscode/extensions.json` and `.vscode/settings.json` so VS Code shows the same warnings
-- [ ] `.editorconfig`
-- [ ] Fix whatever the tools find in the existing code
+How to use them: "Quality checks" in `carolinelindstrom/README.md`.
+- [x] Install PHP 8.5 and Composer with Homebrew
+- [x] PHPCS with WordPress Coding Standards and PHP 8.2 compatibility (`composer.json`, `phpcs.xml.dist`)
+- [x] Stylelint (`package.json`, `.stylelintrc.json`)
+- [x] pa11y with axe and HTML_CodeSniffer, light and dark mode (`.pa11yci.json`, `.pa11yci.dark.json`)
+- [x] `.vscode/extensions.json` and `.vscode/settings.json`; the four extensions installed in VS Code
+- [x] `.editorconfig`, `.gitignore`
+- [x] Fix whatever the tools find in the existing code (prefix renamed `cl_` → `clind_`, modern media queries, `clip` → `clip-path`)
+- [ ] Open the repo in VS Code and check that warnings show up in PHP and CSS files
 
 ## 5. Preferences banner (cookies, motion, light/dark)
 Decided: one accessible banner on the first visit, **before anything moves**. Third-party content and analytics load only after consent. No "click to load" buttons.
@@ -71,6 +73,7 @@ Decided: one accessible banner on the first visit, **before anything moves**. Th
 - [ ] Discuss: how sections are built in the editor (theme-provided block patterns, locked to content-only editing, or something else)
 - [ ] Decide which parts are editor content and which are built into templates
 - [ ] Block styles for the editor: make the editor look like the site
+- [ ] Discuss: which colors the editor offers. Old content uses the editor's "black" text color, which is unreadable in dark mode (found by pa11y on Om mig, Prestanda, Tillgänglighet)
 
 ## 8. Start page (Välkommen)
 - [ ] Hero: the tilting paper, the portrait with the color shapes
@@ -82,6 +85,7 @@ Decided: one accessible banner on the first visit, **before anything moves**. Th
 - [ ] Footer "Till toppen" with the progress ring
 
 ## 9. Other pages
+pa11y findings in today's draft content (2026-10-23), all in the content, none in the theme: text colors with too little contrast, iframes without `title`, image links without alt text, an inline SVG with its own colors. Run `npm run test:a11y` again as each page is rebuilt.
 - [ ] Om mig (two design versions: timeline and story; choose one)
 - [ ] Tillgänglighet
 - [ ] Prestanda

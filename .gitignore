@@ -1,0 +1,6 @@
+# Installed tools (recreate with: composer install && npm install)
+node_modules/
+vendor/
+
+# macOS
+.DS_Store
