@@ -19,7 +19,7 @@
   },
   "urls": [
     {
-      "url": "http://carolinelindstromcom.local/valkommen-v3/",
+      "url": "http://carolinelindstromcom.local/valkommen-v3/?a11y-test=preferences-dialog",
       "rootElement": "#clind-prefs",
       "actions": []
     },

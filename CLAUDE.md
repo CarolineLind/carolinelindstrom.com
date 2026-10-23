@@ -72,8 +72,9 @@ Consider all of these in every change. **WCAG 2.2 AA is the acceptance criterion
 ## Checks before committing
 
 - **`npm run lint` must pass before every commit** (PHPCS with WordPress Coding Standards, plus Stylelint). Fix the code rather than switching rules off. If a rule really has to go, explain why in the config or a `phpcs:ignore` / `stylelint-disable` comment.
-- **After any change to markup, colors or CSS that affects the page, run `npm run test:a11y`** (Local must be running). It tests light and dark mode.
-- Accessibility errors inside page content (`#post-…`, `.entry-content`) come from Caroline's draft content, not the theme. Report them; don't try to fix content from code. Errors anywhere else must be fixed.
+- **After any change to markup, colors or CSS that affects the page, run `npm run test:a11y:summary`** (Local must be running). It tests light and dark mode and sorts errors into theme and content. It fails only on theme errors, which must be fixed.
+- Content errors come from Caroline's draft content in WordPress. Report them; don't try to fix content from code.
+- **Building a component? Use the `/component` skill** (`.claude/skills/component/SKILL.md`): it's the whole routine, from check-in to commit.
 - Running pa11y from a sandboxed shell works; the `--host-resolver-rules` flag in the configs is what makes the `.local` domain reachable.
 
 ## Code conventions
@@ -101,6 +102,24 @@ The design is a Claude Design canvas: https://claude.ai/code/artifact/336f61ad-6
 - There is no `php` on the PATH. Use Local's PHP for syntax checks (the site runs 8.2.35; if the folder has changed, list `lightning-services/` and use the newest `php-*`):
   `"/Users/caroline.lindstrom/Library/Application Support/Local/lightning-services/php-8.2.35+0/bin/darwin-arm64/bin/php" -l <file>`
 - Hosting is SiteGround (nginx with SiteGround's own caching). SiteGround updates PHP automatically; the live site ran PHP 8.2.35 as of 2026-10-23.
+
+## Gotchas
+
+Traps that have cost time before. Add new ones when you hit them.
+
+- **Headless Chrome can't reach `carolinelindstromcom.local` on its own.** It tries IPv6 (`::1`) first, which Local doesn't answer, and hangs. Pass `--host-resolver-rules=MAP carolinelindstromcom.local 127.0.0.1` (already in the pa11y configs). `curl` works without it.
+- **axe-core doesn't know about the browser's top layer.** Text in a modal `<dialog>` is reported as covered by the page behind it ("partially obscured", contrast 0). Keep the `z-index` on `.prefs`, and test dialogs on their own (`rootElement`), as `.pa11yci.json` does.
+- **pa11y-ci keys results by URL.** Two entries with the same URL overwrite each other, which is why the dialog test has `?a11y-test=preferences-dialog`.
+- **pa11y errors are not all the theme's.** Draft content in WordPress has many. Use `npm run test:a11y:summary`, which sorts errors into theme and content and only fails on theme errors.
+- **`stylelint --fix` removes `-webkit-text-size-adjust`,** which iOS Safari still needs. It's kept with a `stylelint-disable-next-line` comment in `reset.css`. Check `git diff` after any `--fix`.
+- **The VS Code PHPCS extension (phpsab) ignores `<exclude-pattern>`** in `phpcs.xml.dist` for open files. Exclusions also go in `phpsab.excludeGlobs` in `.vscode/settings.json`.
+- **The block editor prefixes theme CSS with `.editor-styles-wrapper`,** except selectors that already name it. That's how the editor is kept in light mode (`tokens.css`).
+- **`composer init` copies the git email into `composer.json`.** The repo is public: remove it.
+- **`wp_nav_menu()` takes `container_aria_label`,** not an attribute array. Unknown arguments are ignored silently.
+- **WordPress Coding Standards require prefixes of 3+ characters,** which is why the prefix is `clind_` and not `cl_`. CSS handles (`cl-…`) and `localStorage` keys aren't checked.
+- **No `php` in Local's shell PATH.** Homebrew PHP (8.5) runs the linters; Local's own PHP (8.2.35, path under Local environment) matches the site.
+- **The Bash sandbox can block headless Chrome's network.** If pa11y or Puppeteer time out on every page, check the host mapping above first; it was the real cause last time.
+- **The old `CarolineTheme/` uses Windows line endings** and fails every check. It's excluded on purpose; don't fix it.
 
 ## Checklist and open decisions
 
