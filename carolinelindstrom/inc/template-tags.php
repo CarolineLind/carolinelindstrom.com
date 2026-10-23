@@ -1,7 +1,7 @@
 <?php
-/*--------------------------------------------------*/
-/*----------------- TEMPLATE TAGS ------------------*/
-/*--------------------------------------------------*/
+/* --------------------------------------------------
+ * ----------------- TEMPLATE TAGS ------------------
+ * -------------------------------------------------- */
 
 /* Give menu links the .navlink class. WordPress already adds aria-current="page" to the current item. */
 function clind_nav_link_attributes( $atts, $item, $args ) {

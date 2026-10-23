@@ -8,6 +8,11 @@ Auto-fix what can be fixed: composer fix
 
 	<file>carolinelindstrom</file>
 
+	<!-- The old theme is being replaced and isn't maintained; also keeps VS Code quiet in its files -->
+	<exclude-pattern>*/CarolineTheme/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+
 	<arg name="extensions" value="php"/>
 	<arg name="colors"/>
 	<arg value="sp"/>

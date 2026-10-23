@@ -1,6 +1,6 @@
-/*--------------------------------------------------*/
-/*--------------------- TOKENS ---------------------*/
-/*--------------------------------------------------*/
+/* --------------------------------------------------
+ * --------------------- TOKENS ---------------------
+ * -------------------------------------------------- */
 
 /*
 All design values as CSS variables. Dark mode is the default,
@@ -56,12 +56,12 @@ Breakpoints (media queries can't read variables):
   --color-dot: #4C4867;
   --color-dot-hi: #E6E3FF;
 
-  /* Typography */
-  /* Fonts and their size-matched fallbacks live in fonts.css */
+  /* Font families. The fonts and their size-matched fallbacks live in fonts.css */
   --font-display: 'Bricolage Grotesque', 'Bricolage Grotesque Fallback', system-ui, sans-serif;
   --font-body: 'DM Sans', 'DM Sans Fallback', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, monospace;
 
+  /* Font sizes */
   --fs-h1: clamp(56px, 8.6vw, 136px);
   --fs-h2: clamp(36px, 4.4vw, 60px);
   --fs-h3: clamp(28px, 2.5vw, 36px);
@@ -72,18 +72,21 @@ Breakpoints (media queries can't read variables):
   --fs-xs: 13px;
   --fs-label: 11px;
 
+  /* Font weights */
   --fw-regular: 400;
   --fw-medium: 500;
   --fw-semibold: 600;
   --fw-bold: 700;
   --fw-heavy: 800;
 
+  /* Line heights */
   --lh-display: .92;
   --lh-heading: 1;
   --lh-snug: 1.2;
   --lh-body: 1.55;
   --lh-lead: 1.6;
 
+  /* Letter spacing */
   --ls-h1: -.04em;
   --ls-h2: -.03em;
   --ls-tight: -.02em;
@@ -148,7 +151,7 @@ Breakpoints (media queries can't read variables):
   }
 }
 
-/*------------------- LIGHT MODE -------------------*/
+/* ------------------- LIGHT MODE ------------------- */
 
 /*
 .editor-styles-wrapper is the block editor's writing area: it always uses
@@ -159,28 +162,34 @@ selectors that name it untouched, so it doesn't affect the site.
 .editor-styles-wrapper {
   color-scheme: light;
 
+  /* Surfaces and text */
   --color-bg: #FBFAF6;
   --color-surface: #FFF;
   --color-border: #DAD7E8;
   --color-text: #1B1930;
   --color-muted: #55526B;
 
+  /* Accents for strokes, dots and underlines */
   --color-ring-yellow: #D9A900;
   --color-ring-lilac: #7E75E0;
   --color-ring-sky: #3E8FD8;
 
+  /* Accents for text and filled buttons */
   --color-yellow-strong: #8A6A00;
   --color-lilac-strong: #6A60D6;
 
+  /* Roles */
   --color-accent-text: var(--color-text);
   --color-highlight-text: #5B4FC4;
   --color-line: var(--color-text);
   --color-focus: #15161B;
 
+  /* Code syntax */
   --color-code-string: #7A5A00;
   --color-code-keyword: #4B3FA8;
   --color-code-prop: #1D5C96;
 
+  /* Background dot pattern */
   --color-dot: #C2BED6;
   --color-dot-hi: #7D77A6;
 }

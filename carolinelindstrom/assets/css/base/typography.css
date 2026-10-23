@@ -1,6 +1,6 @@
-/*--------------------------------------------------*/
-/*------------------ TYPOGRAPHY --------------------*/
-/*--------------------------------------------------*/
+/* --------------------------------------------------
+ * ------------------ TYPOGRAPHY --------------------
+ * -------------------------------------------------- */
 
 /* Also loaded in the block editor (add_editor_style), so keep it to text styles */
 
@@ -18,7 +18,7 @@ body {
   color: var(--color-selection-text);
 }
 
-/*-------------------- HEADINGS --------------------*/
+/* -------------------- HEADINGS -------------------- */
 
 h1, h2, h3, h4,
 .h1, .h2, .h3 {
@@ -52,7 +52,7 @@ h4 {
   line-height: var(--lh-snug);
 }
 
-/*-------------------- HELPERS ---------------------*/
+/* -------------------- HELPERS --------------------- */
 
 .display {
   font-family: var(--font-display);
@@ -78,7 +78,7 @@ h4 {
   color: var(--color-muted);
 }
 
-/*--------------------- LINKS ----------------------*/
+/* --------------------- LINKS ---------------------- */
 
 a {
   color: inherit;
@@ -92,7 +92,7 @@ a:hover {
   color: var(--color-accent-text);
 }
 
-/*----------------- ENTRY CONTENT ------------------*/
+/* ----------------- ENTRY CONTENT ------------------ */
 
 /* Text written in the block editor. Left aligned, readable line length. */
 .entry-content,

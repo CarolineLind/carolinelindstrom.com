@@ -1,6 +1,6 @@
-/*--------------------------------------------------*/
-/*--------------------- FONTS ----------------------*/
-/*--------------------------------------------------*/
+/* --------------------------------------------------
+ * --------------------- FONTS ----------------------
+ * -------------------------------------------------- */
 
 /*
 Self-hosted, trimmed fonts. Why they look the way they do (fixed optical size,
@@ -8,7 +8,7 @@ limited weights, limited characters): docs/decisions/0001-self-hosted-fonts.md
 Rebuild with tools/fonts/subset-fonts.sh.
 */
 
-/*------------------- WEB FONTS --------------------*/
+/* ------------------- WEB FONTS -------------------- */
 
 /* Headings. Optical size fixed at 96 (the "large text" shape). */
 @font-face {
@@ -37,7 +37,7 @@ Rebuild with tools/fonts/subset-fonts.sh.
   font-display: swap;
 }
 
-/*-------------------- FALLBACKS -------------------*/
+/* -------------------- FALLBACKS ------------------- */
 
 /*
 System fonts resized to take up the same space as the web fonts, so text
