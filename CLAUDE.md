@@ -103,4 +103,5 @@ Decisions made so far:
 
 - **Preferences banner:** one accessible banner on the first visit, covering cookies/third-party content, motion and light/dark mode. Nothing moves and no third-party content loads until the visitor has chosen. System settings are detected and pre-selected. No "click to load" placeholders. It must not hurt load time, layout stability or SEO.
 - **Fonts:** self-hosted and trimmed, see `docs/decisions/0001-self-hosted-fonts.md`. Don't add font weights, italics or characters without updating that record and staying under the 100 KB budget.
+- **Block editor styling:** the editor loads `fonts.css`, `tokens.css` and `typography.css` (`inc/setup.php`), so writing looks like the site, but **always in light mode** (Caroline's choice, easier for long writing). Tell Caroline whenever a change affects how the editor looks.
 - **Content on the draft pages** in WordPress is experimental. Caroline knows about its structural issues; they get fixed when each page is built.

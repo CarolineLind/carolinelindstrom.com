@@ -18,7 +18,7 @@ function cl_setup() {
 	add_theme_support( 'align-wide' );
 	add_theme_support( 'html5', array( 'gallery', 'caption', 'style', 'script' ) );
 
-	/* Make the block editor look like the front end */
+	/* Make the block editor look like the front end: same fonts, sizes and spacing, always in light mode (tokens.css) */
 	add_theme_support( 'editor-styles' );
 	add_editor_style(
 		array(

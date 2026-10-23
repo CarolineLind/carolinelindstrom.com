@@ -87,6 +87,7 @@ tools/fonts/                  Source fonts and the scripts that trim them
 
 - **All design values are CSS variables** in `assets/css/base/tokens.css`: colors, fonts, sizes, spacing, corners and motion. Use the variables; don't hard-code values in other files.
 - **Dark mode is the default.** Light mode overrides the variables under `[data-theme="light"]`. A small script in `<head>` sets `data-theme` before the page draws: the visitor's saved choice first, otherwise their system setting.
+- **The block editor** uses the same fonts, sizes and spacing as the site, always in light mode. It loads `fonts.css`, `tokens.css` and `typography.css` (see `inc/setup.php`).
 - **Motion** stops when the visitor's system asks for reduced motion, or when `data-motion="paused"` is set on `<html>`.
 - **Files load in a fixed order** from the list in `inc/enqueue.php`: tokens → base → layout → components. A new component gets its own file in `assets/css/components/` and a line in that list.
 
