@@ -93,13 +93,12 @@ The design is a Claude Design canvas: https://claude.ai/code/artifact/336f61ad-6
   `"/Users/caroline.lindstrom/Library/Application Support/Local/lightning-services/php-8.2.29+0/bin/darwin-arm64/bin/php" -l <file>`
 - Hosting is SiteGround (nginx with SiteGround's own caching).
 
-## Open decisions
+## Checklist and open decisions
 
-These are still being discussed. Don't build them until Caroline has decided:
+`CHECKLIST.md` at the repo root lists everything left to do, grouped by area. Items marked "Discuss" need Caroline's decision before you build them. Tick items off in the same commit as the work, and add new ones as they come up.
 
-- **Content model:** how content is split between the WordPress editor and templates (block patterns, locked groups, etc.).
-- **Preferences banner:** consent for cookies and third-party embeds, motion and light/dark mode, possibly combined into one.
-- **Analytics:** the live site uses Jetpack Stats. Keep it, replace it or remove it?
-- **Jetpack:** it loads carousel, likes and stats assets. Decide what to keep.
-- **Linting setup:** PHPCS (WordPress Coding Standards), Stylelint, axe or pa11y, with matching VS Code settings.
-- **Self-hosted fonts:** decided, not yet done. Fonts are still loaded from Google Fonts.
+Decisions made so far:
+
+- **Preferences banner:** one accessible banner on the first visit, covering cookies/third-party content, motion and light/dark mode. Nothing moves and no third-party content loads until the visitor has chosen. System settings are detected and pre-selected. No "click to load" placeholders. It must not hurt load time, layout stability or SEO.
+- **Fonts:** self-hosted (not done yet; still Google Fonts).
+- **Content on the draft pages** in WordPress is experimental. Caroline knows about its structural issues; they get fixed when each page is built.
