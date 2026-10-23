@@ -22,7 +22,7 @@ function cl_setup() {
 	add_theme_support( 'editor-styles' );
 	add_editor_style(
 		array(
-			cl_fonts_url(),
+			'assets/css/base/fonts.css',
 			'assets/css/base/tokens.css',
 			'assets/css/base/typography.css',
 		)

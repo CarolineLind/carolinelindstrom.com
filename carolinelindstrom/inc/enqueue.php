@@ -3,11 +3,6 @@
 /*-------------------- ENQUEUE ---------------------*/
 /*--------------------------------------------------*/
 
-/* Google Fonts for now – swap for self-hosted files in assets/fonts/ later */
-function cl_fonts_url() {
-	return 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=JetBrains+Mono:wght@400;600&display=swap';
-}
-
 /* Version from the file's modified time so the browser never shows stale CSS while we build */
 function cl_asset_version( $path ) {
 	$file = get_template_directory() . '/' . $path;
@@ -15,10 +10,9 @@ function cl_asset_version( $path ) {
 }
 
 function cl_enqueue_styles() {
-	wp_enqueue_style( 'cl-fonts', cl_fonts_url(), array(), null );
-
-	/* Load order matters: tokens first, then base, layout and components */
+	/* Load order matters: fonts and tokens first, then base, layout and components */
 	$styles = array(
+		'cl-fonts'      => 'assets/css/base/fonts.css',
 		'cl-tokens'     => 'assets/css/base/tokens.css',
 		'cl-reset'      => 'assets/css/base/reset.css',
 		'cl-typography' => 'assets/css/base/typography.css',
@@ -28,25 +22,28 @@ function cl_enqueue_styles() {
 		'cl-content'    => 'assets/css/layout/content.css',
 	);
 
-	$previous = 'cl-fonts';
+	$previous = array();
 	foreach ( $styles as $handle => $path ) {
-		wp_enqueue_style( $handle, get_template_directory_uri() . '/' . $path, array( $previous ), cl_asset_version( $path ) );
-		$previous = $handle;
+		wp_enqueue_style( $handle, get_template_directory_uri() . '/' . $path, $previous, cl_asset_version( $path ) );
+		$previous = array( $handle );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'cl_enqueue_styles' );
 
-function cl_resource_hints( $urls, $relation_type ) {
-	if ( 'preconnect' === $relation_type ) {
-		$urls[] = 'https://fonts.googleapis.com';
-		$urls[] = array(
-			'href'        => 'https://fonts.gstatic.com',
-			'crossorigin' => 'anonymous',
+/*
+Start downloading the fonts used on the first screen right away, before the CSS
+is parsed. JetBrains Mono is left out: it's only used for small labels.
+crossorigin is required for fonts, even from the same domain.
+*/
+function cl_preload_fonts() {
+	foreach ( array( 'bricolage-grotesque', 'dm-sans' ) as $font ) {
+		printf(
+			'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
+			esc_url( get_template_directory_uri() . '/assets/fonts/' . $font . '.woff2' )
 		);
 	}
-	return $urls;
 }
-add_filter( 'wp_resource_hints', 'cl_resource_hints', 10, 2 );
+add_action( 'wp_head', 'cl_preload_fonts', 1 );
 
 /*
 Set light/dark and paused motion on <html> before anything is painted, so the page never flashes the wrong colors.

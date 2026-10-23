@@ -29,13 +29,14 @@ All of it lives in `inc/cleanup.php`.
 - [x] Check the admin while logged in: no Posts or Comments menus, Pages and the editor work as before
 
 ## 3. Fonts
-
-## 3. Fonts
-- [ ] Download Bricolage Grotesque, DM Sans and JetBrains Mono as woff2, Latin subset only
-- [ ] `@font-face` in its own file, `font-display: swap`, size-adjusted fallbacks to avoid layout shift
-- [ ] Preload the one or two fonts the first screen needs
-- [ ] Remove Google Fonts from `enqueue.php`, `setup.php` (editor) and the preconnect hints
-- [ ] Check the total stays under 100 KB
+Why the fonts look the way they do: `docs/decisions/0001-self-hosted-fonts.md`.
+- [x] Download Bricolage Grotesque, DM Sans and JetBrains Mono as woff2, Latin subset only
+- [x] Subset further to the characters the site uses (`tools/fonts/subset-fonts.sh`)
+- [x] `@font-face` in its own file, `font-display: swap`, size-adjusted fallbacks to avoid layout shift
+- [x] Preload the one or two fonts the first screen needs
+- [x] Remove Google Fonts from `enqueue.php`, `setup.php` (editor) and the preconnect hints
+- [x] Check the total stays under 100 KB (99.1 KB)
+- [ ] Look at the site and the editor: headings, body text, åäö, italics
 
 ## 4. Tools (same setup in VS Code)
 - [ ] Install PHP and Composer with Homebrew; enable the `code` command in VS Code
