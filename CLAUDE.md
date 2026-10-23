@@ -119,6 +119,7 @@ Traps that have cost time before. Add new ones when you hit them.
 - **WordPress Coding Standards require prefixes of 3+ characters,** which is why the prefix is `clind_` and not `cl_`. CSS handles (`cl-…`) and `localStorage` keys aren't checked.
 - **No `php` in Local's shell PATH.** Homebrew PHP (8.5) runs the linters; Local's own PHP (8.2.35, path under Local environment) matches the site.
 - **The Bash sandbox can block headless Chrome's network.** If pa11y or Puppeteer time out on every page, check the host mapping above first; it was the real cause last time.
+- **Moving or renaming the repo folder** (it was `GIT-privat/laragon` until 2026-10-23) breaks three things: the two theme symlinks in Local (recreate them with `ln -sfn`), `tools/fonts/.venv` (Python environments can't move: delete it and `subset-fonts.sh` recreates it), and VS Code's workspace-only extensions (enable them again for the new folder). For about two minutes afterwards the site returns 500 errors, because PHP has cached the old file paths; wait, or restart the site in Local.
 - **The old `CarolineTheme/` uses Windows line endings** and fails every check. It's excluded on purpose; don't fix it.
 
 ## Checklist and open decisions

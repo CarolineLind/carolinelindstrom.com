@@ -2,7 +2,7 @@
 
 WordPress themes for [carolinelindstrom.com](https://carolinelindstrom.com/), the personal site of Caroline Lindström, frontend developer: a portfolio and a playground in one.
 
-The repo used to be called `laragon`, after the Windows tool the site was first built with. It now runs in [Local](https://localwp.com/) on macOS. The local folder may still be named `laragon`.
+The repo used to be called `laragon`, after the Windows tool the site was first built with. It now runs in [Local](https://localwp.com/) on macOS. The local folder is `GIT-privat/carolinelindstrom.com`.
 
 ## What's here
 
