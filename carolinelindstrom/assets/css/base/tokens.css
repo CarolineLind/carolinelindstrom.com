@@ -1,0 +1,178 @@
+/*--------------------------------------------------*/
+/*--------------------- TOKENS ---------------------*/
+/*--------------------------------------------------*/
+
+/*
+All design values as CSS variables. Dark mode is the default,
+light mode overrides under [data-theme="light"] (set on <html> by inc/enqueue.php).
+
+Breakpoints (media queries can't read variables):
+  600px  – one column
+  720px  – mobile header and menu
+  1000px – two columns
+*/
+
+:root {
+  color-scheme: dark;
+
+  /* Surfaces and text */
+  --color-bg: #15131F;
+  --color-surface: #1F1D2D;
+  --color-border: #35324A;
+  --color-text: #F4F2FB;
+  --color-muted: #ADAAC4;
+  --color-ink-on-accent: #15131F;
+
+  /* Brand accents */
+  --color-yellow: #FFE486;
+  --color-lilac: #CDCCF9;
+  --color-sky: #B7DCFF;
+
+  /* Accents for strokes, dots and underlines – darker in light mode */
+  --color-ring-yellow: var(--color-yellow);
+  --color-ring-lilac: var(--color-lilac);
+  --color-ring-sky: var(--color-sky);
+
+  /* Accents for text and filled buttons – must pass 4.5:1 against the background */
+  --color-yellow-strong: var(--color-yellow);
+  --color-lilac-strong: var(--color-lilac);
+
+  /* Roles */
+  --color-accent: var(--color-yellow);
+  --color-accent-text: var(--color-accent);
+  --color-highlight-text: var(--color-accent);
+  --color-line: var(--color-accent);
+  --color-focus: var(--color-accent);
+  --color-selection-bg: var(--color-accent);
+  --color-selection-text: var(--color-ink-on-accent);
+
+  /* Code syntax */
+  --color-code-string: var(--color-yellow);
+  --color-code-keyword: var(--color-lilac);
+  --color-code-prop: var(--color-sky);
+
+  /* Background dot pattern */
+  --color-dot: #4C4867;
+  --color-dot-hi: #E6E3FF;
+
+  /* Typography */
+  --font-display: 'Bricolage Grotesque', 'DM Sans', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --fs-h1: clamp(56px, 8.6vw, 136px);
+  --fs-h2: clamp(36px, 4.4vw, 60px);
+  --fs-h3: clamp(28px, 2.5vw, 36px);
+  --fs-h4: 20px;
+  --fs-lead: 20px;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-xs: 13px;
+  --fs-label: 11px;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-heavy: 800;
+
+  --lh-display: .92;
+  --lh-heading: 1;
+  --lh-snug: 1.2;
+  --lh-body: 1.55;
+  --lh-lead: 1.6;
+
+  --ls-h1: -.04em;
+  --ls-h2: -.03em;
+  --ls-tight: -.02em;
+  --ls-label: .08em;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 56px;
+  --space-11: 64px;
+  --space-12: 72px;
+  --space-13: 88px;
+  --space-14: 96px;
+  --space-15: 112px;
+
+  /* Layout */
+  --container-max: 1280px;
+  --gutter: 24px;
+  --measure: 640px;
+  --measure-wide: 760px;
+  --section-space: var(--space-14);
+  --tap-min: 44px;
+
+  /* Corners */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+
+  /* Borders and focus */
+  --border-width: 1px;
+  --focus-width: 3px;
+  --focus-offset: 4px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --ease-in-out: cubic-bezier(.6, 0, .3, 1);
+  --ease-swipe: cubic-bezier(.6, 0, .2, 1);
+  --ease-spring: cubic-bezier(.3, 1.4, .4, 1);
+  --dur-fast: .2s;
+  --dur-base: .3s;
+  --dur-slow: .4s;
+
+  /* Stacking */
+  --z-base: 1;
+  --z-header: 40;
+  --z-skip: 50;
+  --z-progress: 60;
+}
+
+@media (max-width: 720px) {
+  :root {
+    --section-space: var(--space-12);
+  }
+}
+
+/*------------------- LIGHT MODE -------------------*/
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --color-bg: #FBFAF6;
+  --color-surface: #FFFFFF;
+  --color-border: #DAD7E8;
+  --color-text: #1B1930;
+  --color-muted: #55526B;
+
+  --color-ring-yellow: #D9A900;
+  --color-ring-lilac: #7E75E0;
+  --color-ring-sky: #3E8FD8;
+
+  --color-yellow-strong: #8A6A00;
+  --color-lilac-strong: #6A60D6;
+
+  --color-accent-text: var(--color-text);
+  --color-highlight-text: #5B4FC4;
+  --color-line: var(--color-text);
+  --color-focus: #15161B;
+
+  --color-code-string: #7A5A00;
+  --color-code-keyword: #4B3FA8;
+  --color-code-prop: #1D5C96;
+
+  --color-dot: #C2BED6;
+  --color-dot-hi: #7D77A6;
+}

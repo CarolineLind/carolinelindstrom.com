@@ -1,0 +1,104 @@
+/*--------------------------------------------------*/
+/*--------------------- HEADER ---------------------*/
+/*--------------------------------------------------*/
+
+.site-header {
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-6);
+  padding-block: var(--space-3);
+}
+
+/*---------------------- LOGO ----------------------*/
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  font-size: 22px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-tight);
+  text-decoration: none;
+}
+
+.logo__bracket {
+  display: inline-block;
+  color: var(--color-accent-text);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.logo:hover .logo__bracket--l {
+  transform: translateX(-4px);
+}
+
+.logo:hover .logo__bracket--r {
+  transform: translateX(4px);
+}
+
+/*---------------------- MENU ----------------------*/
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navlink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding: 0 2px;
+  font-weight: var(--fw-medium);
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color var(--dur-fast);
+}
+
+/* Underline that grows in from the left */
+.navlink::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  bottom: 8px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-line);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.navlink:hover,
+.navlink[aria-current] {
+  color: var(--color-text);
+}
+
+.navlink:hover::after,
+.navlink[aria-current]::after {
+  transform: scaleX(1);
+}
+
+.navlink:focus-visible {
+  outline-width: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Until the mobile menu button is built, the links wrap under the logo */
+@media (max-width: 720px) {
+  .nav-list {
+    width: 100%;
+    gap: 0 var(--space-5);
+  }
+}
