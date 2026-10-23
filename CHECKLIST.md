@@ -13,16 +13,22 @@ Everything that needs doing before the new theme replaces `CarolineTheme` on the
 - [x] Header and footer shells, page/single/index/front-page/404 templates
 - [x] Branch `new-theme`, symlink into Local, pushed to GitHub
 - [x] README.md and CLAUDE.md
-- [ ] Raise `Requires PHP` in `style.css` from 7.4 to 8.2
+- [x] Raise `Requires PHP` in `style.css` from 7.4 to 8.2
 
 ## 2. Turn off what the site doesn't use
-- [ ] Comments and pingbacks (all post types, admin menus, comment feeds)
-- [ ] Search: no search queries and no search template; `/?s=` returns 404
-- [ ] Remove `comment-form`, `comment-list` and `search-form` from the `html5` support list
-- [ ] Feeds (decide whether a page-only site needs any)
-- [ ] XML-RPC, emoji scripts, oEmbed discovery and `wp-embed`, generator tag
-- [ ] Block library CSS: load only what the content uses
-- [ ] Unused REST endpoints (e.g. the user list)
+All of it lives in `inc/cleanup.php`.
+- [x] Comments and pingbacks (all post types, admin menus, comment feeds)
+- [x] Posts hidden in the admin; single posts, the blog page and archives return 404
+- [x] Search: no database query; `/?s=` returns 404
+- [x] Remove `comment-form`, `comment-list` and `search-form` from the `html5` support list
+- [x] Feeds return 404, links removed from `<head>`
+- [x] XML-RPC methods, emoji, oEmbed discovery and `wp-embed`, generator tag, shortlink, REST discovery link
+- [x] User endpoints, author pages and the users sitemap closed to visitors (they revealed the login name)
+- [x] Attachment pages redirect to the file
+- [x] Block library CSS: WordPress 7.1 already loads only what the content uses. `global-styles` and `classic-theme-styles` are decided in 7. Content model
+- [ ] Check the admin while logged in: no Posts or Comments menus, Pages and the editor work as before
+
+## 3. Fonts
 
 ## 3. Fonts
 - [ ] Download Bricolage Grotesque, DM Sans and JetBrains Mono as woff2, Latin subset only
@@ -94,11 +100,14 @@ Decided: one accessible banner on the first visit, **before anything moves**. Th
 - [ ] Discuss: what Jetpack is used for today
 - [ ] Discuss: keep Jetpack Stats, switch to something cookieless and EU-hosted, or drop analytics
 - [ ] Remove Jetpack's carousel, likes and slider assets if they aren't used
+- [ ] If Jetpack stays: it talks to WordPress.com over XML-RPC, which `inc/cleanup.php` now empties. Check that Jetpack still connects, or allow its methods
+- [ ] Discuss: Akismet (only filters comment and form spam) and Jetpack Boost (overlaps with SiteGround's Speed Optimizer)
 
 ## 12. Security and SiteGround
 - [x] Live site on a PHP version patched for CVE-2026-109618/109619 (8.2.35; SiteGround updates PHP automatically)
 - [x] Local's PHP updated to 8.2.35, matching live
 - [ ] Force HTTPS
+- [ ] Block `xmlrpc.php` on the server (the theme empties its methods, but the file still answers), unless Jetpack needs it
 - [ ] Security headers: HSTS, Content-Security-Policy, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
 - [ ] Review Speed Optimizer settings so they don't clash with the theme
 - [ ] Check whether the plan has SSH and Git, for deploying from GitHub

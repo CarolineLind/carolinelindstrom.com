@@ -37,7 +37,7 @@ Every change is measured against these. Accessibility is a hard requirement; the
 ## Requirements
 
 - WordPress 6.4 or later
-- PHP 7.4 or later (local and live run PHP 8.2)
+- PHP 8.2 or later (local and live run PHP 8.2.35)
 - No build step: plain PHP, CSS and vanilla JavaScript
 
 ## Local development
