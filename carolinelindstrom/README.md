@@ -45,7 +45,7 @@ Every change is measured against these. Accessibility is a hard requirement; the
 The site runs locally in [Local](https://localwp.com/) at `http://carolinelindstromcom.local/`. The theme folder in this repository is symlinked into the Local site, so edits show up straight away:
 
 ```bash
-ln -s /Users/caroline.lindstrom/GIT-privat/laragon/carolinelindstrom "/Users/caroline.lindstrom/Local Sites/carolinelindstromcom/app/public/wp-content/themes/carolinelindstrom"
+ln -s /Users/caroline.lindstrom/GIT-privat/carolinelindstrom.com/carolinelindstrom "/Users/caroline.lindstrom/Local Sites/carolinelindstromcom/app/public/wp-content/themes/carolinelindstrom"
 ```
 
 Then activate **Caroline Lindström** under Appearance → Themes and assign a menu to **Huvudmeny** under Appearance → Menus.
