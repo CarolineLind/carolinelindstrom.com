@@ -96,7 +96,8 @@ Decided: one accessible banner on the first visit, **before anything moves**. Th
 - [ ] Remove Jetpack's carousel, likes and slider assets if they aren't used
 
 ## 12. Security and SiteGround
-- [ ] Update PHP to a version patched for CVE-2026-109618/109619, both on SiteGround and in Local (Local runs 8.2.29; the fixed 8.2 release is 8.2.35)
+- [x] Live site on a PHP version patched for CVE-2026-109618/109619 (8.2.35; SiteGround updates PHP automatically)
+- [ ] Update Local's PHP to a patched version that matches live (Local runs 8.2.29)
 - [ ] Force HTTPS
 - [ ] Security headers: HSTS, Content-Security-Policy, X-Content-Type-Options, Referrer-Policy, Permissions-Policy
 - [ ] Review Speed Optimizer settings so they don't clash with the theme

@@ -91,7 +91,7 @@ The design is a Claude Design canvas: https://claude.ai/code/artifact/336f61ad-6
 - WordPress runs in Local at `http://carolinelindstromcom.local/`. The theme folder is symlinked into `~/Local Sites/carolinelindstromcom/app/public/wp-content/themes/`.
 - There is no `php` on the PATH. Use Local's PHP for syntax checks:
   `"/Users/caroline.lindstrom/Library/Application Support/Local/lightning-services/php-8.2.29+0/bin/darwin-arm64/bin/php" -l <file>`
-- Hosting is SiteGround (nginx with SiteGround's own caching).
+- Hosting is SiteGround (nginx with SiteGround's own caching). SiteGround updates PHP automatically; the live site ran PHP 8.2.35 as of 2026-10-23.
 
 ## Checklist and open decisions
 
