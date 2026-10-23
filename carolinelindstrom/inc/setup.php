@@ -13,14 +13,10 @@ function cl_setup() {
 
 	/* WordPress prints <title> */
 	add_theme_support( 'title-tag' );
-	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'responsive-embeds' );
 	add_theme_support( 'align-wide' );
-	add_theme_support(
-		'html5',
-		array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script', 'navigation-widgets' )
-	);
+	add_theme_support( 'html5', array( 'gallery', 'caption', 'style', 'script' ) );
 
 	/* Make the block editor look like the front end */
 	add_theme_support( 'editor-styles' );
