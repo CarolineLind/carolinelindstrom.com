@@ -1,0 +1,79 @@
+/*--------------------------------------------------*/
+/*------------------- UTILITIES --------------------*/
+/*--------------------------------------------------*/
+
+/* Centered max-width wrapper used by header, sections and footer */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-space);
+}
+
+/* Visible only to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/*-------------------- SKIP LINK -------------------*/
+
+.skip-link {
+  position: absolute;
+  top: -80px;
+  left: var(--space-4);
+  z-index: var(--z-skip);
+  padding: var(--space-3) 18px;
+  background: var(--color-accent);
+  color: var(--color-ink-on-accent);
+  font-weight: var(--fw-bold);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+[data-theme="light"] .skip-link {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+/* <main> gets focus from the skip link but shouldn't show an outline */
+.site-main:focus {
+  outline: none;
+}
+
+/*--------------------- FOCUS ----------------------*/
+
+:focus-visible {
+  outline: var(--focus-width) solid var(--color-focus);
+  outline-offset: var(--focus-offset);
+}
+
+/*--------------------- MOTION ---------------------*/
+
+/* System setting, or the "pausa rörelse" choice saved on <html> */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+[data-motion="paused"] *,
+[data-motion="paused"] *::before,
+[data-motion="paused"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
