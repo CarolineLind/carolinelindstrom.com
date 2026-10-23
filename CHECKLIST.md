@@ -26,7 +26,7 @@ All of it lives in `inc/cleanup.php`.
 - [x] User endpoints, author pages and the users sitemap closed to visitors (they revealed the login name)
 - [x] Attachment pages redirect to the file
 - [x] Block library CSS: WordPress 7.1 already loads only what the content uses. `global-styles` and `classic-theme-styles` are decided in 7. Content model
-- [ ] Check the admin while logged in: no Posts or Comments menus, Pages and the editor work as before
+- [x] Check the admin while logged in: no Posts or Comments menus, Pages and the editor work as before
 
 ## 3. Fonts
 
