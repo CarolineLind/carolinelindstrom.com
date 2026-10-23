@@ -5,6 +5,7 @@
 /*
 All design values as CSS variables. Dark mode is the default,
 light mode overrides under [data-theme="light"] (set on <html> by inc/enqueue.php).
+The block editor always shows light mode (see LIGHT MODE below).
 
 Breakpoints (media queries can't read variables):
   600px  – one column
@@ -149,7 +150,13 @@ Breakpoints (media queries can't read variables):
 
 /*------------------- LIGHT MODE -------------------*/
 
-[data-theme="light"] {
+/*
+.editor-styles-wrapper is the block editor's writing area: it always uses
+light mode, which is easier for long writing sessions. The editor leaves
+selectors that name it untouched, so it doesn't affect the site.
+*/
+[data-theme="light"],
+.editor-styles-wrapper {
   color-scheme: light;
 
   --color-bg: #FBFAF6;
