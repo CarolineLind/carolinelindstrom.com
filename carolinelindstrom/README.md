@@ -81,6 +81,8 @@ Outside the theme folder, at the repo root:
 ```
 docs/decisions/               Why things are the way they are, one file per decision
 tools/fonts/                  Source fonts and the scripts that trim them
+tools/a11y-summary.mjs        Sorts pa11y results into theme and content errors
+.claude/skills/component/     The routine for building a component (/component in Claude Code)
 ```
 
 ## CSS
@@ -123,7 +125,8 @@ npm install
 | `npm run lint:php` | PHP_CodeSniffer with WordPress Coding Standards (`phpcs.xml.dist`) |
 | `npm run lint:css` | Stylelint (`.stylelintrc.json`) |
 | `npm run fix:php` / `npm run fix:css` | Fix what can be fixed automatically |
-| `npm run test:a11y` | pa11y with axe and HTML_CodeSniffer against the local site, in light and then dark mode. Local must be running. |
+| `npm run test:a11y:summary` | pa11y in light and dark mode, with every error sorted into **theme** (must be fixed) or **content** (written in WordPress). Fails only on theme errors. Local must be running. |
+| `npm run test:a11y` | The same tests with pa11y's full output, for digging into a specific error |
 
 **VS Code** shows the same warnings as you type. Open the repo root folder and accept the recommended extensions (`.vscode/extensions.json`). The settings in `.vscode/settings.json` point them at the same rule files.
 

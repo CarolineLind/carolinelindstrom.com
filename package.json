@@ -11,7 +11,8 @@
     "fix:css": "stylelint \"carolinelindstrom/assets/css/**/*.css\" --fix",
     "test:a11y": "pa11y-ci --config .pa11yci.json && pa11y-ci --config .pa11yci.dark.json",
     "test:a11y:light": "pa11y-ci --config .pa11yci.json",
-    "test:a11y:dark": "pa11y-ci --config .pa11yci.dark.json"
+    "test:a11y:dark": "pa11y-ci --config .pa11yci.dark.json",
+    "test:a11y:summary": "node tools/a11y-summary.mjs"
   },
   "devDependencies": {
     "pa11y-ci": "^5.0.0",
