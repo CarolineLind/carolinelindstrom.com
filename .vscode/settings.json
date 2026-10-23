@@ -4,6 +4,8 @@
   "phpsab.executablePathCBF": "./vendor/bin/phpcbf",
   "phpsab.autoRulesetSearch": true,
   "phpsab.snifferMode": "onType",
+  // The extension ignores phpcs.xml.dist's exclude-patterns for open files, so the old theme is listed here too
+  "phpsab.excludeGlobs": ["**/vendor/**", "**/node_modules/**", "**/CarolineTheme/**"],
 
   // PHP: autocomplete and checks that know WordPress functions
   "intelephense.environment.phpVersion": "8.2.0",
