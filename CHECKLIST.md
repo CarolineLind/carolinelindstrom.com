@@ -82,6 +82,11 @@ Where the header differs from the design: `docs/decisions/0003-header.md`.
 - [x] Sticky header (from 600 px window height) with `scroll-padding` from `--header-height`; mobile menu as a panel over the content
 - [ ] The menu in WordPress still has 7 items (the `v3` drafts). With 5 it fits on one row from about 800 px; check again when the menu is final
 - [ ] Test the header with VoiceOver (macOS and iOS)
+- [x] The 28 header commits merged into one (detailed history in the local tag `header-detaljerad-historik`)
+- [ ] Tidy up: move the mobile menu out of `header.css` into `components/mobile-menu.css`
+- [ ] Tidy up: gather the page-to-page handoff (head script in `inc/enqueue.php`, inline script in `site-nav.php`) in one file in `inc/`
+- [ ] Tidy up: rewrite 0003 into a few real decisions, and move "how the header works" into the theme README
+- [ ] Device check by Caroline: iPhone Safari, VoiceOver, 200 % text zoom
 
 ## 7. Content model
 - [ ] Discuss: how sections are built in the editor (theme-provided block patterns, locked to content-only editing, or something else)
@@ -145,3 +150,13 @@ pa11y findings in today's draft content (2026-10-23), all in the content, none i
 - [ ] Deploy to SiteGround and activate the theme
 - [ ] Menus, front page setting and redirects in place on live
 - [ ] Clear SiteGround's cache, check the live site, run Lighthouse again
+
+## 15. Workflow
+From the header agent's feedback (2026-10-24). Points 1–3 first: they make every later component faster to check.
+- [x] Commits: small commits while building, merged into one when the component is done (no extra branches). See "Working agreements" in `CLAUDE.md`
+- [x] Facts are looked up and sourced, not written from memory (`CLAUDE.md`)
+- [x] `/component` skill: iterate, tidy-up and device-checklist steps added
+- [ ] 1. Browser test helpers in `tools/browser/`: set theme and motion, phone/desktop width, open the menu, scroll, screenshots of the visible area, frame traces. An npm script per component, starting with `npm run check:header`
+- [ ] 2. Extend pa11y: phone width, mobile menu open, page scrolled (glass header)
+- [ ] 3. Stable test content: Caroline creates a test page in WordPress with every block type the site uses, and CLAUDE.md lists which URLs to test against
+- [ ] 4. Screenshot comparison against approved images (both modes, phone/desktop, menu open, scrolled), with motion off. After 1 and 3

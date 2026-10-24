@@ -25,7 +25,7 @@ Decide which kind of motion it is first. That gives the curve and the duration.
 | **State change** (it stays on screen) | Sliding menu line, hamburger ↔ X, header becoming compact, toggles | Same curve both ways: `--ease-out` or `--ease-in-out`, or a spring for small details | Same both ways |
 | **Feedback** (a press) | `scale(.96)` on buttons | `--ease-spring` | `--dur-fast` |
 
-Why: something that arrives should settle softly where the eye is going (decelerate). Something that leaves isn't where attention is any more, so it should get out of the way quickly (accelerate, shorter). Material suggests exits about 20–30 % shorter than entrances.
+Why: something that arrives should settle softly where the eye is going (decelerate). Something that leaves isn't where attention is any more, so it should get out of the way quickly (accelerate, shorter). How much shorter is our own rule of thumb (one duration step): it wasn't found stated as a number in Material's documentation when checked on 2026-10-24.
 
 ### 2. Duration by size and distance
 
@@ -101,4 +101,5 @@ Everything in the theme follows these rules as of 2026-10-24, apart from the exc
 
 - Material Design 3, Motion: Easing and duration – https://m3.material.io/styles/motion/easing-and-duration
 - Apple Human Interface Guidelines, Motion – https://developer.apple.com/design/human-interface-guidelines/motion
+- The duration ranges (50–200, 250–400, 450–600 ms) were checked on 2026-10-24 against secondary sources that list Material 3's duration tokens, e.g. https://github.com/google-labs-code/design.md/issues/47. The official page wasn't reachable in that search, so check it when changing the scale.
 - WCAG 2.2: 2.2.2 Pause, Stop, Hide and 2.3.1 Three Flashes or Below Threshold

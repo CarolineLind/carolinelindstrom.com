@@ -19,7 +19,13 @@ Read `carolinelindstrom/README.md` for the project overview, quality goals, file
 ## Working agreements
 
 - **Check in before starting each component.** Describe what you will build, then wait for a go-ahead.
-- **Work on the `new-theme` branch.** One commit per component. Commit messages in Swedish, short, like the existing history ("Nytt tema: grund (tokens, bas-CSS, header/footer, mallar)").
+- **Work on the `new-theme` branch. No other branches** (Caroline's choice).
+- **Commit as often as you like while building a component.** Small commits make each round easy to undo. Commit messages in Swedish, short, like the existing history.
+- **When Caroline says the component is done, merge its commits into one** before anything is pushed:
+  1. Set a local tag on the last commit as a backup of the detailed history: `git tag <component>-detaljerad-historik`. Tags aren't pushed by `git push`.
+  2. `git reset --soft <last commit before the component>` and commit everything as one commit: a Swedish title, a short list of what the component does, and a line naming the tag.
+  3. Check that nothing changed: `git rev-parse HEAD^{tree}` must equal the tag's tree.
+  Only merge commits that haven't been pushed. Never rewrite pushed history.
 - **Never push** unless Caroline asks in that conversation.
 - Caroline often runs several sessions at once. Uncommitted changes you didn't make may be her own work in progress: don't revert, stash or commit them.
 - Caroline creates content in WordPress while you code. Content lives in the database, not in the repo.
@@ -77,6 +83,8 @@ Consider all of these in every change. **WCAG 2.2 AA is the acceptance criterion
 - Content errors come from Caroline's draft content in WordPress. Report them; don't try to fix content from code.
 - **Building a component? Use the `/component` skill** (`.claude/skills/component/SKILL.md`): it's the whole routine, from check-in to commit.
 - Running pa11y from a sandboxed shell works; the `--host-resolver-rules` flag in the configs is what makes the `.local` domain reachable.
+- **Look facts up; don't write them from memory.** Guidelines, WCAG criteria, browser support and design-system values (Material, Apple) are checked with a web search or the source, and the source is linked in the decision record. If you can't verify something, say so in the text.
+- **Content changes while you work.** Caroline edits pages and the menu in WordPress at the same time. If something "disappears" between two test runs, check the menu and the page in WordPress before suspecting the code.
 
 ## Code conventions
 
