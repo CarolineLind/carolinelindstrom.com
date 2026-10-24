@@ -151,7 +151,21 @@ pa11y findings in today's draft content (2026-10-23), all in the content, none i
 - [ ] Menus, front page setting and redirects in place on live
 - [ ] Clear SiteGround's cache, check the live site, run Lighthouse again
 
-## 15. Workflow
+## 15. Public repository and portfolio
+Rules for agents: "Public repository" in `CLAUDE.md`.
+- [x] Audit 2026-10-24: no secrets, databases, logs or transcripts tracked
+- [x] Private email removed from the whole history (rewritten to the GitHub noreply address); backup in `GIT-privat/carolinelindstrom.com-backup-2026-10-24/`
+- [ ] Caroline: force-push the rewritten `main`, `new-theme` and tag `v1.0-pre-redesign` (the command is in the conversation of 2026-10-24)
+- [ ] Caroline: in GitHub → Settings → Emails, tick "Keep my email addresses private" and "Block command line pushes that expose my email"
+- [ ] Caroline: delete the backup folder once the push is done and checked
+- [x] `LICENSE` (all rights reserved, with the third-party licenses)
+- [x] "How it's built" note about Claude Code in the README
+- [x] `.gitignore` covers secrets, databases, logs and local Claude settings
+- [ ] Remove `CarolineTheme.zip` and `CarolineTheme.rar` (24 MB each, copies of the old theme folder)
+- [ ] README: screenshots (desktop and mobile, both modes) and a link to the live site, once the new theme is live
+- [ ] Decide: English commit titles from now on? (Swedish is fine for Swedish employers)
+
+## 16. Workflow
 From the header agent's feedback (2026-10-24). Points 1–3 first: they make every later component faster to check.
 - [x] Commits: small commits while building, merged into one when the component is done (no extra branches). See "Working agreements" in `CLAUDE.md`
 - [x] Facts are looked up and sourced, not written from memory (`CLAUDE.md`)

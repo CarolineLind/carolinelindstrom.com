@@ -39,3 +39,17 @@ npm run test:a11y:summary
 ## Quality goals
 
 WCAG 2.2 level AA is the acceptance criterion. Performance, SEO, security and privacy targets are listed in the [theme README](carolinelindstrom/README.md#quality-goals).
+
+## How it's built
+
+I design the site, decide what gets built and how, and review every change. The code is written together with [Claude Code](https://claude.com/claude-code), Anthropic's AI coding assistant, which is why commits carry a `Co-Authored-By: Claude` line.
+
+To keep the result mine and trustworthy rather than just generated:
+
+- **Every change passes the same checks:** WordPress Coding Standards, Stylelint, and automated accessibility tests in light and dark mode. Phones, VoiceOver and zoom are tested by hand.
+- **Every trade-off is written down** in [`docs/decisions/`](docs/decisions/): why the fonts are trimmed, why nothing moves before the visitor has chosen, where the header differs from the design.
+- **The rules the AI works by are public** in [`CLAUDE.md`](CLAUDE.md), and the routine for each component is in [`.claude/skills/component/`](.claude/skills/component/SKILL.md).
+
+## License
+
+All rights reserved: the code is public to show my work, not for reuse. Third-party fonts, libraries and photos keep their own licenses. See [LICENSE](LICENSE).

@@ -112,6 +112,18 @@ The design is a Claude Design canvas: https://claude.ai/code/artifact/336f61ad-6
   `"/Users/caroline.lindstrom/Library/Application Support/Local/lightning-services/php-8.2.35+0/bin/darwin-arm64/bin/php" -l <file>`
 - Hosting is SiteGround (nginx with SiteGround's own caching). SiteGround updates PHP automatically; the live site ran PHP 8.2.35 as of 2026-10-23.
 
+## Public repository
+
+The repo is public on GitHub (`CarolineLind/carolinelindstrom.com`) and part of Caroline's portfolio: recruiters and other developers read it. So:
+
+- **Before every commit, read the diff for things that mustn't be public:** passwords, keys, tokens, private email addresses or phone numbers, database exports, logs, local paths that reveal more than needed, and other people's content. Anything that slipped into a pushed commit stays in history: tell Caroline straight away instead of just deleting it.
+- **Commits use Caroline's GitHub noreply address** (`33750059+CarolineLind@users.noreply.github.com`, set in this repo's git config). Never commit with another address. The history was rewritten on 2026-10-24 to remove her private address.
+- **Never commit Claude Code transcripts, logs or `.claude/settings.local.json`.** Only shared things like `.claude/skills/` belong in the repo.
+- **Third-party material** (images, icons, fonts, code snippets) needs a license that allows publishing it here. Check it before adding, keep the license file next to it, and list it in `LICENSE`.
+- **The code is "All rights reserved"** (`LICENSE`). Don't add files under another license without saying so in `LICENSE`.
+- **Write for a reader who doesn't know the project:** clear names, short comments that explain why, decision records with sources, and honest docs. Never claim tests that weren't run.
+- **The README says openly how the site is built with Claude Code.** Keep that true: Caroline decides, reviews and tests; agents explain what they built (see the `/component` skill's hand-over).
+
 ## Gotchas
 
 Traps that have cost time before. Add new ones when you hit them.

@@ -4,3 +4,16 @@ vendor/
 
 # macOS
 .DS_Store
+
+# Secrets and local environment (never commit these; the repo is public)
+.env
+.env.*
+!.env.example
+wp-config.php
+*.sql
+*.sql.gz
+*.log
+
+# Claude Code: personal settings and transcripts stay local (skills in .claude/skills are shared)
+.claude/settings.local.json
+.claude/*.jsonl

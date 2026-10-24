@@ -151,4 +151,4 @@ npm install
 
 ## License
 
-All rights reserved. The code is public to show my work, not for reuse.
+All rights reserved. The code is public to show my work, not for reuse. See [LICENSE](../LICENSE) for the details and the third-party licenses.

@@ -1,0 +1,15 @@
+Copyright (c) 2023–2026 Caroline Lindström. All rights reserved.
+
+The code, design and content in this repository are published so that others
+can read them as part of my portfolio. No license is granted to copy, modify,
+distribute or use them, in whole or in part, without my written permission.
+
+Third-party material keeps its own license:
+
+- Fonts in carolinelindstrom/assets/fonts/ (Bricolage Grotesque, DM Sans,
+  JetBrains Mono): SIL Open Font License 1.1, see the OFL-*.txt files there.
+- Flexbox Grid in CarolineTheme/css/flexboxgrid-6.3.1/: MIT License, see the
+  LICENSE file in that folder.
+- Photos in CarolineTheme/bilder/: Unsplash License (https://unsplash.com/license),
+  credited to the photographers named in the file names.
+- Development tools listed in package.json and composer.json: their own licenses.

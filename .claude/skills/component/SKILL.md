@@ -71,7 +71,11 @@ When it works and Caroline is happy, before calling it done:
 
 ## 8. Hand over to Caroline
 
-Report back: what was built, what was tested and how, and what wasn't. Always end with this checklist for her, since an agent can't do these:
+Report back: what was built, what was tested and how, and what wasn't.
+
+Then explain the component in plain language, about five sentences, as Caroline would in a job interview: what it does, how it works (which files, which technique), the most important decision and why, and one limitation. Keep it in the commit summary too. The goal is that Caroline owns the code, not just has it.
+
+Always end with this checklist for her, since an agent can't do these:
 
 - [ ] iPhone Safari (and touch on a tablet if relevant)
 - [ ] VoiceOver on macOS and iOS
