@@ -69,14 +69,19 @@ Proof of concept built and working. Decisions: `docs/decisions/0002-preferences-
 - [ ] Discuss: final copy (Caroline will revisit)
 - [ ] Design the dialog and the embed card
 - [ ] Test with VoiceOver (macOS and iOS) and at 400 % zoom by hand
-- [ ] Header toggles for motion and light/dark (section 6) use the same saved choices
+- [x] Header toggles for motion and light/dark (section 6) use the same saved choices
 - [ ] Integritetspolicy updated to describe what's stored and why
 - [ ] Add "Statistik" as a fourth choice if analytics stays (section 11); raise the version so everyone is asked again
 
 ## 6. Header components
-- [ ] Mobile menu button (hamburger that becomes an X)
-- [ ] Sliding menu indicator with the sparkles (anchor positioning, with a fallback)
-- [ ] Scroll progress bar
+Where the header differs from the design: `docs/decisions/0003-header.md`.
+- [x] Toggles "Pausa rörelse" and "Ljust läge" (icon only below 1000 px)
+- [x] Mobile menu button (hamburger that becomes an X, Escape closes)
+- [x] Sliding menu indicator with the sparkles (anchor positioning, with a fallback)
+- [x] Scroll progress bar (scroll-driven, hidden when motion is off)
+- [x] Sticky header (from 600 px window height) with `scroll-padding` from `--header-height`; mobile menu as a panel over the content
+- [ ] The menu in WordPress still has 7 items (the `v3` drafts). With 5 it fits on one row from about 800 px; check again when the menu is final
+- [ ] Test the header with VoiceOver (macOS and iOS)
 
 ## 7. Content model
 - [ ] Discuss: how sections are built in the editor (theme-provided block patterns, locked to content-only editing, or something else)

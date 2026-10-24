@@ -1,0 +1,81 @@
+/* --------------------------------------------------
+ * ------------------ MENU BUTTON -------------------
+ * -------------------------------------------------- */
+
+/*
+"Meny" on phones: the hamburger turns into an X while the menu is open (assets/js/header.js).
+.menu-closing on <html> draws it open for a moment after a menu link was followed, so it can animate shut.
+*/
+
+.menu-btn {
+  display: none;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  padding: 0 18px;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  transition: border-color var(--dur-fast), background-color var(--dur-fast);
+}
+
+@media (width <= 720px) {
+  .js .menu-btn {
+    display: inline-flex;
+  }
+}
+
+.menu-btn:is(:hover, :focus-visible) {
+  border-color: var(--color-text);
+}
+
+.menu-btn:active {
+  transform: scale(.95);
+}
+
+.menu-btn[aria-expanded="true"],
+.menu-closing .menu-btn {
+  border-color: var(--color-line);
+  background: color-mix(in srgb, var(--color-accent) 14%, var(--color-bg));
+}
+
+/* Yellow fades into the light background, so light mode uses lilac */
+[data-theme="light"] .menu-btn[aria-expanded="true"],
+[data-theme="light"].menu-closing .menu-btn {
+  border-color: var(--color-lilac-strong);
+  background: color-mix(in srgb, var(--color-lilac-strong) 18%, var(--color-bg));
+}
+
+/* -------------------- HAMBURGER ------------------- */
+
+.menu-btn__icon {
+  flex: none;
+  overflow: visible;
+}
+
+.menu-btn__line {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform var(--dur-base) var(--ease-spring), opacity var(--dur-fast);
+}
+
+.menu-btn[aria-expanded="true"] .menu-btn__line--1,
+.menu-closing .menu-btn .menu-btn__line--1 {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.menu-btn[aria-expanded="true"] .menu-btn__line--2,
+.menu-closing .menu-btn .menu-btn__line--2 {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.menu-btn[aria-expanded="true"] .menu-btn__line--3,
+.menu-closing .menu-btn .menu-btn__line--3 {
+  transform: translateY(-5px) rotate(-45deg);
+}

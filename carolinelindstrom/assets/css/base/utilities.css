@@ -42,6 +42,11 @@
   top: var(--space-4);
 }
 
+/* No hover color: the general a:hover would turn the text yellow on the yellow background */
+.skip-link:hover {
+  color: var(--color-ink-on-accent);
+}
+
 [data-theme="light"] .skip-link {
   background: var(--color-text);
   color: var(--color-bg);

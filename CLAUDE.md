@@ -42,6 +42,7 @@ Consider all of these in every change. **WCAG 2.2 AA is the acceptance criterion
 - Touch targets at least 44 × 44 px (use `--tap-min`).
 - Text contrast at least 4.5:1, large text and UI parts at least 3:1, **checked in both dark and light mode**.
 - All motion stops for `prefers-reduced-motion: reduce` and for `[data-motion="paused"]`. Anything that moves for more than 5 seconds must be pausable.
+- **Motion follows Material Design 3 and Apple's guidelines,** see `docs/decisions/0004-motion.md`: entering slows down (`--ease-out`), leaving speeds up and is shorter (`--ease-in`), state changes use one curve both ways. Curves and durations come from the motion tokens.
 - Decorative SVG gets `aria-hidden="true"`. Meaningful images get real alt text.
 - One `<h1>` per page and a logical heading order. Landmarks: header, nav, main, footer. The skip link must work.
 - Must work with keyboard only, VoiceOver, 200 % text zoom and 400 % page zoom (320 px wide).
@@ -120,6 +121,8 @@ Traps that have cost time before. Add new ones when you hit them.
 - **No `php` in Local's shell PATH.** Homebrew PHP (8.5) runs the linters; Local's own PHP (8.2.35, path under Local environment) matches the site.
 - **The Bash sandbox can block headless Chrome's network.** If pa11y or Puppeteer time out on every page, check the host mapping above first; it was the real cause last time.
 - **Moving or renaming the repo folder** (it was `GIT-privat/laragon` until 2026-10-23) breaks three things: the two theme symlinks in Local (recreate them with `ln -sfn`), `tools/fonts/.venv` (Python environments can't move: delete it and `subset-fonts.sh` recreates it), and VS Code's workspace-only extensions (enable them again for the new folder). For about two minutes afterwards the site returns 500 errors, because PHP has cached the old file paths; wait, or restart the site in Local.
+- **axe reports "overlapped by another element" (contrast 0)** when an empty decorative layer, such as the menu sparkles, lies on top of text. Hide the layer with `visibility: hidden` while it isn't showing.
+- **Sliding something open with `grid-template-rows: 0fr` → `1fr`:** between the two values the grid container is a little taller than its row. Put backgrounds and borders on the item inside, not on the container, or a band of background shows below the edge mid-slide (the mobile menu, `header.css`).
 - **The old `CarolineTheme/` uses Windows line endings** and fails every check. It's excluded on purpose; don't fix it.
 
 ## Checklist and open decisions
@@ -131,8 +134,10 @@ Decisions made so far:
 - **Preferences dialog:** built as a proof of concept, see `docs/decisions/0002-preferences-dialog.md`. Rules every component must follow:
   - **Motion only runs when `<html>` has `data-motion="on"`.** Never add animations that bypass the rule in `utilities.css`.
   - **Anything from another domain** (iframes, scripts, images, fonts) **must wait for consent** (`thirdParty: "yes"`). Iframes in content are held back automatically by `inc/embeds.php`; anything else needs the same treatment.
-  - **The header toggles (section 6) must read and write the same saved choices** through `window.clindPrefs`, not their own storage.
+  - **Save choices only through `window.clindPrefs.save()`** (head script in `inc/preferences.php`). It fires a `clind:prefs` event on `document`; listen to that, or watch `data-theme`/`data-motion` on `<html>`, instead of keeping your own copy.
   - **Changing the choices means raising `version`** in `clind_prefs_config()`.
+- **Buttons that need JavaScript** are hidden with `html:not(.js)` (the head script adds `.js` before paint), so they don't shift the layout and never show without working. Style states that depend on the visitor's choices from `<html>`'s attributes, so they're right on first paint. A button whose text changes with its state (the header toggles) gets no `aria-pressed`: the text already says it.
+- **Header:** where it differs from the design, see `docs/decisions/0003-header.md`. It's sticky, and `scroll-padding-top` on `<html>` uses `--header-height` so nothing scrolls in under it. **Anything else that sticks to the top must be added to that offset,** and nothing may cover focused elements (WCAG 2.4.11).
 - **Fonts:** self-hosted and trimmed, see `docs/decisions/0001-self-hosted-fonts.md`. Don't add font weights, italics or characters without updating that record and staying under the 100 KB budget.
 - **Block editor styling:** the editor loads `fonts.css`, `tokens.css` and `typography.css` (`inc/setup.php`), so writing looks like the site, but **always in light mode** (Caroline's choice, easier for long writing). Tell Caroline whenever a change affects how the editor looks.
 - **Content on the draft pages** in WordPress is experimental. Caroline knows about its structural issues; they get fixed when each page is built.

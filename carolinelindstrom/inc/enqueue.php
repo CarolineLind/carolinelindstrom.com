@@ -20,6 +20,10 @@ function clind_enqueue_styles() {
 		'cl-header'     => 'assets/css/layout/header.css',
 		'cl-footer'     => 'assets/css/layout/footer.css',
 		'cl-content'    => 'assets/css/layout/content.css',
+		'cl-toggles'    => 'assets/css/components/toggles.css',
+		'cl-menu-btn'   => 'assets/css/components/menu-button.css',
+		'cl-nav-ind'    => 'assets/css/components/nav-indicator.css',
+		'cl-progress'   => 'assets/css/components/scroll-progress.css',
 		'cl-prefs'      => 'assets/css/components/preferences.css',
 		'cl-embed'      => 'assets/css/components/embed.css',
 	);
@@ -31,6 +35,59 @@ function clind_enqueue_styles() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'clind_enqueue_styles' );
+
+/* The header's toggles and mobile menu button: on every page, since the header is */
+function clind_enqueue_scripts() {
+	$path = 'assets/js/header.js';
+	wp_enqueue_script(
+		'clind-header',
+		get_template_directory_uri() . '/' . $path,
+		array(),
+		clind_asset_version( $path ),
+		array(
+			'strategy'  => 'defer',
+			'in_footer' => true,
+		)
+	);
+}
+add_action( 'wp_enqueue_scripts', 'clind_enqueue_scripts' );
+
+/*
+Following a menu link: header.js leaves a "handoff" in sessionStorage, and this
+applies it to <html> before the new page is painted (only with motion on; runs
+after the preferences script at priority 0, which sets data-motion):
+	.menu-closing        the mobile menu was open: drawn open, then header.js lets it slide shut
+	.progress-returning  the progress bar counts down from --progress-from (how far down the last page was)
+	data-nav-from        which menu link was current on the last page (site-nav.php marks it,
+	and the current link takes over its weight, color and line)
+*/
+function clind_handoff_script() {
+	?>
+	<script>
+	(function () {
+		var root = document.documentElement;
+		try {
+			var handoff = JSON.parse(sessionStorage.getItem('clind-handoff'));
+			sessionStorage.removeItem('clind-handoff');
+			if (!handoff || root.getAttribute('data-motion') !== 'on') {
+				return;
+			}
+			if (handoff.menu && window.matchMedia('(width <= 720px)').matches) {
+				root.classList.add('menu-closing');
+			}
+			if (handoff.progress > .01) {
+				root.style.setProperty('--progress-from', handoff.progress);
+				root.classList.add('progress-returning');
+			}
+			if (handoff.from >= 0) {
+				root.setAttribute('data-nav-from', handoff.from);
+			}
+		} catch (e) {}
+	})();
+	</script>
+	<?php
+}
+add_action( 'wp_head', 'clind_handoff_script', 1 );
 
 /*
 Start downloading the fonts used on the first screen right away, before the CSS

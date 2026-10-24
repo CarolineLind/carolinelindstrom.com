@@ -16,7 +16,7 @@ Breakpoints (media queries can't read variables):
 :root {
   color-scheme: dark;
 
-  /* Surfaces and text */
+  /* Surfaces and text. --color-bg is also inlined in header.php, to avoid a white flash */
   --color-bg: #15131F;
   --color-surface: #1F1D2D;
   --color-border: #35324A;
@@ -55,6 +55,21 @@ Breakpoints (media queries can't read variables):
   /* Background dot pattern */
   --color-dot: #4C4867;
   --color-dot-hi: #E6E3FF;
+
+  /* See-through header while scrolled (layout/header.css): 65 % of --color-bg, about #15131FA6 */
+  --color-glass: color-mix(in srgb, var(--color-bg) 65%, transparent);
+  --blur-glass: 10px;
+
+  /* A ring of background color around letters, so text stays readable over sparkles and the glass header */
+  --text-halo:
+    2px 0 var(--color-bg),
+    -2px 0 var(--color-bg),
+    0 2px var(--color-bg),
+    0 -2px var(--color-bg),
+    1.5px 1.5px var(--color-bg),
+    -1.5px -1.5px var(--color-bg),
+    1.5px -1.5px var(--color-bg),
+    -1.5px 1.5px var(--color-bg);
 
   /* Font families. The fonts and their size-matched fallbacks live in fonts.css */
   --font-display: 'Bricolage Grotesque', 'Bricolage Grotesque Fallback', system-ui, sans-serif;
@@ -116,6 +131,7 @@ Breakpoints (media queries can't read variables):
   --measure-wide: 760px;
   --section-space: var(--space-14);
   --tap-min: 44px;
+  --header-height: 69px;
 
   /* Corners */
   --radius-sm: 8px;
@@ -129,14 +145,18 @@ Breakpoints (media queries can't read variables):
   --focus-width: 3px;
   --focus-offset: 4px;
 
-  /* Motion */
+  /* Motion. Which curve and duration to use when: docs/decisions/0004-motion.md */
   --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --ease-in: cubic-bezier(.3, 0, 1, 1);
   --ease-in-out: cubic-bezier(.6, 0, .3, 1);
   --ease-swipe: cubic-bezier(.6, 0, .2, 1);
   --ease-spring: cubic-bezier(.3, 1.4, .4, 1);
+  --ease-slide: cubic-bezier(.25, 1.12, .4, 1);
   --dur-fast: .2s;
   --dur-base: .3s;
   --dur-slow: .4s;
+  --dur-slide: .55s;
+  --dur-stagger: .04s;
 
   /* Stacking */
   --z-base: 1;
@@ -193,4 +213,7 @@ selectors that name it untouched, so it doesn't affect the site.
   /* Background dot pattern */
   --color-dot: #C2BED6;
   --color-dot-hi: #7D77A6;
+
+  /* See-through header: 40 % of --color-bg, about #FBFAF666 */
+  --color-glass: color-mix(in srgb, var(--color-bg) 40%, transparent);
 }

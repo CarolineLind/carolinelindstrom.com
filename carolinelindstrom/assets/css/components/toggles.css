@@ -1,0 +1,118 @@
+/* --------------------------------------------------
+ * -------------------- TOGGLES ---------------------
+ * -------------------------------------------------- */
+
+/*
+"Pausa rörelse" and "Ljust läge" in the header (template-parts/header/toggles.php).
+Icon and text read data-motion/data-theme on <html>,
+so they're right before header.js has run. Icon only below 1000px, where the menu needs the room.
+*/
+
+.toggles {
+  display: flex;
+  gap: var(--space-2);
+}
+
+html:not(.js) .toggles {
+  display: none;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+
+  /* Solid, so it stays readable over the see-through header */
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: inherit;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast),
+    background-color var(--dur-fast),
+    transform var(--dur-fast) var(--ease-spring);
+}
+
+.toggle:is(:hover, :focus-visible) {
+  border-color: var(--color-text);
+}
+
+.toggle:active {
+  transform: scale(.96);
+}
+
+.toggle svg {
+  flex: none;
+}
+
+/* ----------------- ICONS AND TEXT ----------------- */
+
+/* Pause icon while things move, play icon while paused */
+.toggle__play,
+html:not([data-motion="on"]) .toggle__pause {
+  display: none;
+}
+
+html:not([data-motion="on"]) .toggle__play {
+  display: block;
+}
+
+/* Sun in dark mode, moon in light mode: like play/pause, the icon shows what pressing does */
+.toggle__moon,
+[data-theme="light"] .toggle__sun {
+  display: none;
+}
+
+[data-theme="light"] .toggle__moon {
+  display: block;
+}
+
+/*
+Both texts share one grid cell and the hidden one keeps its space,
+so the button is as wide as the longer text and never shifts on click.
+visibility: hidden also leaves the hidden text out of the button's name.
+*/
+.toggle__label {
+  display: grid;
+}
+
+.toggle__text {
+  grid-area: 1 / 1;
+}
+
+.toggle__text--play,
+html:not([data-motion="on"]) .toggle__text--pause,
+.toggle__text--dark,
+[data-theme="light"] .toggle__text--light {
+  visibility: hidden;
+}
+
+html:not([data-motion="on"]) .toggle__text--play,
+[data-theme="light"] .toggle__text--dark {
+  visibility: visible;
+}
+
+/* ----------------- SMALLER SCREENS ---------------- */
+
+@media (width < 1000px) {
+  .toggle {
+    padding: 0;
+  }
+
+  .toggle__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

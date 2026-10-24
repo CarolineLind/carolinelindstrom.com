@@ -2,17 +2,74 @@
  * --------------------- HEADER ---------------------
  * -------------------------------------------------- */
 
+/*
+Phones: logo, toggles and menu button on one row; the menu opens as a panel on top of the content.
+From 721px: logo, menu and toggles on one row, no menu button.
+Sticky when the window is at least 600px tall, compact and see-through while scrolling down. header.js keeps --header-height up to date,
+and scroll-padding keeps that strip free when the browser scrolls to a link target or focus.
+Without JavaScript nothing is sticky, the toggles and menu button are hidden and the menu stays open.
+Parts: components/toggles.css, menu-button.css, nav-indicator.css, scroll-progress.css.
+Where this differs from the design: docs/decisions/0003-header.md
+*/
+
 .site-header {
+  position: relative;
+  z-index: var(--z-header);
   border-bottom: var(--border-width) solid var(--color-border);
+  background: var(--color-bg);
+  transition: background-color var(--dur-base) var(--ease-out), margin-bottom var(--dur-base) var(--ease-out);
 }
 
-.nav {
-  display: flex;
-  flex-wrap: wrap;
+/* Over the see-through header, focus rings get a solid backing, so they show against anything behind */
+.site-header :focus-visible {
+  box-shadow: 0 0 0 calc(var(--focus-offset) + var(--focus-width) + 2px) var(--color-bg);
+}
+
+/* Short windows (phones held sideways, high zoom) keep the header in the flow, so it never covers much of the screen */
+@media (height >= 600px) {
+  .js .site-header {
+    position: sticky;
+    top: 0;
+  }
+
+  html.js {
+    scroll-padding-top: calc(var(--header-height) + var(--space-4));
+  }
+}
+
+.site-header__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2) var(--space-6);
+  gap: 0 var(--space-2);
   padding-block: var(--space-3);
+  transition: padding-block var(--dur-base) var(--ease-out);
+}
+
+/*
+Scrolling down makes the sticky header compact and see-through; scrolling up
+brings it back (header.js toggles --compact). The margin makes up for the
+smaller padding, so the page never jumps. Text in the header has a halo
+(--text-halo) and buttons are solid, so they stay readable over what's behind.
+*/
+@media (height >= 600px) {
+  .js .site-header--compact {
+    margin-bottom: calc((var(--space-3) - var(--space-2)) * 2);
+    background: var(--color-glass);
+    backdrop-filter: blur(var(--blur-glass));
+  }
+
+  .js .site-header--compact .site-header__inner {
+    padding-block: var(--space-2);
+  }
+}
+
+/* Visitors who asked their system for less transparency get a solid header */
+@media (prefers-reduced-transparency: reduce) {
+  .js .site-header--compact {
+    background: var(--color-bg);
+    backdrop-filter: none;
+  }
 }
 
 /* ---------------------- LOGO ---------------------- */
@@ -25,6 +82,7 @@
   font-weight: var(--fw-semibold);
   letter-spacing: var(--ls-tight);
   text-decoration: none;
+  text-shadow: var(--text-halo);
 }
 
 .logo__bracket {
@@ -33,12 +91,47 @@
   transition: transform var(--dur-base) var(--ease-out);
 }
 
-.logo:hover .logo__bracket--l {
+.logo:is(:hover, :focus-visible) .logo__bracket--l {
   transform: translateX(-4px);
 }
 
-.logo:hover .logo__bracket--r {
+.logo:is(:hover, :focus-visible) .logo__bracket--r {
   transform: translateX(4px);
+}
+
+/* -------------------- PLACEMENT ------------------- */
+
+.site-header__inner > .logo {
+  grid-area: 1 / 1;
+  justify-self: start;
+}
+
+.site-header__inner > .toggles {
+  grid-area: 1 / 2;
+}
+
+.site-header__inner > .menu-btn {
+  grid-area: 1 / 3;
+}
+
+.site-header__inner > .nav {
+  grid-area: 2 / 1 / 3 / -1;
+}
+
+@media (width > 720px) {
+  .site-header__inner {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: var(--space-7);
+  }
+
+  .site-header__inner > .nav {
+    grid-area: 1 / 2;
+    justify-self: end;
+  }
+
+  .site-header__inner > .toggles {
+    grid-area: 1 / 3;
+  }
 }
 
 /* ---------------------- MENU ---------------------- */
@@ -62,10 +155,10 @@
   font-weight: var(--fw-medium);
   color: var(--color-muted);
   text-decoration: none;
-  transition: color var(--dur-fast);
+  transition: color var(--dur-base) var(--ease-out), font-weight var(--dur-base) var(--ease-out);
 }
 
-/* Underline that grows in from the left */
+/* Underline that grows in from the left. Replaced by the sliding line where anchor positioning works */
 .navlink::after {
   content: "";
   position: absolute;
@@ -74,18 +167,59 @@
   bottom: 8px;
   height: 3px;
   border-radius: 2px;
-  background: var(--color-line);
+  background: var(--color-ring-yellow);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--dur-base) var(--ease-out);
 }
 
-.navlink:hover,
+.navlink:is(:hover, :focus-visible),
 .navlink[aria-current] {
   color: var(--color-text);
 }
 
-.navlink:hover::after,
+/* The current page is also bolder, so it doesn't rely on the decorative line alone */
+.navlink[aria-current] {
+  font-weight: var(--fw-bold);
+}
+
+/*
+Handoff after following a menu link (data-nav-from, site-nav.php): for one frame
+the last page's link still looks current and the current one doesn't. Then
+they swap, and weight and color move over (and on phones the line). DM Sans is
+a variable font, so the weight animates smoothly. The desktop line doesn't move:
+the clicked link was hovered or focused, so the line was already under it.
+*/
+.nav-handoff .navlink--was-current {
+  color: var(--color-text);
+  font-weight: var(--fw-bold);
+}
+
+.nav-handoff .navlink[aria-current] {
+  color: var(--color-muted);
+  font-weight: var(--fw-medium);
+}
+
+/*
+Bold is wider. Each label reserves the width of its bold version with an
+invisible, zero-height copy (data-text, from clind_nav_item_title), so the
+menu doesn't shift when the current page changes. The "/ ''" keeps the copy
+out of what screen readers read.
+*/
+.navlink__text {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.navlink__text::after {
+  content: attr(data-text) / "";
+  height: 0;
+  overflow: hidden;
+  font-weight: var(--fw-bold);
+  visibility: hidden;
+}
+
+.navlink:is(:hover, :focus-visible)::after,
 .navlink[aria-current]::after {
   transform: scaleX(1);
 }
@@ -95,10 +229,225 @@
   border-radius: var(--radius-sm);
 }
 
-/* Until the mobile menu button is built, the links wrap under the logo */
+/* ------------------- MOBILE MENU ------------------ */
+
 @media (width <= 720px) {
   .nav-list {
-    width: 100%;
-    gap: 0 var(--space-5);
+    flex-flow: column nowrap;
+    align-items: stretch;
+  }
+
+  /* Space as margins, not padding, so the sliding menu can close all the way */
+  .nav-list li {
+    border-top: var(--border-width) solid var(--color-border);
+  }
+
+  .nav-list li:first-child {
+    margin-top: var(--space-1);
+  }
+
+  .js .nav-list li:last-child {
+    margin-bottom: var(--space-3);
+  }
+
+  /* The header's own border is right above the panel */
+  .js .nav-list li:first-child {
+    border-top: 0;
+  }
+
+  .navlink {
+    display: flex;
+    min-height: 56px;
+    padding-left: var(--space-5);
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: var(--fw-bold);
+    color: var(--color-text);
+  }
+
+  /* The current page in its link's color (--nav-color). Light mode keeps the text color: the light-mode accents are too faint for text */
+  .navlink[aria-current] {
+    color: var(--nav-color, var(--color-accent-text));
+  }
+
+  [data-theme="light"] .navlink[aria-current] {
+    color: var(--color-text);
+  }
+
+  /* The current page gets a line to its left. It's part of the link, so it slides and fades in with the text */
+  .navlink::before {
+    content: "";
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    left: 0;
+    width: 4px;
+    border-radius: 4px;
+    background: var(--nav-color, var(--color-ring-yellow));
+    opacity: 0;
+    transition: opacity var(--dur-base) var(--ease-out);
+  }
+
+  .navlink[aria-current]::before {
+    opacity: 1;
+  }
+
+  /* Handoff from the last page (see above): color and line move over too */
+  .nav-handoff .navlink[aria-current] {
+    color: var(--color-text);
+  }
+
+  html:not([data-theme="light"]).nav-handoff .navlink--was-current {
+    color: var(--nav-color);
+  }
+
+  .nav-handoff .navlink--was-current::before {
+    opacity: 1;
+  }
+
+  .nav-handoff .navlink[aria-current]::before {
+    opacity: 0;
+  }
+
+  .navlink::after {
+    display: none;
+  }
+
+  /* The menu clips its content while it slides, so the focus ring goes inside the link */
+  .navlink:focus-visible {
+    outline-offset: calc(var(--focus-width) * -1);
+  }
+
+  /*
+  With JavaScript the menu is a panel under the header row, on top of the
+  content, so the page never moves (Safari has no scroll anchoring to hide it).
+  It slides down: a one-row grid whose row grows from 0fr to 1fr. Closed, it's
+  hidden (visibility) so the links can't be reached; that waits until it has
+  slid shut. Taller than the screen, the list scrolls inside the panel.
+  */
+  .js .nav {
+    position: absolute;
+    top: calc(100% + var(--border-width));
+    inset-inline: 0;
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    visibility: hidden;
+    transition: grid-template-rows var(--dur-base) var(--ease-in), visibility 0s var(--dur-base);
+  }
+
+  /*
+  The background is on the list, not the panel: mid-slide (between 0fr and 1fr)
+  the panel is a little taller than its row, and that strip would show as a
+  band of background below the border.
+  */
+  .js .nav-list {
+    min-height: 0;
+    background: var(--color-bg);
+    max-height: calc(100dvh - var(--header-height));
+    padding-inline: var(--gutter);
+    overflow-y: hidden;
+    overscroll-behavior: contain;
+    border-bottom: var(--border-width) solid var(--color-border);
+  }
+
+  /*
+  The page behind the open menu stays where it is and can't be scrolled by
+  mistake. The gutter keeps the width steady where scrollbars take up space.
+  */
+  html.js {
+    scrollbar-gutter: stable;
+  }
+
+  html.js:has(.menu-btn[aria-expanded="true"]) {
+    overflow: hidden;
+  }
+
+  /*
+  While the menu is open (or sliding shut on a new page), the header is solid
+  and the page behind it is blurred and dimmed, so the menu stands out.
+  */
+  .js :is(.site-main, .site-footer) {
+    transition: filter var(--dur-base) var(--ease-in);
+  }
+
+  html.js:is(:has(.menu-btn[aria-expanded="true"]), .menu-closing) .site-header {
+    background: var(--color-bg);
+    backdrop-filter: none;
+  }
+
+  html.js:is(:has(.menu-btn[aria-expanded="true"]), .menu-closing) :is(.site-main, .site-footer) {
+    filter: blur(2.3px) opacity(.5);
+    transition: filter var(--dur-slow) var(--ease-out);
+  }
+
+  /* Less transparency asked for: dimmed instead of faded */
+  @media (prefers-reduced-transparency: reduce) {
+    html.js:is(:has(.menu-btn[aria-expanded="true"]), .menu-closing) :is(.site-main, .site-footer) {
+      filter: blur(2.3px) brightness(.9);
+    }
+  }
+
+  /*
+  Opening decelerates (ease-out, --dur-slow); closing, in the rule for .js .nav
+  above, accelerates and is shorter (ease-in, --dur-base). See 0004-motion.md.
+  */
+  .js .menu-btn[aria-expanded="true"] ~ .nav {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition: grid-template-rows var(--dur-slow) var(--ease-out), visibility 0s;
+  }
+
+  /*
+  The list can scroll only once the menu is fully open: while it slides, it's
+  shorter than its content and would show a scrollbar. Closing stops it at once.
+  */
+  .js .menu-btn[aria-expanded="true"] ~ .nav .nav-list {
+    overflow-y: auto;
+    transition: overflow-y 0s var(--dur-slow) allow-discrete;
+  }
+
+  /*
+  After following a menu link, the new page starts with the menu drawn open
+  (.menu-closing, set in <head> by clind_handoff_script) and header.js
+  removes the class after the first frame, so the menu slides shut.
+  */
+  .js.menu-closing .menu-btn ~ .nav {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition: none;
+  }
+
+  /* The links slide in one after another. They don't slide out: the panel leaves as a whole (0004-motion.md) */
+  .menu-btn[aria-expanded="true"] ~ .nav li {
+    animation: menu-item-in var(--dur-slow) var(--ease-out) both;
+  }
+
+  .menu-btn[aria-expanded="true"] ~ .nav li:nth-child(2) {
+    animation-delay: calc(var(--dur-stagger) * 1);
+  }
+
+  .menu-btn[aria-expanded="true"] ~ .nav li:nth-child(3) {
+    animation-delay: calc(var(--dur-stagger) * 2);
+  }
+
+  .menu-btn[aria-expanded="true"] ~ .nav li:nth-child(4) {
+    animation-delay: calc(var(--dur-stagger) * 3);
+  }
+
+  .menu-btn[aria-expanded="true"] ~ .nav li:nth-child(5) {
+    animation-delay: calc(var(--dur-stagger) * 4);
+  }
+}
+
+@keyframes menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
   }
 }

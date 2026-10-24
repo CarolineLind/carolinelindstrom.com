@@ -10,7 +10,7 @@ body {
   font-family: var(--font-body);
   font-size: var(--fs-body);
   line-height: var(--lh-body);
-  transition: background-color var(--dur-slow) ease, color var(--dur-slow) ease;
+  transition: background-color var(--dur-slow) var(--ease-out), color var(--dur-slow) var(--ease-out);
 }
 
 ::selection {

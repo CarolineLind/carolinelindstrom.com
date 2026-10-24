@@ -22,7 +22,7 @@ script (inc/preferences.php), shared through window.clindPrefs.
 	var title = document.getElementById('clind-prefs-title');
 
 	/* The pre-selected options in the dialog; also what Escape saves on the first visit */
-	var defaults = { theme: 'system', motion: 'system', thirdParty: 'no' };
+	var defaults = prefsApi.config.defaults;
 	var saved = prefsApi.read();
 
 	function fill(prefs) {
@@ -67,22 +67,13 @@ script (inc/preferences.php), shared through window.clindPrefs.
 
 	/* -------------------- SAVE, OPEN ------------------ */
 
-	function save(prefs) {
-		saved = {
-			version: prefsApi.config.version,
-			saved: new Date().toISOString(),
-			theme: prefs.theme,
-			motion: prefs.motion,
-			thirdParty: prefs.thirdParty
-		};
-		try {
-			localStorage.setItem(prefsApi.config.key, JSON.stringify(saved));
-		} catch (e) {
-			/* Storage blocked: the choices still apply on this page */
-		}
-		prefsApi.apply(saved);
+	var save = prefsApi.save;
+
+	/* Saved here or by the header toggles (header.js) */
+	document.addEventListener('clind:prefs', function (event) {
+		saved = event.detail;
 		applyEmbeds(saved);
-	}
+	});
 
 	function open() {
 		fill(saved || defaults);

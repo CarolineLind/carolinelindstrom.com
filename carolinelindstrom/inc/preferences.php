@@ -14,20 +14,28 @@ Nothing moves and nothing from other sites loads until a choice is made.
 Shared settings for the head script and assets/js/preferences.js.
 Raise the version when the choices change (e.g. statistics is added):
 every visitor is then asked again. Choices also expire after max_age_days.
+defaults are the dialog's pre-selected options, always the privacy-safe ones.
 */
 function clind_prefs_config() {
 	return array(
 		'key'        => 'clind-prefs',
 		'version'    => 1,
 		'maxAgeDays' => 365,
+		'defaults'   => array(
+			'theme'      => 'system',
+			'motion'     => 'system',
+			'thirdParty' => 'no',
+		),
 	);
 }
 
 /*
 Runs in <head> before anything is painted, so the page never flashes the wrong
-colors or starts moving. Also used by preferences.js through window.clindPrefs.
+colors or starts moving. Also used by preferences.js and header.js through
+window.clindPrefs: save() stores the choices and fires a "clind:prefs" event.
 	data-theme:  light | dark
 	data-motion: on | off (off until the visitor has chosen)
+	class "js":  scripts run, so buttons that need them can be shown
 */
 function clind_prefs_head_script() {
 	?>
@@ -63,7 +71,25 @@ function clind_prefs_head_script() {
 			root.setAttribute('data-motion', motion);
 		}
 
-		window.clindPrefs = { config: config, read: read, apply: apply };
+		function save(prefs) {
+			var saved = {
+				version: config.version,
+				saved: new Date().toISOString(),
+				theme: prefs.theme,
+				motion: prefs.motion,
+				thirdParty: prefs.thirdParty
+			};
+			try {
+				localStorage.setItem(config.key, JSON.stringify(saved));
+			} catch (e) {
+				/* Storage blocked: the choices still apply on this page */
+			}
+			apply(saved);
+			document.dispatchEvent(new CustomEvent('clind:prefs', { detail: saved }));
+		}
+
+		window.clindPrefs = { config: config, read: read, apply: apply, save: save };
+		root.classList.add('js');
 		apply(read());
 	})();
 	</script>

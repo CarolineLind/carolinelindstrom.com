@@ -65,14 +65,14 @@ carolinelindstrom/
 ├── header.php · footer.php
 ├── front-page.php · page.php · single.php · index.php · 404.php
 ├── template-parts/
-│   ├── header/               Site navigation
+│   ├── header/               Menu, menu button and toggles
 │   └── content/              Page content and post lists
 └── assets/
     ├── css/
     │   ├── base/             tokens, reset, typography, utilities
     │   ├── layout/           header, footer, content
     │   └── components/       One file per component
-    ├── js/
+    ├── js/                   preferences.js (dialog), header.js (toggles, mobile menu)
     └── fonts/                Self-hosted woff2 files and their licenses
 ```
 

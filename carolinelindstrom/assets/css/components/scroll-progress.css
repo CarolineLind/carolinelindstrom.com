@@ -1,0 +1,52 @@
+/* --------------------------------------------------
+ * ---------------- SCROLL PROGRESS -----------------
+ * -------------------------------------------------- */
+
+/*
+A thin line along the top that grows as you scroll (scroll-driven animation, no JavaScript).
+Only shown when motion is on and the browser supports it.
+After following a menu link it first counts down from where the last page was
+(.progress-returning, see clind_handoff_script), then follows the scroll again.
+*/
+
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: var(--z-progress);
+  display: none;
+  height: 4px;
+  background: var(--color-ring-yellow);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  html[data-motion="on"] .scroll-progress {
+    display: block;
+    animation: scroll-progress-grow linear both;
+    animation-timeline: scroll(root);
+  }
+
+  /* Runs on time, not on the scroll */
+  html[data-motion="on"].progress-returning .scroll-progress {
+    animation: scroll-progress-return var(--dur-slide) var(--ease-out) both;
+    animation-timeline: auto;
+  }
+}
+
+@keyframes scroll-progress-return {
+  from {
+    transform: scaleX(var(--progress-from));
+  }
+
+  to {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes scroll-progress-grow {
+  to {
+    transform: scaleX(1);
+  }
+}

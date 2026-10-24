@@ -13,6 +13,9 @@ html {
   /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+
+  /* No grey/blue flash on tap in mobile browsers. Keyboard focus is unaffected; buttons give feedback on press */
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {

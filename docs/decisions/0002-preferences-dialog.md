@@ -43,15 +43,16 @@ The site is a playground with a lot of motion: rolling text, hover effects and a
 
 | What | File |
 | --- | --- |
-| Settings, head script that applies the choices | `carolinelindstrom/inc/preferences.php` |
+| Settings, head script that applies and saves the choices (`window.clindPrefs`) | `carolinelindstrom/inc/preferences.php` |
 | Dialog markup | `carolinelindstrom/template-parts/preferences/dialog.php` |
 | Saving, Escape, preview, reopening, embeds | `carolinelindstrom/assets/js/preferences.js` |
 | Holding back iframes | `carolinelindstrom/inc/embeds.php` |
+| Header toggles for motion and light/dark | `carolinelindstrom/assets/js/header.js` (see 0003) |
 | Styles (proof of concept) | `assets/css/components/preferences.css`, `embed.css` |
 | Motion rule | `assets/css/base/utilities.css` |
 
 ## How to change it
 
-- **Add a choice** (e.g. "Statistik"): add it to the dialog, `fromForm()` and `defaults` in `preferences.js`, then **raise `version`** in `clind_prefs_config()` so everyone is asked again.
+- **Add a choice** (e.g. "Statistik"): add it to the dialog, `fromForm()` in `preferences.js`, `defaults` in `clind_prefs_config()` and `save()` in the head script, then **raise `version`** in `clind_prefs_config()` so everyone is asked again.
 - **Change how long choices last:** `maxAgeDays` in `clind_prefs_config()`.
 - **A new embed service with its own name and link:** add it to `clind_embed_service()` in `inc/embeds.php`.
