@@ -58,6 +58,10 @@ Breakpoints (media queries can't read variables):
 
   /* See-through header while scrolled (layout/header.css): 65 % of --color-bg, about #15131FA6 */
   --color-glass: color-mix(in srgb, var(--color-bg) 65%, transparent);
+
+  /* Behind the preferences dialog: when reopened, and on the first visit */
+  --color-backdrop: rgb(0 0 0 / 60%);
+  --color-backdrop-first: var(--color-bg);
   --blur-glass: 10px;
 
   /* A ring of background color around letters, so text stays readable over sparkles and the glass header */
@@ -157,6 +161,25 @@ Breakpoints (media queries can't read variables):
   --dur-slow: .4s;
   --dur-slide: .55s;
   --dur-stagger: .04s;
+
+  /*
+  The first-visit intro, shown once (docs/decisions/0005-logo-and-favicon.md),
+  timed from when the dialog has gone: the header veil fades, the logo writes
+  itself in one stroke at a time at an even pen speed (components/logo.css),
+  and the content veil slides away once it is written (components/intro.css)
+  */
+  --dur-intro-header: .5s;
+  --dur-write-delay: .25s;
+  --dur-intro-content-delay: 1.9s;
+  --dur-intro-content: 1.6s;
+  --intro-fade: 100vh;
+  --dur-write-bracket-l: .28s;
+  --dur-write-word: 1s;
+  --dur-write-bracket-r: .3s;
+  --dur-write-pause: .12s;
+
+  /* Logo */
+  --logo-height: 32px;
 
   /* Stacking */
   --z-base: 1;

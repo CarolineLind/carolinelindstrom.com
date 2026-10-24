@@ -20,11 +20,13 @@ function clind_enqueue_styles() {
 		'cl-header'     => 'assets/css/layout/header.css',
 		'cl-footer'     => 'assets/css/layout/footer.css',
 		'cl-content'    => 'assets/css/layout/content.css',
+		'cl-logo'       => 'assets/css/components/logo.css',
 		'cl-toggles'    => 'assets/css/components/toggles.css',
 		'cl-menu-btn'   => 'assets/css/components/menu-button.css',
 		'cl-nav-ind'    => 'assets/css/components/nav-indicator.css',
 		'cl-progress'   => 'assets/css/components/scroll-progress.css',
 		'cl-prefs'      => 'assets/css/components/preferences.css',
+		'cl-intro'      => 'assets/css/components/intro.css',
 		'cl-embed'      => 'assets/css/components/embed.css',
 	);
 

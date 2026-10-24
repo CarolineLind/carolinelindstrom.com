@@ -73,10 +73,11 @@ $clind_groups = array(
 	</form>
 </dialog>
 <script>
-	/* Open before the page is drawn on the first visit; preferences.js handles the rest */
+	/* Open before the page is drawn on the first visit, on a black backdrop; preferences.js handles the rest */
 	if (window.clindPrefs && !window.clindPrefs.read()) {
 		var clindPrefsDialog = document.getElementById('clind-prefs');
 		if (clindPrefsDialog.showModal) {
+			clindPrefsDialog.classList.add('prefs--first');
 			clindPrefsDialog.showModal();
 		}
 	}

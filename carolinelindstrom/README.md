@@ -61,6 +61,7 @@ carolinelindstrom/
 ├── inc/
 │   ├── setup.php             Theme supports, menus, editor styles
 │   ├── enqueue.php           CSS/JS loading, fonts, light/dark script in <head>
+│   ├── icons.php             Favicon, home screen icon and theme-color
 │   └── template-tags.php     Small template helpers (logo, menu classes)
 ├── header.php · footer.php
 ├── front-page.php · page.php · single.php · index.php · 404.php
@@ -73,7 +74,8 @@ carolinelindstrom/
     │   ├── layout/           header, footer, content
     │   └── components/       One file per component
     ├── js/                   preferences.js (dialog), header.js (toggles, mobile menu)
-    └── fonts/                Self-hosted woff2 files and their licenses
+    ├── fonts/                Self-hosted woff2 files and their licenses
+    └── icons/                favicon.svg (light/dark) and its PNG versions
 ```
 
 Outside the theme folder, at the repo root:
@@ -82,6 +84,7 @@ Outside the theme folder, at the repo root:
 docs/decisions/               Why things are the way they are, one file per decision
 tools/fonts/                  Source fonts and the scripts that trim them
 tools/a11y-summary.mjs        Sorts pa11y results into theme and content errors
+tools/icons/                  Renders the favicon PNGs from favicon.svg
 .claude/skills/component/     The routine for building a component (/component in Claude Code)
 ```
 

@@ -14,7 +14,7 @@ The site is a playground with a lot of motion: rolling text, hover effects and a
 
 ## Decision
 
-- **One modal dialog on the first visit** (`<dialog>` with `showModal()`), centered.
+- **One modal dialog on the first visit** (`<dialog>` with `showModal()`), centered, on a backdrop in the page background color (only the dialog shows). With motion on, it slides down out of the window when saved, the header appears first and the logo writes itself in, then the content (0005).
 - **Three choices:**
 
   | Choice | Options | Pre-selected |

@@ -32,10 +32,20 @@ function clind_nav_item_title( $title, $item, $args ) {
 }
 add_filter( 'nav_menu_item_title', 'clind_nav_item_title', 10, 3 );
 
-/* The <cl> logo, linking to the start page */
+/*
+The hand-drawn <cl> logo, linking to the start page (components/logo.css).
+Pen strokes in SVG, no font: the brackets, "cl" in one stroke, and a swash
+under it that is drawn on hover. pathLength="1" lets the CSS write each stroke
+in with the same numbers, whatever its real length.
+*/
 function clind_logo() {
 	printf(
-		'<a class="logo mono" href="%1$s" aria-label="%2$s"><span class="logo__bracket logo__bracket--l" aria-hidden="true">&lt;</span><span aria-hidden="true">cl</span><span class="logo__bracket logo__bracket--r" aria-hidden="true">&gt;</span></a>',
+		'<a class="logo" href="%1$s" aria-label="%2$s"><svg class="logo__svg" viewBox="0 12 390 180" width="69" height="32" aria-hidden="true" focusable="false">'
+		. '<path class="logo__bracket logo__bracket--l" pathLength="1" d="M74 66 C 60 80, 44 94, 30 112 C 46 126, 60 138, 76 154"/>'
+		. '<path class="logo__word" pathLength="1" d="M166 94 C 158 78, 134 74, 120 88 C 104 104, 104 140, 126 152 C 146 162, 168 152, 186 138 C 210 118, 240 86, 244 56 C 247 30, 220 26, 216 54 C 212 86, 214 124, 222 146 C 228 160, 246 160, 260 150"/>'
+		. '<path class="logo__bracket logo__bracket--r" pathLength="1" d="M304 64 C 320 80, 336 94, 356 108 C 340 124, 324 140, 306 156"/>'
+		. '<path class="logo__swash" d="M108 199 C 150 189, 204 193, 236 194 C 252 194.5, 264 192, 276 187"/>'
+		. '</svg></a>',
 		esc_url( home_url( '/' ) ),
 		/* translators: %s: site name */
 		esc_attr( sprintf( __( '%s, startsida', 'carolinelindstrom' ), get_bloginfo( 'name' ) ) )

@@ -72,33 +72,6 @@ smaller padding, so the page never jumps. Text in the header has a halo
   }
 }
 
-/* ---------------------- LOGO ---------------------- */
-
-.logo {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap-min);
-  font-size: 22px;
-  font-weight: var(--fw-semibold);
-  letter-spacing: var(--ls-tight);
-  text-decoration: none;
-  text-shadow: var(--text-halo);
-}
-
-.logo__bracket {
-  display: inline-block;
-  color: var(--color-accent-text);
-  transition: transform var(--dur-base) var(--ease-out);
-}
-
-.logo:is(:hover, :focus-visible) .logo__bracket--l {
-  transform: translateX(-4px);
-}
-
-.logo:is(:hover, :focus-visible) .logo__bracket--r {
-  transform: translateX(4px);
-}
-
 /* -------------------- PLACEMENT ------------------- */
 
 .site-header__inner > .logo {

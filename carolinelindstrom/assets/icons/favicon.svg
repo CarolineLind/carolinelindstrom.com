@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- The "cl" pen stroke from the logo. Follows the system's light or dark mode, not the site's toggle. -->
+  <style>
+    .plate { fill: #CDCCF9; }
+    .word { stroke: #1B1930; }
+    @media (prefers-color-scheme: dark) {
+      .plate { fill: #15131F; }
+      .word { stroke: #CDCCF9; }
+    }
+  </style>
+  <rect class="plate" width="64" height="64" rx="14"/>
+  <path class="word" transform="translate(-19.5 5.5) scale(.285)" fill="none" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" d="M166 94 C 158 78, 134 74, 120 88 C 104 104, 104 140, 126 152 C 146 162, 168 152, 186 138 C 210 118, 240 86, 244 56 C 247 30, 220 26, 216 54 C 212 86, 214 124, 222 146 C 228 160, 246 160, 260 150"/>
+</svg>

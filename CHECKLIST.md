@@ -79,6 +79,7 @@ Where the header differs from the design: `docs/decisions/0003-header.md`.
 - [x] Mobile menu button (hamburger that becomes an X, Escape closes)
 - [x] Sliding menu indicator with the sparkles (anchor positioning, with a fallback)
 - [x] Scroll progress bar (scroll-driven, hidden when motion is off)
+- [x] Hand-drawn `<cl>` logo, written in once after the first-visit dialog (`docs/decisions/0005-logo-and-favicon.md`)
 - [x] Sticky header (from 600 px window height) with `scroll-padding` from `--header-height`; mobile menu as a panel over the content
 - [ ] The menu in WordPress still has 7 items (the `v3` drafts). With 5 it fits on one row from about 800 px; check again when the menu is final
 - [ ] Test the header with VoiceOver (macOS and iOS)
@@ -118,7 +119,9 @@ pa11y findings in today's draft content (2026-10-23), all in the content, none i
 - [ ] Open Graph and share image
 - [ ] `Person` structured data (JSON-LD), plus `WebSite`
 - [ ] Core sitemap: only the pages that should be in it
-- [ ] `robots.txt`, favicon and app icons, `theme-color` for both modes
+- [ ] `robots.txt`
+- [x] Favicon and app icons, `theme-color` for both modes (0005)
+- [ ] Check `/favicon.ico` on SiteGround once the theme is live (Local answers it before WordPress does)
 - [ ] Redirects from old URLs (e.g. `valkommen-v3`, `om-mig-v3`, `prestanda-v1`)
 
 ## 11. Analytics and Jetpack

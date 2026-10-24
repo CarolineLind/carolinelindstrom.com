@@ -22,7 +22,39 @@
 }
 
 .prefs::backdrop {
-  background: rgb(0 0 0 / 60%);
+  background: var(--color-backdrop);
+}
+
+/* First visit: only the page background, in the colors being chosen, until the visitor has chosen */
+.prefs--first::backdrop {
+  background: var(--color-backdrop-first);
+}
+
+/* -------------------- LEAVING --------------------- */
+
+/*
+Saving with motion on (preferences.js): the dialog slides down out of the
+window and the backdrop fades, then the dialog closes. Leaving speeds up
+(--ease-in), see docs/decisions/0004-motion.md.
+*/
+.prefs,
+.prefs::backdrop {
+  transition:
+    transform var(--dur-base) var(--ease-in),
+    opacity var(--dur-base) var(--ease-in);
+}
+
+.prefs--leaving {
+  transform: translateY(100dvh);
+}
+
+.prefs--leaving::backdrop {
+  opacity: 0;
+}
+
+/* First visit: the backdrop stays while the intro takes over (intro.css) */
+.prefs--first.prefs--leaving::backdrop {
+  opacity: 1;
 }
 
 .prefs__form {

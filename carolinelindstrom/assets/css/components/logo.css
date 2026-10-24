@@ -1,0 +1,116 @@
+/* --------------------------------------------------
+ * ---------------------- LOGO ----------------------
+ * -------------------------------------------------- */
+
+/*
+The hand-drawn <cl> logo in the header (clind_logo() in inc/template-tags.php).
+Hover and focus: the brackets slide apart and a pen swash is drawn under "cl".
+.logo--write: written in one stroke at a time. preferences.js adds it once,
+when the first-visit dialog leaves (docs/decisions/0005-logo-and-favicon.md).
+*/
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.logo__svg {
+  display: block;
+  width: auto;
+  height: var(--logo-height);
+  overflow: visible;
+}
+
+.logo__svg path {
+  fill: none;
+  stroke: var(--logo-stroke, currentcolor);
+  stroke-width: 18;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.logo__bracket {
+  --logo-stroke: var(--color-lilac-strong);
+}
+
+.logo__bracket,
+.logo__word {
+  transform-box: fill-box;
+  transition: transform var(--dur-slow) var(--ease-spring);
+}
+
+/* Dashed so only the first 170 units show, then pushed out of sight until hover */
+.logo__swash {
+  --logo-stroke: var(--color-ring-yellow);
+
+  stroke-dasharray: 170 999;
+  stroke-dashoffset: 182;
+  transition: stroke-dashoffset var(--dur-slow) var(--ease-in-out);
+}
+
+/* -------------------- WRITE-IN -------------------- */
+
+/*
+<, then cl, then >, with the pen lifted in between. Added when the intro
+starts (intro.css), and starts while the header veil is still fading.
+The strokes are hidden from the start of the delay (fill-mode both).
+*/
+.logo--write {
+  --write-start: var(--dur-write-delay);
+  --write-word: calc(var(--write-start) + var(--dur-write-bracket-l) + var(--dur-write-pause));
+  --write-r: calc(var(--write-word) + var(--dur-write-word) + var(--dur-write-pause));
+}
+
+.logo--write :is(.logo__bracket, .logo__word) {
+  stroke-dasharray: 1 2;
+  animation: logo-write var(--dur-write-bracket-l) var(--ease-in-out) var(--write-start) both;
+}
+
+.logo--write .logo__word {
+  animation-duration: var(--dur-write-word);
+  animation-delay: var(--write-word);
+}
+
+.logo--write .logo__bracket--r {
+  animation-duration: var(--dur-write-bracket-r);
+  animation-delay: var(--write-r);
+}
+
+/* A little past 1 so the round line cap doesn't leave a dot at the start */
+@keyframes logo-write {
+  from {
+    stroke-dashoffset: 1.04;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* -------------------- HOVER ----------------------- */
+
+/* Units are the SVG's: 24 of 180 is about 4 px at 32 px tall */
+.logo:is(:hover, :focus-visible) .logo__bracket--l {
+  transform: translateX(-24px);
+}
+
+.logo:is(:hover, :focus-visible) .logo__bracket--r {
+  transform: translateX(24px);
+}
+
+.logo:is(:hover, :focus-visible) .logo__swash {
+  stroke-dashoffset: 0;
+}
+
+/* -------------------- FORCED COLORS --------------- */
+
+/* High contrast modes: the system's link color, not the theme's colors */
+@media (forced-colors: active) {
+  .logo__svg path {
+    stroke: LinkText;
+  }
+}

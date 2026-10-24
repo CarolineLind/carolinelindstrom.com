@@ -10,3 +10,4 @@ require get_template_directory() . '/inc/template-tags.php';
 require get_template_directory() . '/inc/cleanup.php';
 require get_template_directory() . '/inc/preferences.php';
 require get_template_directory() . '/inc/embeds.php';
+require get_template_directory() . '/inc/icons.php';

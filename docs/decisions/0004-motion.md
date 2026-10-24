@@ -92,7 +92,8 @@ Everything in the theme follows these rules as of 2026-10-24, apart from the exc
 
 - **Mobile menu** (decision 0003): opens with `--ease-out` over `--dur-slow`, closes with `--ease-in` over `--dur-base`. The dimming of the page behind follows the same rhythm. The links slide in staggered over `--dur-slow` and leave with the panel.
 - **Hamburger ↔ X:** a state change of a button that stays on screen, so `--ease-spring` both ways over `--dur-base`.
-- **Header becoming compact and glass, logo brackets, menu underline, light/dark switch:** state changes with `--ease-out` both ways.
+- **Header becoming compact and glass, menu underline, light/dark switch:** state changes with `--ease-out` both ways.
+- **Logo** (decision 0005): the brackets spring apart with `--ease-spring` over `--dur-slow`, the swash is drawn with `--ease-in-out`. After the first-visit dialog, which leaves with `--ease-in` over `--dur-base`, the strokes are written in one at a time with `--ease-in-out` (`--dur-write-*`). **Exception:** this first-visit intro (logo done after about 2.4 s, content shown after about 3.5 s, `--dur-intro-*`) is far longer than the durations above. It's shown once per visitor, as an entrance rather than a reaction to a click, and it ends within 5 seconds (WCAG 2.2.2).
 - **Sliding menu line:** a small detail with `--ease-slide` over `--dur-slide`.
 - **Progress bar counting down after a menu link:** large movement, `--ease-out` over `--dur-slide`.
 - **Hover colors and presses:** `--dur-fast`, presses with `--ease-spring`.

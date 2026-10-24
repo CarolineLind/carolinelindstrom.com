@@ -1,0 +1,67 @@
+/* --------------------------------------------------
+ * ---------------------- INTRO ---------------------
+ * -------------------------------------------------- */
+
+/*
+Shown once, after the first-visit dialog, with motion on (openIntro() in
+preferences.js, docs/decisions/0005-logo-and-favicon.md). Two veils in the
+page background color take over from the dialog's backdrop:
+1. the header veil fades quickly, and the logo writes itself in (logo.css)
+2. while "cl" is being written, the content veil slides down: a long soft
+   edge, so the content appears gradually from the top.
+Decorative, can't be clicked, removed when done. Transform and opacity only.
+*/
+
+.intro-veil {
+  position: fixed;
+  inset-inline: 0;
+  z-index: var(--z-dialog);
+  pointer-events: none;
+}
+
+/* -------------------- HEADER ---------------------- */
+
+.intro-veil--header {
+  top: 0;
+  height: var(--header-height);
+  background: var(--color-bg);
+  animation: intro-fade var(--dur-intro-header) var(--ease-in) both;
+}
+
+@keyframes intro-fade {
+  to {
+    opacity: 0;
+  }
+}
+
+/* -------------------- CONTENT --------------------- */
+
+/*
+Clipped to below the header. The sliding part is taller than the window by
+the soft edge, which starts above the window's top, so it begins solid.
+*/
+.intro-veil--content {
+  top: var(--header-height);
+  bottom: 0;
+  overflow: hidden;
+}
+
+.intro-veil--content::before {
+  position: absolute;
+  inset: calc(-1 * var(--intro-fade)) 0 auto;
+  height: calc(100% + var(--intro-fade));
+  background: linear-gradient(transparent, var(--color-bg) var(--intro-fade));
+  content: "";
+  animation: intro-slide var(--dur-intro-content) var(--ease-in-out) var(--dur-intro-content-delay) both;
+}
+
+@keyframes intro-slide {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+/* Motion turned off mid-intro: stopped veils would cover the page */
+html:not([data-motion="on"]) .intro-veil {
+  display: none;
+}

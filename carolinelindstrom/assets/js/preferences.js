@@ -80,7 +80,73 @@ script (inc/preferences.php), shared through window.clindPrefs.
 		if (saved && title.dataset.titleAgain) {
 			title.textContent = title.dataset.titleAgain;
 		}
+		dialog.classList.toggle('prefs--first', !saved);
 		dialog.showModal();
+	}
+
+	/* -------------------- LEAVE ----------------------- */
+
+	/*
+	First visit, motion on: veils in the page background take over from the
+	backdrop, the header first, and the logo writes itself in (intro.css,
+	logo.css). The motion rule in utilities.css stops both if motion is turned
+	off; the veils are then hidden.
+	*/
+	function openIntro() {
+		var veils = ['header', 'content'].map(function (part) {
+			var veil = document.createElement('div');
+			veil.className = 'intro-veil intro-veil--' + part;
+			veil.setAttribute('aria-hidden', 'true');
+			veil.addEventListener('animationend', function () {
+				veil.remove();
+			});
+			document.body.appendChild(veil);
+			return veil;
+		});
+		/* In case animationend never comes */
+		window.setTimeout(function () {
+			veils.forEach(function (veil) {
+				veil.remove();
+			});
+		}, 4000);
+
+		var logo = document.querySelector('.logo');
+		if (logo) {
+			logo.classList.add('logo--write');
+		}
+	}
+
+	/* With motion on, the dialog slides out before it closes (preferences.css) */
+	function leave() {
+		if (dialog.classList.contains('prefs--leaving')) {
+			return;
+		}
+
+		if (document.documentElement.getAttribute('data-motion') !== 'on') {
+			dialog.close();
+			return;
+		}
+
+		var first = dialog.classList.contains('prefs--first');
+
+		var timer;
+		function finish(event) {
+			if (event && (event.target !== dialog || event.propertyName !== 'transform')) {
+				return;
+			}
+			window.clearTimeout(timer);
+			dialog.removeEventListener('transitionend', finish);
+			/* In the same task as close(), so the page never flickers into view */
+			if (first) {
+				openIntro();
+			}
+			dialog.close();
+			dialog.classList.remove('prefs--leaving');
+		}
+		dialog.addEventListener('transitionend', finish);
+		/* In case transitionend never comes (e.g. the tab is in the background) */
+		timer = window.setTimeout(finish, 1000);
+		dialog.classList.add('prefs--leaving');
 	}
 
 	/* Preview light/dark behind the dialog; motion stays as it was until saved */
@@ -96,7 +162,7 @@ script (inc/preferences.php), shared through window.clindPrefs.
 	form.addEventListener('submit', function (event) {
 		event.preventDefault();
 		save(fromForm());
-		dialog.close();
+		leave();
 	});
 
 	/* Escape: first visit saves the defaults, later visits leave the saved choices as they were */
@@ -107,7 +173,7 @@ script (inc/preferences.php), shared through window.clindPrefs.
 		} else {
 			save(defaults);
 		}
-		dialog.close();
+		leave();
 	});
 
 	document.querySelectorAll('[data-prefs-open]').forEach(function (button) {
