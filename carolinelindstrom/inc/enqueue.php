@@ -28,6 +28,8 @@ function clind_enqueue_styles() {
 		'cl-prefs'      => 'assets/css/components/preferences.css',
 		'cl-intro'      => 'assets/css/components/intro.css',
 		'cl-embed'      => 'assets/css/components/embed.css',
+		'cl-footer-nav' => 'assets/css/components/footer-nav.css',
+		'cl-contact'    => 'assets/css/components/contact.css',
 	);
 
 	$previous = array();
@@ -38,19 +40,25 @@ function clind_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'clind_enqueue_styles' );
 
-/* The header's toggles and mobile menu button: on every page, since the header is */
+/* The header (toggles, mobile menu) and the footer (animations on scroll): on every page, since both are */
 function clind_enqueue_scripts() {
-	$path = 'assets/js/header.js';
-	wp_enqueue_script(
-		'clind-header',
-		get_template_directory_uri() . '/' . $path,
-		array(),
-		clind_asset_version( $path ),
-		array(
-			'strategy'  => 'defer',
-			'in_footer' => true,
-		)
+	$scripts = array(
+		'clind-header' => 'assets/js/header.js',
+		'clind-footer' => 'assets/js/footer.js',
 	);
+
+	foreach ( $scripts as $handle => $path ) {
+		wp_enqueue_script(
+			$handle,
+			get_template_directory_uri() . '/' . $path,
+			array(),
+			clind_asset_version( $path ),
+			array(
+				'strategy'  => 'defer',
+				'in_footer' => true,
+			)
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'clind_enqueue_scripts' );
 

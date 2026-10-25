@@ -14,7 +14,8 @@
 	<style>html{color-scheme:dark;background:#15131F}html[data-theme="light"]{color-scheme:light;background:#FBFAF6}</style>
 	<?php wp_head(); ?>
 </head>
-<body <?php body_class(); ?>>
+<?php /* id="top": the footer's "Till toppen" link scrolls here */ ?>
+<body id="top" <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
 <a class="skip-link" href="#main"><?php esc_html_e( 'Hoppa till innehållet', 'carolinelindstrom' ); ?></a>

@@ -2,13 +2,39 @@
  * --------------------- FOOTER ---------------------
  * -------------------------------------------------- */
 
+/*
+The logo mark and copyright on one side, the footer nav on the other
+(components/footer-nav.css). From 720px down the nav comes first, as full-width
+rows, and the logo and copyright sit centered below it.
+*/
+
 .site-footer {
-  border-top: var(--border-width) solid var(--color-border);
+  border-top: var(--border-width) solid var(--color-footer-border);
+  background: var(--color-footer-bg);
 }
 
-[data-theme="light"] .site-footer {
-  background: #F1EFFD;
-  border-top-color: #DCDAFB;
+/* --------------------- REVEAL --------------------- */
+
+/*
+"Här hittar du mig" (components/contact.css) lies on top of the bar like a
+curtain, with a solid background and a shadow along its edge. The bar is sticky
+to the bottom of the window, so it stands still behind the contact block and is
+uncovered as that scrolls up. footer.js turns this on (.site-footer--reveal) while the footer is on screen,
+and scrolls the bar into view when a link in it gets focus while covered
+(WCAG 2.4.11). Short windows (phones held sideways, high zoom) skip it, like the
+sticky header, so the bar never takes much of the screen.
+*/
+.site-footer__bar {
+  position: relative;
+  background: var(--color-footer-bar);
+}
+
+@media (height >= 600px) {
+  .site-footer--reveal .site-footer__bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 0;
+  }
 }
 
 .site-footer__inner {
@@ -20,43 +46,53 @@
   padding-block: var(--space-6);
 }
 
+.site-footer__id {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.site-footer__logo {
+  display: block;
+  flex: none;
+  width: auto;
+  height: 26px;
+  overflow: visible;
+}
+
+.site-footer__logo path {
+  fill: none;
+  stroke: var(--color-muted);
+  stroke-width: 18;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/*
+With motion on and footer.js running, the strokes wait unwritten until the logo
+scrolls into view and .logo--write draws them (components/logo.css).
+Turning motion off shows the logo again.
+*/
+html[data-motion="on"] .site-footer--animated .site-footer__logo:not(.logo--write) path {
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1.04;
+}
+
 .site-footer__copy {
   font-size: var(--fs-small);
 }
 
-.footer-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 var(--space-6);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
+@media (width <= 720px) {
+  .site-footer__inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-/* Links and the "Inställningar" button look the same */
-.site-footer :is(a, .site-footer__settings) {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap-min);
-  color: var(--color-muted);
-  font-weight: var(--fw-semibold);
-  text-decoration: none;
-}
-
-.site-footer__settings {
-  padding: 0;
-  border: 0;
-  background: none;
-}
-
-.site-footer__settings[hidden] {
-  display: none;
-}
-
-.site-footer :is(a, .site-footer__settings):hover {
-  color: var(--color-text);
-}
-
-[data-theme="light"] .site-footer :is(a, .muted, .site-footer__settings) {
-  color: #4A4566;
+  .site-footer__id {
+    flex-direction: column;
+    gap: var(--space-3);
+    order: 1;
+    padding-block: var(--space-6) var(--space-2);
+    text-align: center;
+  }
 }

@@ -30,6 +30,32 @@
   background: var(--color-backdrop-first);
 }
 
+/* -------------------- ENTERING -------------------- */
+
+/*
+Reopened from "Inställningar" with motion on: the dialog slides up from below
+and the backdrop fades in. Entering slows down (--ease-out) and is one step
+longer than leaving, see docs/decisions/0004-motion.md. The first visit opens
+before motion is on, so it appears at once. Browsers without @starting-style
+skip the block and simply show the dialog; @supports can't test for at-rules.
+*/
+.prefs[open]:not(.prefs--leaving),
+.prefs[open]:not(.prefs--leaving)::backdrop {
+  transition:
+    transform var(--dur-slow) var(--ease-out),
+    opacity var(--dur-slow) var(--ease-out);
+}
+
+@starting-style {
+  .prefs[open] {
+    transform: translateY(100dvh);
+  }
+
+  .prefs[open]::backdrop {
+    opacity: 0;
+  }
+}
+
 /* -------------------- LEAVING --------------------- */
 
 /*

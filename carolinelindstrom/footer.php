@@ -2,26 +2,18 @@
 </main>
 
 <footer class="site-footer">
-	<div class="site-footer__inner container">
-		<span class="site-footer__copy mono muted">&copy; <?php echo esc_html( get_bloginfo( 'name' ) . ' ' . wp_date( 'Y' ) ); ?></span>
+	<?php get_template_part( 'template-parts/footer/contact' ); ?>
 
-		<?php
-		wp_nav_menu(
-			array(
-				'theme_location'       => 'footer',
-				'container'            => 'nav',
-				'container_aria_label' => __( 'Sidfotsmeny', 'carolinelindstrom' ),
-				'menu_class'           => 'footer-list',
-				'depth'                => 1,
-				'fallback_cb'          => false,
-			)
-		);
-		?>
+	<?php /* The bottom bar: "Här hittar du mig" slides up and uncovers it (layout/footer.css) */ ?>
+	<div class="site-footer__bar">
+		<div class="site-footer__inner container">
+			<span class="site-footer__id">
+				<?php clind_logo_mark(); ?>
+				<span class="site-footer__copy mono muted">&copy; <?php echo esc_html( get_bloginfo( 'name' ) . ' ' . wp_date( 'Y' ) ); ?></span>
+			</span>
 
-		<?php /* Hidden until preferences.js runs, since it needs JavaScript */ ?>
-		<button type="button" class="site-footer__settings" data-prefs-open hidden><?php esc_html_e( 'Inställningar', 'carolinelindstrom' ); ?></button>
-
-		<a class="totop" href="#main"><?php esc_html_e( 'Till toppen', 'carolinelindstrom' ); ?></a>
+			<?php get_template_part( 'template-parts/footer/footer-nav' ); ?>
+		</div>
 	</div>
 </footer>
 

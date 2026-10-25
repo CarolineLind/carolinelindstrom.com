@@ -31,7 +31,6 @@ function clind_setup() {
 	register_nav_menus(
 		array(
 			'primary' => __( 'Huvudmeny', 'carolinelindstrom' ),
-			'footer'  => __( 'Sidfotsmeny', 'carolinelindstrom' ),
 		)
 	);
 }

@@ -56,6 +56,19 @@ Breakpoints (media queries can't read variables):
   --color-dot: #4C4867;
   --color-dot-hi: #E6E3FF;
 
+  /*
+  Footer: a tinted band in light mode. --color-ring-quiet outlines the footer's icon rings
+  (3:1 against the footer and its bar), --color-footer-dot is the dot pattern behind
+  "Här hittar du mig", --color-footer-bar is the bottom bar it uncovers, and
+  --shadow-curtain the shadow its edge casts onto the bar
+  */
+  --color-footer-bg: var(--color-bg);
+  --color-footer-border: var(--color-border);
+  --color-ring-quiet: #6A6688;
+  --color-footer-dot: var(--color-dot);
+  --color-footer-bar: #0E0C16;
+  --shadow-curtain: 0 16px 32px -16px rgb(0 0 0 / 70%);
+
   /* See-through header while scrolled (layout/header.css): 65 % of --color-bg, about #15131FA6 */
   --color-glass: color-mix(in srgb, var(--color-bg) 65%, transparent);
 
@@ -161,6 +174,7 @@ Breakpoints (media queries can't read variables):
   --dur-slow: .4s;
   --dur-slide: .55s;
   --dur-stagger: .04s;
+  --dur-beat: .5s;
 
   /*
   The first-visit intro, shown once (docs/decisions/0005-logo-and-favicon.md),
@@ -236,6 +250,14 @@ selectors that name it untouched, so it doesn't affect the site.
   /* Background dot pattern */
   --color-dot: #C2BED6;
   --color-dot-hi: #7D77A6;
+
+  /* Footer */
+  --color-footer-bg: #F1EFFD;
+  --color-footer-border: #DCDAFB;
+  --color-ring-quiet: #7A74B4;
+  --color-footer-dot: #B9B4E6;
+  --color-footer-bar: #E6E3FB;
+  --shadow-curtain: 0 16px 32px -16px rgb(60 40 140 / 25%);
 
   /* See-through header: 40 % of --color-bg, about #FBFAF666 */
   --color-glass: color-mix(in srgb, var(--color-bg) 40%, transparent);

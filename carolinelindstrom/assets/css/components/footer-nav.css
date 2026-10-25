@@ -1,0 +1,109 @@
+/* --------------------------------------------------
+ * ------------------- FOOTER NAV -------------------
+ * -------------------------------------------------- */
+
+/*
+Integritetspolicy, Inställningar and Till toppen (template-parts/footer/footer-nav.php).
+Links and the button look the same: text, then a 44px ring with an icon.
+Hover and focus: the ring takes the text color and the icon lifts a little.
+*/
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-7);
+}
+
+.footer-nav__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--tap-min);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-muted);
+  font: inherit;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-snug);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-in-out);
+}
+
+/* The settings button needs JavaScript: preferences.js removes [hidden] */
+.footer-nav__item[hidden] {
+  display: none;
+}
+
+.footer-nav__item:is(:hover, :focus-visible) {
+  color: var(--color-text);
+}
+
+/* -------------------- THE RING -------------------- */
+
+.footer-nav__icon {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+}
+
+.footer-nav__ring {
+  position: absolute;
+  inset: 0;
+}
+
+.footer-nav__ring circle {
+  fill: none;
+  stroke: var(--color-ring-quiet);
+  stroke-width: 2;
+  transition: stroke var(--dur-fast) var(--ease-in-out);
+}
+
+.footer-nav__item:is(:hover, :focus-visible) .footer-nav__ring circle {
+  stroke: currentcolor;
+}
+
+/* A state change: the same curve both ways (docs/decisions/0004-motion.md) */
+.footer-nav__glyph {
+  transition: transform var(--dur-base) var(--ease-in-out);
+}
+
+.footer-nav__item:is(:hover, :focus-visible) .footer-nav__glyph {
+  transform: translateY(-2px);
+}
+
+/* --------------------- MOBILE --------------------- */
+
+/* Full-width rows with lines between them, the ring at the far end */
+@media (width <= 720px) {
+  .footer-nav {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .footer-nav__item {
+    justify-content: space-between;
+    width: 100%;
+    min-height: 60px;
+    border-top: var(--border-width) solid var(--color-footer-border);
+    font-size: var(--fs-body);
+    text-align: start;
+  }
+
+  .footer-nav__item:first-child {
+    border-top: 0;
+  }
+
+  .footer-nav__item:last-child {
+    border-bottom: var(--border-width) solid var(--color-footer-border);
+  }
+}

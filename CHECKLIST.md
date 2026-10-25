@@ -101,8 +101,9 @@ Where the header differs from the design: `docs/decisions/0003-header.md`.
 - [ ] Keyword banner (endless scroll, paused on hover, hidden duplicate)
 - [ ] "Läs vidare" cards with doodle icons
 - [ ] Code editor section with the light-mode button
-- [ ] Contact section: email, social links, Spotify player (after consent)
-- [ ] Footer "Till toppen" with the progress ring
+- [x] Contact section "Här hittar du mig": in the footer on every page; email and Spotify link set in Customize → "Kontakt i sidfoten"
+- [ ] Remove the "Här hittar du mig" block from the start page in WordPress (it's in the footer now)
+- [x] Footer: Integritetspolicy, Inställningar and Till toppen with icon rings (plain rings, no scroll progress: Caroline's choice)
 
 ## 9. Other pages
 pa11y findings in today's draft content (2026-10-23), all in the content, none in the theme: text colors with too little contrast, iframes without `title`, image links without alt text, an inline SVG with its own colors. Run `npm run test:a11y` again as each page is rebuilt.

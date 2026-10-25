@@ -8,6 +8,10 @@ Third-party material keeps its own license:
 
 - Fonts in carolinelindstrom/assets/fonts/ (Bricolage Grotesque, DM Sans,
   JetBrains Mono): SIL Open Font License 1.1, see the OFL-*.txt files there.
+- Social icons in carolinelindstrom/assets/icons/social/ (LinkedIn, Instagram,
+  GitHub) from Bootstrap Icons 1.11.3 (https://icons.getbootstrap.com/):
+  MIT License, see MIT-bootstrap-icons.txt there. The brands' logos remain
+  their owners' trademarks.
 - Flexbox Grid in CarolineTheme/css/flexboxgrid-6.3.1/: MIT License, see the
   LICENSE file in that folder.
 - Photos in CarolineTheme/bilder/: Unsplash License (https://unsplash.com/license),

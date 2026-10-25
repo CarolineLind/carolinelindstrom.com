@@ -1,0 +1,486 @@
+/* --------------------------------------------------
+ * -------------------- CONTACT ---------------------
+ * -------------------------------------------------- */
+
+/*
+"Här hittar du mig" at the top of the footer (template-parts/footer/contact.php):
+email and social links on one side, the Spotify player on the other, stacked below 1000px.
+Hover and focus: the email's letters wave and the @ spins, and the social pills
+fill with their colour from the left. Motion only runs with data-motion="on".
+*/
+
+.contact {
+  /* The ring around letters over the stars (text-shadow and the email filter below) */
+  --contact-halo: var(--color-footer-bg);
+
+  /* On top of the footer bar it uncovers (layout/footer.css) */
+  position: relative;
+  z-index: 1;
+  background: var(--color-footer-bg);
+  box-shadow: var(--shadow-curtain);
+}
+
+/* ---------------------- SKY ----------------------- */
+
+/*
+A grid of soft dots with coloured stars on top, strongest in the bottom-left
+corner and fading towards the top right. Behind the content: the sky at z-index 0,
+.contact__inner at 1. (Not -1 inside an isolated parent: axe misreads that order
+and reports the text as covered.)
+The stars twinkle out of step, each layer on its own timer. That loops for more
+than 5 seconds, so it only runs with motion on: "Pausa rörelse" in the header
+stops it (WCAG 2.2.2), and with motion off the stars stand still at full strength.
+*/
+.contact__sky {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 75% 100% at 0% 100%, #000 25%, transparent 75%);
+}
+
+/*
+The patterns are painted on ::before, not on the layers themselves: axe treats
+any gradient behind text as unreadable and can't finish its contrast check, but
+it skips pseudo-elements that aren't the text's own. The halo above is what
+keeps the text readable.
+*/
+.contact__sky::before,
+.contact__stars::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+}
+
+.contact__sky::before {
+  background-image: radial-gradient(var(--color-footer-dot) 1.6px, transparent 1.8px);
+  background-size: 24px 24px;
+}
+
+/* Each layer: one colour, its own spacing and offset, so the stars look scattered */
+.contact__stars {
+  position: absolute;
+  inset: 0;
+  animation: contact-twinkle var(--star-duration) var(--ease-in-out) var(--star-delay) infinite;
+}
+
+.contact__stars::before {
+  background-image: radial-gradient(var(--star-color) var(--star-size), transparent calc(var(--star-size) + .3px));
+  background-position: var(--star-offset);
+  background-size: var(--star-grid);
+}
+
+.contact__stars--1 {
+  --star-color: var(--color-ring-yellow);
+  --star-size: 2.4px;
+  --star-grid: 168px 144px;
+  --star-offset: -72px -60px;
+  --star-duration: 3.2s;
+  --star-delay: 0s;
+}
+
+.contact__stars--2 {
+  --star-color: var(--color-ring-lilac);
+  --star-size: 2.4px;
+  --star-grid: 216px 192px;
+  --star-offset: -48px -36px;
+  --star-duration: 4.1s;
+  --star-delay: -1.3s;
+}
+
+.contact__stars--3 {
+  --star-color: var(--color-ring-sky);
+  --star-size: 2.4px;
+  --star-grid: 264px 240px;
+  --star-offset: 0 -12px;
+  --star-duration: 5.3s;
+  --star-delay: -2.1s;
+}
+
+.contact__stars--4 {
+  --star-color: var(--color-ring-yellow);
+  --star-size: 2px;
+  --star-grid: 240px 216px;
+  --star-offset: -36px -24px;
+  --star-duration: 3.7s;
+  --star-delay: -.6s;
+}
+
+.contact__stars--5 {
+  --star-color: var(--color-ring-lilac);
+  --star-size: 2px;
+  --star-grid: 192px 264px;
+  --star-offset: -12px -72px;
+  --star-duration: 4.7s;
+  --star-delay: -3.4s;
+}
+
+.contact__stars--6 {
+  --star-color: var(--color-ring-sky);
+  --star-size: 2px;
+  --star-grid: 288px 168px;
+  --star-offset: -84px -48px;
+  --star-duration: 6.1s;
+  --star-delay: -2.7s;
+}
+
+@keyframes contact-twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .15;
+  }
+}
+
+.contact__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-11) var(--space-12);
+  padding-block: var(--section-space) calc(var(--section-space) + var(--space-4));
+}
+
+.contact__main,
+.contact__music {
+  display: flex;
+  flex: 1 1 420px;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.contact__main {
+  gap: var(--space-7);
+}
+
+.contact__music {
+  gap: var(--space-5);
+}
+
+/*
+A ring of background color keeps letters readable where a star sits right
+under them (in dark mode a yellow star is only about 1.1:1 against white text).
+Checked by hand: text against the background 15:1 or more in both modes, against
+the dots 7.8:1 or more; the halo covers the stars. The email gets its ring from a
+filter instead (see EMAIL).
+*/
+.contact__title,
+.contact__subtitle,
+.contact__social {
+  /* --text-halo (tokens.css) in the footer's colour, so it doesn't show as an outline on the light-mode band */
+  text-shadow:
+    2px 0 var(--contact-halo),
+    -2px 0 var(--contact-halo),
+    0 2px var(--contact-halo),
+    0 -2px var(--contact-halo),
+    1.5px 1.5px var(--contact-halo),
+    -1.5px -1.5px var(--contact-halo),
+    1.5px -1.5px var(--contact-halo),
+    -1.5px 1.5px var(--contact-halo);
+}
+
+.contact__title {
+  margin: 0;
+}
+
+.contact__subtitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-h4);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0;
+}
+
+/* --------------------- EMAIL ---------------------- */
+
+.contact__email {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  max-width: 100%;
+  min-height: var(--tap-min);
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2.4vw, 32px);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-snug);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-in-out);
+}
+
+.contact__email:is(:hover, :focus-visible) {
+  color: var(--color-highlight-text);
+}
+
+/*
+The address wraps only at the @ (two parts), each part underlined.
+The halo is one drop-shadow around the whole address: as a text-shadow on every
+letter span, each letter's ring painted over the edge of the letter before it.
+*/
+.contact__email-text {
+  display: inline-flex;
+  flex-wrap: wrap;
+  row-gap: var(--space-2);
+  filter:
+    drop-shadow(2px 0 var(--contact-halo))
+    drop-shadow(-2px 0 var(--contact-halo))
+    drop-shadow(0 2px var(--contact-halo))
+    drop-shadow(0 -2px var(--contact-halo));
+}
+
+.contact__email-part {
+  display: inline-flex;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--color-line);
+}
+
+.contact__char {
+  display: inline-block;
+  white-space: pre;
+}
+
+/* One wave per hover, each letter 22ms after the one before. --wave: scrolled into view on a touch screen (footer.js) */
+.contact__email:is(:hover, :focus-visible, .contact__email--wave) .contact__char {
+  animation: contact-wave .55s var(--ease-in-out) both;
+  animation-delay: calc(var(--i) * 22ms);
+}
+
+.contact__email:is(:hover, :focus-visible, .contact__email--wave) .contact__char--at {
+  animation-name: contact-spin;
+  animation-duration: .8s;
+}
+
+@keyframes contact-wave {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-10px);
+  }
+
+  70% {
+    transform: translateY(2px);
+  }
+}
+
+@keyframes contact-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* -------------------- SOCIALS --------------------- */
+
+.contact__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* --pill-line outlines the pill, --pill-fill slides in on hover and focus */
+.contact__social--sky {
+  --pill-line: var(--color-ring-sky);
+  --pill-fill: var(--color-sky);
+}
+
+.contact__social--yellow {
+  --pill-line: var(--color-ring-yellow);
+  --pill-fill: var(--color-yellow);
+}
+
+.contact__social--lilac {
+  --pill-line: var(--color-ring-lilac);
+  --pill-fill: var(--color-lilac);
+}
+
+.contact__social {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  min-height: 48px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 1.5px var(--pill-line);
+  color: var(--color-text);
+  font-size: 17px;
+  font-weight: var(--fw-semibold);
+  text-decoration: none;
+
+  /* How long the fill and the colour wipe take; slower when filled on scroll */
+  --pill-duration: var(--dur-slow);
+
+  transition:
+    box-shadow var(--dur-base) var(--ease-swipe),
+    transform var(--dur-fast) var(--ease-spring);
+}
+
+/* A span rather than ::before, so axe can measure the text's contrast */
+.contact__fill {
+  position: absolute;
+  z-index: -1;
+  inset: -1px;
+  background: var(--pill-fill);
+  transform: translateX(-101%);
+  transition: transform var(--pill-duration) var(--ease-swipe);
+}
+
+/*
+The light label and its dark copy on top, in the same place. As the fill slides
+in, the copy is uncovered from the left and the light label hidden from the left,
+at the same pace and curve, so icon and text turn dark exactly as the fill passes.
+The copy is visibility: hidden at rest, so axe doesn't measure dark text on the
+dark background; visibility switches on at the start and off at the end.
+*/
+.contact__label,
+.contact__ink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-5);
+  transition:
+    clip-path var(--pill-duration) var(--ease-swipe),
+    visibility var(--pill-duration);
+}
+
+.contact__label {
+  clip-path: inset(0);
+}
+
+.contact__ink {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+  color: var(--color-ink-on-accent);
+  text-shadow: none;
+  clip-path: inset(0 100% 0 0);
+}
+
+/*
+--filled: scrolled into view on a touch screen (footer.js). One pill after the
+other, slower than hover, with a beat between them so the eye can follow.
+*/
+.contact__socials--filled {
+  --pill-step: calc(var(--dur-slide) + var(--dur-beat));
+}
+
+.contact__socials--filled .contact__social {
+  --pill-duration: var(--dur-slide);
+}
+
+.contact__socials--filled li:nth-child(2) * {
+  transition-delay: var(--pill-step);
+}
+
+.contact__socials--filled li:nth-child(3) * {
+  transition-delay: calc(var(--pill-step) * 2);
+}
+
+.contact__social:is(:hover, :focus-visible),
+.contact__socials--filled .contact__social {
+  box-shadow: inset 0 0 0 1.5px var(--pill-fill);
+}
+
+.contact__social:is(:hover, :focus-visible) .contact__fill,
+.contact__socials--filled .contact__social .contact__fill {
+  transform: none;
+}
+
+.contact__social:is(:hover, :focus-visible) .contact__label,
+.contact__socials--filled .contact__social .contact__label {
+  clip-path: inset(0 0 0 100%);
+}
+
+.contact__social:is(:hover, :focus-visible) .contact__ink,
+.contact__socials--filled .contact__social .contact__ink {
+  visibility: visible;
+  clip-path: inset(0);
+}
+
+.contact__social:active {
+  transform: scale(.96);
+}
+
+/* Wide screens: name and arrow. Phones: the brand icon (MOBILE below) */
+.contact__icon {
+  display: none;
+  flex: none;
+}
+
+.contact__arrow {
+  display: block;
+  flex: none;
+  transform: rotate(-45deg);
+  transition: transform var(--dur-slow) var(--ease-spring);
+}
+
+.contact__social:is(:hover, :focus-visible) .contact__arrow,
+.contact__socials--filled .contact__social .contact__arrow {
+  transform: none;
+}
+
+/* --------------------- MOBILE --------------------- */
+
+/*
+A clear order on phones: a big heading, then the email, then three small round
+icon links on one line. The names stay for screen readers.
+*/
+@media (width <= 720px) {
+  .contact__title {
+    font-size: clamp(40px, 12vw, 56px);
+  }
+
+  .contact__email {
+    font-size: clamp(24px, 7vw, 32px);
+  }
+
+  .contact__socials {
+    flex-wrap: nowrap;
+  }
+
+  .contact__social {
+    width: 48px;
+  }
+
+  .contact__label,
+  .contact__ink {
+    width: 100%;
+    padding: 0;
+  }
+
+  .contact__icon {
+    display: block;
+  }
+
+  .contact__arrow {
+    display: none;
+  }
+
+  /* The same as .sr-only (utilities.css) */
+  .contact__social-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+/* --------------------- PLAYER --------------------- */
+
+.contact__music iframe {
+  border: 0;
+  border-radius: var(--radius-md);
+}

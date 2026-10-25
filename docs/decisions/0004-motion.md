@@ -66,7 +66,7 @@ Animate `transform` and `opacity` where possible (CLAUDE.md). An exception needs
 
 ## Exceptions
 
-- **The preferences dialog** appears and disappears without animation. It's shown on the first visit before the visitor has chosen anything about motion, when motion is off by rule, and it should feel immediate. Decided by Caroline.
+- **The preferences dialog on the first visit** appears without animation. It's shown before the visitor has chosen anything about motion, when motion is off by rule, and it should feel immediate. Decided by Caroline. When it's reopened from "Inställningar" with motion on, it follows the rules: it slides up with `--ease-out` over `--dur-slow` and slides down with `--ease-in` over `--dur-base`, with the backdrop fading in step. The entrance uses `@starting-style` (Chrome and Edge 117, Firefox 129, Safari 17.5, [caniuse](https://caniuse.com/mdn-css_at-rules_starting-style)); older browsers show the dialog at once.
 
 ## Tokens
 
