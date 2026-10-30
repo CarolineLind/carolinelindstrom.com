@@ -17,11 +17,11 @@ rows, and the logo and copyright sit centered below it.
 
 /*
 "Här hittar du mig" (components/contact.css) lies on top of the bar like a
-curtain, with a solid background and a shadow along its edge. The bar is sticky
-to the bottom of the window, so it stands still behind the contact block and is
-uncovered as that scrolls up. footer.js turns this on (.site-footer--reveal) while the footer is on screen,
-and scrolls the bar into view when a link in it gets focus while covered
-(WCAG 2.4.11). Short windows (phones held sideways, high zoom) skip it, like the
+curtain, with a solid background; the bar's deeper colour shows where its edge
+is. The bar is sticky to the bottom of the window, so it stands still behind the
+contact block and is uncovered as that scrolls up. footer.js turns this on
+(.site-footer--reveal) while the footer is on screen, and scrolls the bar into
+view when a link in it gets focus while covered (WCAG 2.4.11). Short windows (phones held sideways, high zoom) skip it, like the
 sticky header, so the bar never takes much of the screen.
 */
 .site-footer__bar {
