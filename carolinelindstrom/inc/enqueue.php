@@ -30,6 +30,8 @@ function clind_enqueue_styles() {
 		'cl-embed'      => 'assets/css/components/embed.css',
 		'cl-footer-nav' => 'assets/css/components/footer-nav.css',
 		'cl-contact'    => 'assets/css/components/contact.css',
+		'cl-sky'        => 'assets/css/components/contact-sky.css',
+		'cl-socials'    => 'assets/css/components/contact-socials.css',
 	);
 
 	$previous = array();

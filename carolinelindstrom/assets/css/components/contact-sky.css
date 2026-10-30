@@ -1,0 +1,129 @@
+/* --------------------------------------------------
+ * ------------------ CONTACT SKY -------------------
+ * -------------------------------------------------- */
+
+/*
+Behind "Här hittar du mig" (template-parts/footer/contact.php, contact.css):
+a grid of soft dots with coloured stars on top, strongest in the bottom-left
+corner and fading towards the top right. Behind the content: the sky at z-index 0,
+.contact__inner at 1. (Not -1 inside an isolated parent: axe misreads that order
+and reports the text as covered.)
+The stars twinkle out of step, each layer on its own timer. That loops for more
+than 5 seconds, so it only runs with motion on: "Pausa rörelse" in the header
+stops it (WCAG 2.2.2), and with motion off the stars stand still at full strength.
+*/
+.contact__sky {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: radial-gradient(
+    ellipse 75% 100% at 0% 100%,
+    #000 25%,
+    transparent 75%
+  );
+}
+
+/*
+The patterns are painted on ::before, not on the layers themselves: axe treats
+any gradient behind text as unreadable and can't finish its contrast check, but
+it skips pseudo-elements that aren't the text's own. The halo in contact.css
+is what keeps the text readable.
+*/
+.contact__sky::before,
+.contact__stars::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+}
+
+.contact__sky::before {
+  background-image: radial-gradient(
+    var(--color-footer-dot) 1.6px,
+    transparent 1.8px
+  );
+  background-size: 24px 24px;
+}
+
+/* Each layer: one colour, its own spacing and offset, so the stars look scattered */
+.contact__stars {
+  position: absolute;
+  inset: 0;
+  animation: contact-twinkle var(--star-duration) var(--ease-in-out)
+    var(--star-delay) infinite;
+}
+
+.contact__stars::before {
+  background-image: radial-gradient(
+    var(--star-color) var(--star-size),
+    transparent calc(var(--star-size) + 0.3px)
+  );
+  background-position: var(--star-offset);
+  background-size: var(--star-grid);
+}
+
+.contact__stars--1 {
+  --star-color: var(--color-ring-yellow);
+  --star-size: 2.4px;
+  --star-grid: 168px 144px;
+  --star-offset: -72px -60px;
+  --star-duration: 3.2s;
+  --star-delay: 0s;
+}
+
+.contact__stars--2 {
+  --star-color: var(--color-ring-lilac);
+  --star-size: 2.4px;
+  --star-grid: 216px 192px;
+  --star-offset: -48px -36px;
+  --star-duration: 4.1s;
+  --star-delay: -1.3s;
+}
+
+.contact__stars--3 {
+  --star-color: var(--color-ring-sky);
+  --star-size: 2.4px;
+  --star-grid: 264px 240px;
+  --star-offset: 0 -12px;
+  --star-duration: 5.3s;
+  --star-delay: -2.1s;
+}
+
+.contact__stars--4 {
+  --star-color: var(--color-ring-yellow);
+  --star-size: 2px;
+  --star-grid: 240px 216px;
+  --star-offset: -36px -24px;
+  --star-duration: 3.7s;
+  --star-delay: -0.6s;
+}
+
+.contact__stars--5 {
+  --star-color: var(--color-ring-lilac);
+  --star-size: 2px;
+  --star-grid: 192px 264px;
+  --star-offset: -12px -72px;
+  --star-duration: 4.7s;
+  --star-delay: -3.4s;
+}
+
+.contact__stars--6 {
+  --star-color: var(--color-ring-sky);
+  --star-size: 2px;
+  --star-grid: 288px 168px;
+  --star-offset: -84px -48px;
+  --star-duration: 6.1s;
+  --star-delay: -2.7s;
+}
+
+@keyframes contact-twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.15;
+  }
+}

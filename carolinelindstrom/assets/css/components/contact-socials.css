@@ -1,0 +1,202 @@
+/* --------------------------------------------------
+ * ---------------- CONTACT SOCIALS -----------------
+ * -------------------------------------------------- */
+
+/*
+"Här hittar du mig": LinkedIn, Instagram and GitHub (template-parts/footer/contact.php).
+Pills with name and arrow on wide screens, round brand icons on phones. On hover
+and focus, and on touch screens when scrolled into view (footer.js), they fill
+with their colour from the left. The halo is in contact.css.
+*/
+
+.contact__socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* --pill-line outlines the pill, --pill-fill slides in on hover and focus */
+.contact__social--sky {
+  --pill-line: var(--color-ring-sky);
+  --pill-fill: var(--color-sky);
+}
+
+.contact__social--yellow {
+  --pill-line: var(--color-ring-yellow);
+  --pill-fill: var(--color-yellow);
+}
+
+.contact__social--lilac {
+  --pill-line: var(--color-ring-lilac);
+  --pill-fill: var(--color-lilac);
+}
+
+.contact__social {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  min-height: 48px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  box-shadow: inset 0 0 0 1.5px var(--pill-line);
+  color: var(--color-text);
+  font-size: 17px;
+  font-weight: var(--fw-semibold);
+  text-decoration: none;
+
+  /* How long the fill and the colour wipe take; slower when filled on scroll */
+  --pill-duration: var(--dur-slow);
+
+  transition:
+    box-shadow var(--dur-base) var(--ease-swipe),
+    transform var(--dur-fast) var(--ease-spring);
+}
+
+a.contact__social:hover {
+  color: unset;
+}
+
+/* A span rather than ::before, so axe can measure the text's contrast */
+.contact__fill {
+  position: absolute;
+  z-index: -1;
+  inset: -1px;
+  background: var(--pill-fill);
+  transform: translateX(-101%);
+  transition: transform var(--pill-duration) var(--ease-swipe);
+}
+
+/*
+The light label and its dark copy on top, in the same place. As the fill slides
+in, the copy is uncovered from the left and the light label hidden from the left,
+at the same pace and curve, so icon and text turn dark exactly as the fill passes.
+The copy is visibility: hidden at rest, so axe doesn't measure dark text on the
+dark background; visibility switches on at the start and off at the end.
+*/
+.contact__label,
+.contact__ink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-5);
+  transition:
+    clip-path var(--pill-duration) var(--ease-swipe),
+    visibility var(--pill-duration);
+}
+
+.contact__label {
+  clip-path: inset(0);
+}
+
+.contact__ink {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+  color: var(--color-ink-on-accent);
+  text-shadow: none;
+  clip-path: inset(0 100% 0 0);
+}
+
+/*
+--filled: scrolled into view on a touch screen (footer.js). One pill after the
+other, slower than hover, with a beat between them so the eye can follow.
+*/
+.contact__socials--filled {
+  --pill-step: calc(var(--dur-slide) + var(--dur-beat));
+}
+
+.contact__socials--filled .contact__social {
+  --pill-duration: var(--dur-slide);
+}
+
+.contact__socials--filled li:nth-child(2) * {
+  transition-delay: var(--pill-step);
+}
+
+.contact__socials--filled li:nth-child(3) * {
+  transition-delay: calc(var(--pill-step) * 2);
+}
+
+.contact__social:is(:hover, :focus-visible),
+.contact__socials--filled .contact__social {
+  box-shadow: inset 0 0 0 1.5px var(--pill-fill);
+}
+
+.contact__social:is(:hover, :focus-visible) .contact__fill,
+.contact__socials--filled .contact__social .contact__fill {
+  transform: none;
+}
+
+.contact__social:is(:hover, :focus-visible) .contact__label,
+.contact__socials--filled .contact__social .contact__label {
+  clip-path: inset(0 0 0 100%);
+}
+
+.contact__social:is(:hover, :focus-visible) .contact__ink,
+.contact__socials--filled .contact__social .contact__ink {
+  visibility: visible;
+  clip-path: inset(0);
+}
+
+.contact__social:active {
+  transform: scale(0.96);
+}
+
+/* Wide screens: name and arrow. Phones: the brand icon (MOBILE below) */
+.contact__icon {
+  display: none;
+  flex: none;
+}
+
+.contact__arrow {
+  display: block;
+  flex: none;
+  transform: rotate(-45deg);
+  transition: transform var(--dur-slow) var(--ease-spring);
+}
+
+.contact__social:is(:hover, :focus-visible) .contact__arrow,
+.contact__socials--filled .contact__social .contact__arrow {
+  transform: none;
+}
+
+/* --------------------- MOBILE --------------------- */
+
+/* Three small round icon links on one line. The names stay for screen readers. */
+@media (width <= 720px) {
+  .contact__socials {
+    flex-wrap: nowrap;
+  }
+
+  .contact__social {
+    width: 48px;
+  }
+
+  .contact__label,
+  .contact__ink {
+    width: 100%;
+    padding: 0;
+  }
+
+  .contact__icon {
+    display: block;
+  }
+
+  .contact__arrow {
+    display: none;
+  }
+
+  /* The same as .sr-only (utilities.css) */
+  .contact__social-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
