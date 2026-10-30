@@ -46,6 +46,12 @@ sticky header, so the bar never takes much of the screen.
   padding-block: var(--space-6);
 }
 
+@media (width >= 720px) {
+  .site-footer__inner {
+    padding-block: var(--space-8);
+  }
+}
+
 .site-footer__id {
   display: inline-flex;
   align-items: center;
@@ -73,7 +79,10 @@ With motion on and footer.js running, the strokes wait unwritten until the logo
 scrolls into view and .logo--write draws them (components/logo.css).
 Turning motion off shows the logo again.
 */
-html[data-motion="on"] .site-footer--animated .site-footer__logo:not(.logo--write) path {
+html[data-motion="on"]
+  .site-footer--animated
+  .site-footer__logo:not(.logo--write)
+  path {
   stroke-dasharray: 1 2;
   stroke-dashoffset: 1.04;
 }

@@ -63,7 +63,7 @@ Hover and focus: the ring takes the text color and the icon lifts a little.
 .footer-nav__ring circle {
   fill: none;
   stroke: var(--color-ring-quiet);
-  stroke-width: 2;
+  stroke-width: 1;
   transition: stroke var(--dur-fast) var(--ease-in-out);
 }
 
@@ -101,9 +101,5 @@ Hover and focus: the ring takes the text color and the icon lifts a little.
 
   .footer-nav__item:first-child {
     border-top: 0;
-  }
-
-  .footer-nav__item:last-child {
-    border-bottom: var(--border-width) solid var(--color-footer-border);
   }
 }

@@ -17,7 +17,6 @@ fill with their colour from the left. Motion only runs with data-motion="on".
   position: relative;
   z-index: 1;
   background: var(--color-footer-bg);
-  box-shadow: var(--shadow-curtain);
 }
 
 /* ---------------------- SKY ----------------------- */
@@ -37,7 +36,11 @@ stops it (WCAG 2.2.2), and with motion off the stars stand still at full strengt
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  mask-image: radial-gradient(ellipse 75% 100% at 0% 100%, #000 25%, transparent 75%);
+  mask-image: radial-gradient(
+    ellipse 75% 100% at 0% 100%,
+    #000 25%,
+    transparent 75%
+  );
 }
 
 /*
@@ -54,7 +57,10 @@ keeps the text readable.
 }
 
 .contact__sky::before {
-  background-image: radial-gradient(var(--color-footer-dot) 1.6px, transparent 1.8px);
+  background-image: radial-gradient(
+    var(--color-footer-dot) 1.6px,
+    transparent 1.8px
+  );
   background-size: 24px 24px;
 }
 
@@ -62,11 +68,15 @@ keeps the text readable.
 .contact__stars {
   position: absolute;
   inset: 0;
-  animation: contact-twinkle var(--star-duration) var(--ease-in-out) var(--star-delay) infinite;
+  animation: contact-twinkle var(--star-duration) var(--ease-in-out)
+    var(--star-delay) infinite;
 }
 
 .contact__stars::before {
-  background-image: radial-gradient(var(--star-color) var(--star-size), transparent calc(var(--star-size) + .3px));
+  background-image: radial-gradient(
+    var(--star-color) var(--star-size),
+    transparent calc(var(--star-size) + 0.3px)
+  );
   background-position: var(--star-offset);
   background-size: var(--star-grid);
 }
@@ -104,7 +114,7 @@ keeps the text readable.
   --star-grid: 240px 216px;
   --star-offset: -36px -24px;
   --star-duration: 3.7s;
-  --star-delay: -.6s;
+  --star-delay: -0.6s;
 }
 
 .contact__stars--5 {
@@ -132,7 +142,7 @@ keeps the text readable.
   }
 
   50% {
-    opacity: .15;
+    opacity: 0.15;
   }
 }
 
@@ -143,7 +153,8 @@ keeps the text readable.
   flex-wrap: wrap;
   align-items: flex-start;
   gap: var(--space-11) var(--space-12);
-  padding-block: var(--section-space) calc(var(--section-space) + var(--space-4));
+  padding-block: var(--section-space)
+    calc(var(--section-space) + var(--space-4));
 }
 
 .contact__main,
@@ -182,6 +193,10 @@ filter instead (see EMAIL).
     -1.5px -1.5px var(--contact-halo),
     1.5px -1.5px var(--contact-halo),
     -1.5px 1.5px var(--contact-halo);
+}
+
+a.contact__social:hover {
+  color: unset;
 }
 
 .contact__title {
@@ -227,8 +242,7 @@ letter span, each letter's ring painted over the edge of the letter before it.
   display: inline-flex;
   flex-wrap: wrap;
   row-gap: var(--space-2);
-  filter:
-    drop-shadow(2px 0 var(--contact-halo))
+  filter: drop-shadow(2px 0 var(--contact-halo))
     drop-shadow(-2px 0 var(--contact-halo))
     drop-shadow(0 2px var(--contact-halo))
     drop-shadow(0 -2px var(--contact-halo));
@@ -246,14 +260,16 @@ letter span, each letter's ring painted over the edge of the letter before it.
 }
 
 /* One wave per hover, each letter 22ms after the one before. --wave: scrolled into view on a touch screen (footer.js) */
-.contact__email:is(:hover, :focus-visible, .contact__email--wave) .contact__char {
-  animation: contact-wave .55s var(--ease-in-out) both;
+.contact__email:is(:hover, :focus-visible, .contact__email--wave)
+  .contact__char {
+  animation: contact-wave 0.55s var(--ease-in-out) both;
   animation-delay: calc(var(--i) * 22ms);
 }
 
-.contact__email:is(:hover, :focus-visible, .contact__email--wave) .contact__char--at {
+.contact__email:is(:hover, :focus-visible, .contact__email--wave)
+  .contact__char--at {
   animation-name: contact-spin;
-  animation-duration: .8s;
+  animation-duration: 0.8s;
 }
 
 @keyframes contact-wave {
@@ -409,7 +425,7 @@ other, slower than hover, with a beat between them so the eye can follow.
 }
 
 .contact__social:active {
-  transform: scale(.96);
+  transform: scale(0.96);
 }
 
 /* Wide screens: name and arrow. Phones: the brand icon (MOBILE below) */
