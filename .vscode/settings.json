@@ -26,6 +26,13 @@
     }
   },
 
+  // No Prettier and no format-on-save here, even if they're on in your user settings:
+  // the code follows WordPress Coding Standards and Stylelint (tabs and single quotes
+  // in PHP and JS, one CSS value per line), which Prettier would rewrite.
+  // Stylelint's fixes on save (above) still run.
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
+
   "search.exclude": {
     "**/node_modules": true,
     "**/vendor": true,
