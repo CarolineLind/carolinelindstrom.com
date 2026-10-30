@@ -62,20 +62,22 @@ carolinelindstrom/
 │   ├── setup.php             Theme supports, menus, editor styles
 │   ├── enqueue.php           CSS/JS loading, fonts, light/dark script in <head>
 │   ├── icons.php             Favicon, home screen icon and theme-color
+│   ├── contact.php           Footer contact: Customizer fields, Spotify player, brand icons
 │   └── template-tags.php     Small template helpers (logo, menu classes)
 ├── header.php · footer.php
 ├── front-page.php · page.php · single.php · index.php · 404.php
 ├── template-parts/
 │   ├── header/               Menu, menu button and toggles
+│   ├── footer/               Contact block and footer links
 │   └── content/              Page content and post lists
 └── assets/
     ├── css/
     │   ├── base/             tokens, reset, typography, utilities
     │   ├── layout/           header, footer, content
     │   └── components/       One file per component
-    ├── js/                   preferences.js (dialog), header.js (toggles, mobile menu)
+    ├── js/                   preferences.js (dialog), header.js (toggles, mobile menu), footer.js (reveal, animations on scroll)
     ├── fonts/                Self-hosted woff2 files and their licenses
-    └── icons/                favicon.svg (light/dark) and its PNG versions
+    └── icons/                favicon.svg (light/dark) and its PNG versions; social/ brand icons (MIT)
 ```
 
 Outside the theme folder, at the repo root:
@@ -99,6 +101,16 @@ tools/icons/                  Renders the favicon PNGs from favicon.svg
 
 On the first visit a dialog asks for appearance (light, dark or follow the device), motion (on, off or follow the device) and content from other sites (show or don't show). Content from other sites, like the Spotify player, is held back on the server until allowed. The "Inställningar" button in the footer reopens the dialog. Why and how: [docs/decisions/0002-preferences-dialog.md](../docs/decisions/0002-preferences-dialog.md).
 - **Files load in a fixed order** from the list in `inc/enqueue.php`: tokens → base → layout → components. A new component gets its own file in `assets/css/components/` and a line in that list.
+
+## Footer
+
+"Här hittar du mig" (email, social links and the latest favourite on Spotify) sits on top of a bottom bar with the logo, ©, Integritetspolicy, Inställningar and Till toppen. As you reach the end of a page, the contact block slides up and uncovers the bar, which stands still underneath. On touch screens the hover effects play on their own as the footer scrolls into view.
+
+- **Change the email or the Spotify favourite** under **Appearance → Customize → "Kontakt i sidfoten"**. Paste the Spotify link from Share → Copy link (an album, playlist or track). An empty field hides that part.
+- **The Integritetspolicy link** comes from Settings → Privacy, or the page with the slug `integritetspolicy`.
+- **The social links** are in `template-parts/footer/contact.php`, with their icons in `assets/icons/social/`.
+
+Why it's built this way, and where it differs from the design: [docs/decisions/0006-footer.md](../docs/decisions/0006-footer.md).
 
 ## Fonts
 

@@ -11,3 +11,4 @@ Add a new file with the next number when a decision is made that someone might q
 | [0003](0003-header.md) | Header: where it differs from the design | 2026-10-23 |
 | [0004](0004-motion.md) | Motion follows Material Design and Apple | 2026-10-24 |
 | [0005](0005-logo-and-favicon.md) | Hand-drawn logo, first-visit write-in and favicon | 2026-10-24 |
+| [0006](0006-footer.md) | Footer: contact, revealed bottom bar and animations on scroll | 2026-10-30 |

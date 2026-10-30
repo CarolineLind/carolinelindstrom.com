@@ -85,10 +85,11 @@ All in `carolinelindstrom/assets/css/base/tokens.css`. Add a new token here and 
 | `--dur-slow` | `.4s` | Panel entrances |
 | `--dur-slide` | `.55s` | Large movement |
 | `--dur-stagger` | `.04s` | Gap between items coming in one after another |
+| `--dur-beat` | `.5s` | A pause between steps in a sequence, so the eye can follow from one to the next |
 
 ## Where it's used so far
 
-Everything in the theme follows these rules as of 2026-10-24, apart from the exceptions above.
+Everything in the theme follows these rules as of 2026-10-30, apart from the exceptions above.
 
 - **Mobile menu** (decision 0003): opens with `--ease-out` over `--dur-slow`, closes with `--ease-in` over `--dur-base`. The dimming of the page behind follows the same rhythm. The links slide in staggered over `--dur-slow` and leave with the panel.
 - **Hamburger ↔ X:** a state change of a button that stays on screen, so `--ease-spring` both ways over `--dur-base`.
@@ -97,6 +98,12 @@ Everything in the theme follows these rules as of 2026-10-24, apart from the exc
 - **Sliding menu line:** a small detail with `--ease-slide` over `--dur-slide`.
 - **Progress bar counting down after a menu link:** large movement, `--ease-out` over `--dur-slide`.
 - **Hover colors and presses:** `--dur-fast`, presses with `--ease-spring`.
+- **Footer** (decision 0006):
+  - **Email wave on hover:** each letter jumps with `--ease-in-out`, 22 ms after the one before; the @ spins. A state change that plays once.
+  - **Social pills:** the fill and the colour wipe sweep in with `--ease-swipe` over `--dur-slow` on hover, the same curve both ways. On touch screens they fill on scroll, slower (`--dur-slide`) and one at a time with `--dur-beat` in between.
+  - **Small logo:** the header's write-in (`--dur-write-*`), every time it's uncovered.
+  - **Stars:** each layer twinkles in its own 3–6 s loop, only `opacity`. It loops for more than 5 seconds, which is allowed because "Pausa rörelse" stops it (WCAG 2.2.2).
+  - **Bottom bar reveal:** not an animation. The bar is sticky and the page scrolls over it, so it follows the scroll and needs no motion setting.
 
 ## Sources
 
