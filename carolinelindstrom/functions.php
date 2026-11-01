@@ -12,4 +12,5 @@ require get_template_directory() . '/inc/preferences.php';
 require get_template_directory() . '/inc/embeds.php';
 require get_template_directory() . '/inc/contact.php';
 require get_template_directory() . '/inc/icons.php';
-require get_template_directory() . '/inc/shortcodes.php';
+require get_template_directory() . '/inc/doodles.php';
+require get_template_directory() . '/inc/start-page.php';

@@ -1,0 +1,107 @@
+/* --------------------------------------------------
+ * ----------------- KEYWORD BANNER -----------------
+ * -------------------------------------------------- */
+
+/*
+The band of keywords under the start page hero (template-parts/front/banner.php).
+The track slides left forever (half its width, four identical copies, so no
+seam) and pauses while the pointer is over it; the doodles draw themselves in
+and out, each a little out of step. It loops for more than 5 seconds, so it only
+moves with motion on: "Pausa rörelse" in the header stops it (WCAG 2.2.2), and
+with motion off the band stands still with every doodle drawn.
+Only transform (the track) and stroke-dashoffset (thin doodle strokes) animate.
+*/
+
+.keyword-banner {
+  overflow: hidden;
+  border-block: var(--border-width) solid var(--color-border);
+
+  /* The words fade out at both edges */
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.keyword-banner__track {
+  display: flex;
+  width: max-content;
+  animation: keyword-banner-scroll var(--dur-marquee) linear infinite;
+}
+
+.keyword-banner:hover .keyword-banner__track {
+  animation-play-state: paused;
+}
+
+.keyword-banner__list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.keyword-banner__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-7) var(--space-5);
+  font-family: var(--font-display);
+  font-size: var(--fs-banner);
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+}
+
+@keyframes keyword-banner-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* -------------------- DOODLES --------------------- */
+
+.keyword-banner__doodle {
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.keyword-banner__doodle path {
+  stroke: var(--doodle-color);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  animation: keyword-banner-doodle var(--dur-doodle-loop) var(--ease-in-out) infinite;
+  animation-delay: calc(var(--i) * -.7s);
+}
+
+.keyword-banner__doodle--yellow {
+  --doodle-color: var(--color-ring-yellow);
+}
+
+.keyword-banner__doodle--lilac {
+  --doodle-color: var(--color-ring-lilac);
+}
+
+.keyword-banner__doodle--sky {
+  --doodle-color: var(--color-ring-sky);
+}
+
+/* Drawn in, held, then drawn out the way it came */
+@keyframes keyword-banner-doodle {
+  0% {
+    stroke-dashoffset: 1;
+  }
+
+  38%,
+  62% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: -1;
+  }
+}
+
+@media (forced-colors: active) {
+  .keyword-banner__doodle path {
+    stroke: CanvasText;
+  }
+}

@@ -1,0 +1,296 @@
+/* --------------------------------------------------
+ * -------------------- NOTEBOOK --------------------
+ * -------------------------------------------------- */
+
+/*
+A notebook in 3D for each "Läs vidare" slide (template-parts/front/read-more.php),
+built from empty spans: shadow, back, spine, paper edges, the first page with a
+doodle, and a cover with a label, an elastic band and a ribbon. All decoration
+(aria-hidden): the slide's own text is beside it.
+axe still checks the text on the page and the label, and can't when a gradient
+or an ancestor's pseudo-element lies behind it (CLAUDE.md, Gotchas): the shadow
+is a real span, and the ruled lines are on the ::before of a layer of their own.
+The transitions here are the closing ones, with --ease-out: no overshoot. The
+cover lies only half a pixel above the page, so a spring that swung it past
+closed tucked its edge behind the paper and it looked too narrow. The springy
+--ease-book is only for opening (the open state in read-more.css).
+It lies flat, seen from straight above. When open (.read-more__link on hover or
+keyboard focus, or the current slide on touch screens, read-more.css): the book
+tilts, the band slips off, the cover swings open, the doodle on the page is
+drawn, and then makes its move. With motion off the change is instant and the
+doodle is simply there. Only transforms, opacity and stroke-dashoffset animate.
+*/
+
+/* ---------------------- COLOURS ------------------- */
+
+/* --book-cover: the cover; --book-ink: doodle and title on the page; --book-band: band and label stripe */
+.notebook--lilac {
+  --book-cover: var(--color-lilac);
+  --book-ink: var(--color-ink-lilac);
+  --book-band: var(--color-yellow);
+}
+
+.notebook--yellow {
+  --book-cover: var(--color-yellow);
+  --book-ink: var(--color-ink-yellow);
+  --book-band: var(--color-lilac);
+}
+
+.notebook--sky {
+  --book-cover: var(--color-sky);
+  --book-ink: var(--color-ink-sky);
+  --book-band: var(--color-yellow);
+}
+
+.notebook--dark {
+  --book-cover: var(--color-notebook-dark);
+  --book-ink: var(--color-ink-dark);
+  --book-band: var(--color-sky);
+}
+
+/* ---------------------- BOOK ---------------------- */
+
+.notebook {
+  position: relative;
+  display: block;
+  width: 220px;
+  height: 300px;
+  perspective: 1300px;
+}
+
+/* The soft shadow on the table; it moves away as the book tilts */
+.notebook__shadow {
+  position: absolute;
+  z-index: -1;
+  inset: 10px -6px -8px 6px;
+  border-radius: 6px 16px 16px 6px;
+  background: var(--color-notebook-shadow);
+  filter: blur(9px);
+  opacity: .75;
+  transition:
+    transform var(--dur-book) var(--ease-out),
+    opacity var(--dur-book) var(--ease-out);
+}
+
+.notebook__book {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform var(--dur-book) var(--ease-out);
+}
+
+.notebook__book > * {
+  position: absolute;
+}
+
+.notebook__back {
+  inset: 0;
+  border-radius: 3px 14px 14px 3px;
+  background: color-mix(in srgb, var(--book-cover) 72%, #000);
+  transform: translateZ(-12px);
+}
+
+.notebook__spine {
+  top: 0;
+  bottom: 0;
+  left: -12px;
+  width: 24px;
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--book-cover) 60%, #000),
+    color-mix(in srgb, var(--book-cover) 82%, #000) 50%,
+    color-mix(in srgb, var(--book-cover) 62%, #000)
+  );
+  transform: rotateY(-90deg);
+}
+
+/* Page edges: fine stripes of paper */
+.notebook__edge-side {
+  top: 5px;
+  bottom: 5px;
+  left: calc(100% - 16px);
+  width: 24px;
+  background: repeating-linear-gradient(90deg, var(--color-notebook-paper) 0 1.2px, var(--color-notebook-edge) 1.2px 2.1px);
+  transform: rotateY(90deg);
+}
+
+.notebook__edge-top {
+  top: -7px;
+  right: 4px;
+  left: 2px;
+  height: 24px;
+  background: repeating-linear-gradient(0deg, var(--color-notebook-paper) 0 1.2px, var(--color-notebook-edge) 1.2px 2.1px);
+  transform: rotateX(90deg);
+}
+
+/* The first page: plain paper, with the ruled lines and the red margin line on its ::before */
+.notebook__paper {
+  inset: 5px 4px 5px 2px;
+  border-radius: 2px 8px 8px 2px;
+  background: var(--color-notebook-paper);
+  transform: translateZ(11px);
+}
+
+.notebook__paper::before {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 21px, var(--color-notebook-rule) 21px 22px) 0 30px,
+    linear-gradient(90deg, transparent 30px, var(--color-notebook-margin) 30px 31px, transparent 31px);
+  content: "";
+}
+
+/*
+What's written on the page: the doodle and the title, just above the paper.
+Hidden while the cover is closed over it, so axe doesn't count the title as
+covered; shown at once when it opens, hidden only once the cover has closed.
+*/
+.notebook__page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  inset: 5px 4px 5px 2px;
+  padding: 74px 8px 0 88px;
+  transform: translateZ(11.5px);
+  visibility: hidden;
+  transition: visibility 0s linear calc(var(--dur-book) + .1s);
+}
+
+.notebook__page-title {
+  margin-top: 15px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 22px;
+  color: var(--book-ink);
+  white-space: nowrap;
+}
+
+/* The cover swings open around the spine; --open is its angle */
+.notebook__cover {
+  inset: 0;
+  transform: translateZ(12px) rotateY(var(--open, 0deg));
+  transform-origin: 0 50%;
+  transform-style: preserve-3d;
+  transition: transform calc(var(--dur-book) + .1s) var(--ease-out);
+}
+
+.notebook__front,
+.notebook__inside {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+}
+
+.notebook__front {
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px 14px 14px 3px;
+  background:
+    radial-gradient(130% 90% at 30% 20%, rgb(255 255 255 / 22%), transparent 60%),
+    linear-gradient(90deg, rgb(0 0 0 / 18%) 0, transparent 14px, rgb(255 255 255 / 12%) 16px, transparent 22px),
+    var(--book-cover);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 8%);
+}
+
+.notebook__inside {
+  border-radius: 14px 3px 3px 14px;
+  background: color-mix(in srgb, var(--book-cover) 35%, var(--color-notebook-paper));
+  transform: rotateY(180deg);
+}
+
+/* The label on the cover, with a stripe in the band's colour (a border: axe can't see past a pseudo-element) */
+.notebook__label {
+  position: absolute;
+  top: 28%;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 40px 14px 24px;
+  border-bottom: 12px solid var(--book-band);
+  background: var(--color-notebook-label);
+  box-shadow: 0 1px 1px rgb(0 0 0 / 20%);
+  color: var(--color-notebook-label-text);
+}
+
+.notebook__title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: var(--fw-heavy);
+  line-height: 1.15;
+  letter-spacing: var(--ls-tight);
+  white-space: nowrap;
+}
+
+.notebook__words {
+  display: flex;
+  flex-direction: column;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--color-notebook-words);
+  white-space: nowrap;
+}
+
+/* The elastic band across the cover, striped like woven elastic */
+.notebook__band {
+  --band-dark: color-mix(in srgb, var(--book-cover) 80%, #000);
+
+  top: -1px;
+  right: 25px;
+  bottom: -1px;
+  width: 10px;
+  border-radius: 2px;
+  background: repeating-linear-gradient(90deg, var(--band-dark) 0 1.25px, var(--book-cover) 1.25px 2.5px);
+  box-shadow: -1px 0 2px rgb(0 0 0 / 18%);
+  transform: translateZ(12.5px);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    translate var(--dur-book) var(--ease-out);
+}
+
+.notebook__ribbon {
+  bottom: -22px;
+  left: 46%;
+  width: 9px;
+  height: 34px;
+  background: var(--book-band);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+}
+
+/* --------------------- DOODLE --------------------- */
+
+.notebook__doodle {
+  width: 72px;
+  height: 72px;
+  overflow: visible;
+  color: var(--book-ink);
+}
+
+.notebook__doodle path {
+  stroke: currentcolor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+/* The parts that move turn around their own centre */
+.notebook__doodle g {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* --------------------- FORCED --------------------- */
+
+/* High contrast: a plain outlined book */
+@media (forced-colors: active) {
+  .notebook__front,
+  .notebook__page {
+    border: 1px solid CanvasText;
+  }
+}

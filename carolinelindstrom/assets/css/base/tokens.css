@@ -67,6 +67,35 @@ Breakpoints (media queries can't read variables):
   --color-footer-dot: var(--color-dot);
   --color-footer-bar: #0E0C16;
 
+  /* A slightly different background that sets a section apart ("Läs vidare") */
+  --color-bg-tint: #1A1827;
+
+  /*
+  "Läs vidare" notebooks (components/notebook.css). The slide behind each book
+  is --color-card. Paper and label are light in both modes, so the pens that
+  write on the page are fixed too (the design's; the book is decoration, 0008)
+  */
+  --color-card: #15131F;
+  --color-notebook-paper: #F6F2E8;
+  --color-notebook-edge: #DCD5C4;
+  --color-notebook-rule: rgb(60 90 160 / 18%);
+  --color-notebook-margin: rgb(220 80 80 / 35%);
+  --color-notebook-label: #ECEBE3;
+  --color-notebook-label-text: #15131F;
+  --color-notebook-words: #55526B;
+  --color-notebook-dark: #2B2840;
+  --color-notebook-shadow: rgb(0 0 0 / 75%);
+  --color-ink-lilac: #6A60D6;
+  --color-ink-yellow: #B88A00;
+  --color-ink-sky: #2F7FC8;
+  --color-ink-dark: #2B2840;
+
+  /* Start page hero paper: ruled lines, the margin line, the glare that follows the mouse and the shadow */
+  --color-paper-line: color-mix(in srgb, var(--color-text) 5%, transparent);
+  --color-paper-margin: color-mix(in srgb, var(--color-ring-lilac) 50%, transparent);
+  --color-paper-glare: rgb(255 255 255 / 7%);
+  --color-paper-shadow: rgb(0 0 0 / 70%);
+
   /* See-through header while scrolled (layout/header.css): 65 % of --color-bg, about #15131FA6 */
   --color-glass: color-mix(in srgb, var(--color-bg) 65%, transparent);
 
@@ -193,6 +222,49 @@ Breakpoints (media queries can't read variables):
   /* Logo */
   --logo-height: 32px;
 
+  /*
+  Start page hero: the sheet of lined paper (components/start-hero.css).
+  It tilts at most this much toward the mouse, and follows it slowly
+  (--dur-follow: decoration nobody waits for, see 0004). The text floats
+  above the paper by --paper-depth while it tilts, the heading by twice that
+  */
+  --paper-rule: 36px;
+  --paper-margin: 34px;
+  --paper-margin-mobile: 22px;
+  --paper-tilt-x: 3deg;
+  --paper-tilt-y: 4deg;
+  --paper-depth: 14px;
+  --paper-perspective: 1400px;
+  --dur-follow: .7s;
+
+  /* The portrait next to the paper; smaller and centred on phones */
+  --photo-max: 400px;
+  --photo-max-mobile: 260px;
+
+  /* How far the shapes behind it step apart on scroll (touch), as a multiple of the hover step */
+  --photo-apart-scroll: 2.5;
+
+  /*
+  Start page keyword banner and "Läs vidare" doodles. The banner's loop and the
+  doodles' redraw are slow decoration that loops (paused with motion off);
+  --dur-doodle is the small move a card's doodle makes on hover
+  */
+  --fs-banner: clamp(22px, 2.2vw, 30px);
+  --dur-marquee: 65s;
+  --dur-doodle-loop: 4.2s;
+  --dur-doodle: .7s;
+
+  /*
+  "Läs vidare" notebooks: the book tilts and the cover opens with a soft
+  overshoot (gentler than --ease-spring, see 0008); then the doodle on the
+  page is drawn, and makes its move once drawn
+  */
+  --ease-book: cubic-bezier(.3, 1.2, .4, 1);
+  --dur-book: .7s;
+  --dur-book-draw: .9s;
+  --dur-book-draw-delay: .35s;
+  --dur-book-move-delay: 1.3s;
+
   /* Stacking */
   --z-base: 1;
   --z-header: 40;
@@ -255,6 +327,14 @@ selectors that name it untouched, so it doesn't affect the site.
   --color-ring-quiet: #7A74B4;
   --color-footer-dot: #B9B4E6;
   --color-footer-bar: #E6E3FB;
+
+  /* A section set apart, and the notebooks' slides and shadow */
+  --color-bg-tint: #F7F5EF;
+  --color-card: #FDFCF8;
+  --color-notebook-shadow: rgb(60 45 20 / 28%);
+
+  /* Start page hero paper: a soft, tinted shadow on the light background */
+  --color-paper-shadow: rgb(40 30 80 / 28%);
 
   /* See-through header: 40 % of --color-bg, about #FBFAF666 */
   --color-glass: color-mix(in srgb, var(--color-bg) 40%, transparent);

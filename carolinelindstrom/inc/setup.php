@@ -30,8 +30,12 @@ function clind_setup() {
 
 	register_nav_menus(
 		array(
-			'primary' => __( 'Huvudmeny', 'carolinelindstrom' ),
+			'primary'   => __( 'Huvudmeny', 'carolinelindstrom' ),
+			'read-more' => __( 'Läs vidare på startsidan', 'carolinelindstrom' ),
 		)
 	);
+
+	/* A short summary per page: the text on its "Läs vidare" card on the start page (inc/start-page.php) */
+	add_post_type_support( 'page', 'excerpt' );
 }
 add_action( 'after_setup_theme', 'clind_setup' );

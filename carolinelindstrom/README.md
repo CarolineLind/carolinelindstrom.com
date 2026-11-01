@@ -63,19 +63,23 @@ carolinelindstrom/
 │   ├── enqueue.php           CSS/JS loading, fonts, light/dark script in <head>
 │   ├── icons.php             Favicon, home screen icon and theme-color
 │   ├── contact.php           Footer contact: Customizer fields, Spotify player, brand icons
+│   ├── start-page.php        Start page: Customizer fields, hero content, banner words, Läs vidare cards
+│   ├── doodles.php           Hand-drawn SVG doodles for the banner and the cards
 │   └── template-tags.php     Small template helpers (logo, menu classes)
 ├── header.php · footer.php
 ├── front-page.php · page.php · single.php · index.php · 404.php
 ├── template-parts/
 │   ├── header/               Menu, menu button and toggles
 │   ├── footer/               Contact block and footer links
+│   ├── front/                Start page sections (hero, keyword banner, Läs vidare)
+│   ├── sky.php               Dots and twinkling stars behind a section
 │   └── content/              Page content and post lists
 └── assets/
     ├── css/
     │   ├── base/             tokens, reset, typography, utilities
     │   ├── layout/           header, footer, content
     │   └── components/       One file per component
-    ├── js/                   preferences.js (dialog), header.js (toggles, mobile menu), footer.js (reveal, animations on scroll)
+    ├── js/                   preferences.js (dialog), header.js (toggles, mobile menu), footer.js (reveal, animations on scroll), start-hero.js and read-more.js (start page only)
     ├── fonts/                Self-hosted woff2 files and their licenses
     └── icons/                favicon.svg (light/dark) and its PNG versions; social/ brand icons (MIT)
 ```
@@ -111,6 +115,27 @@ On the first visit a dialog asks for appearance (light, dark or follow the devic
 - **The social links** are in `template-parts/footer/contact.php`, with their icons in `assets/icons/social/`.
 
 Why it's built this way, and where it differs from the design: [docs/decisions/0006-footer.md](../docs/decisions/0006-footer.md).
+
+## Start page hero
+
+A sheet of lined paper with the page's h1, a short text and a link, next to the portrait with a lilac block and a yellow dot behind it, over twinkling stars. With motion on and a mouse, the paper tilts toward the pointer; with the link focused by keyboard it leans a little. The shapes behind the portrait step apart on hover, and on touch screens they follow the scroll (a scroll-driven animation, with `start-hero.js` as the fallback).
+
+- **Change the heading, text or link** under **Appearance → Customize → "Startsidan"**. The link goes to "Om mig" until another page is chosen.
+- **Change the portrait** by setting the start page's **featured image** in the editor. It's cropped to 4:5.
+- **How the tilt works:** `assets/js/start-hero.js` only writes where the pointer is, as `--nx` and `--ny` (−1 to 1) on `.start-hero`. `start-hero.css` turns them into the tilt, the shadow (its own layer, moved with `transform`) and the glare. Without the script, or with motion off, the paper lies flat.
+
+Why it's built in the theme and not in the editor, and where it differs from the design: [docs/decisions/0007-start-hero.md](../docs/decisions/0007-start-hero.md).
+
+## Start page banner and "Läs vidare"
+
+Under the hero, a band of keywords glides past with a hand-drawn doodle after each word; it pauses while the pointer is over it. Then "Läs vidare": a carousel of 3D notebooks, one per page. On hover or keyboard focus a notebook opens and a doodle is drawn on its first page; on touch screens the current one opens by itself.
+
+- **Change the keywords** under **Appearance → Customize → "Startsidan"**, one per line.
+- **Change a notebook's text** by writing the page's **excerpt** (Utdrag) in the editor, and the **words on its cover** in the box **"Ord på bokomslaget"** in the editor's sidebar (up to three, with commas).
+- **Choose and order the notebooks** with a menu at the location **"Läs vidare på startsidan"** (Appearance → Menus). The notebook's title is the menu label. Without that menu: Om mig, Tillgänglighet, Prestanda and Frontend lead.
+- **How it's built:** the carousel is a row that scrolls and snaps by itself (`read-more.css`); `read-more.js` only keeps the dots, counter and arrows in step and opens the book on touch screens. The notebook is spans in 3D (`notebook.css`). The doodles are in `inc/doodles.php`, shared with the banner.
+
+Where it differs from the design: [docs/decisions/0008-banner-and-read-more.md](../docs/decisions/0008-banner-and-read-more.md).
 
 ## Fonts
 

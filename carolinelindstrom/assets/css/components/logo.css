@@ -93,24 +93,41 @@ The strokes are hidden from the start of the delay (fill-mode both).
 
 /* -------------------- HOVER ----------------------- */
 
-@media (width <= 720px) {
-  a.logo:hover {
-    color: unset;
-  }
+/*
+Keyboard focus always shows the effect. Hover only where a pointer can hover:
+on touch screens a tap leaves :hover stuck on, and the logo would stay open
+(and turn link-coloured) after leaving the page and coming back.
+*/
+.logo:focus-visible .logo__bracket--l {
+  transform: translateX(-24px);
 }
 
-@media (width >= 720px) {
+.logo:focus-visible .logo__bracket--r {
+  transform: translateX(24px);
+}
+
+.logo:focus-visible .logo__swash {
+  stroke-dashoffset: 0;
+}
+
+@media (hover: hover) {
   /* Units are the SVG's: 24 of 180 is about 4 px at 32 px tall */
-  .logo:is(:hover, :focus-visible) .logo__bracket--l {
+  .logo:hover .logo__bracket--l {
     transform: translateX(-24px);
   }
 
-  .logo:is(:hover, :focus-visible) .logo__bracket--r {
+  .logo:hover .logo__bracket--r {
     transform: translateX(24px);
   }
 
-  .logo:is(:hover, :focus-visible) .logo__swash {
+  .logo:hover .logo__swash {
     stroke-dashoffset: 0;
+  }
+}
+
+@media (hover: none) {
+  .logo:hover {
+    color: var(--color-text);
   }
 }
 

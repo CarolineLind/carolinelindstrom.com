@@ -1,60 +1,60 @@
 /* --------------------------------------------------
- * ------------------ CONTACT SKY -------------------
+ * ---------------------- SKY -----------------------
  * -------------------------------------------------- */
 
 /*
-Behind "Här hittar du mig" (template-parts/footer/contact.php, contact.css):
-a grid of soft dots with coloured stars on top, strongest in the bottom-left
-corner and fading towards the top right. Behind the content: the sky at z-index 0,
-.contact__inner at 1. (Not -1 inside an isolated parent: axe misreads that order
-and reports the text as covered.)
+Decorative dots with coloured stars on top (template-parts/sky.php), behind
+"Här hittar du mig" in the footer and behind the start page hero. By default
+strongest in the bottom-left corner and fading towards the top right; a section
+can set its own fade (--sky-mask) and dot colour (--sky-dot).
+Behind the content: the sky at z-index 0, the content at 1. (Not -1 inside an
+isolated parent: axe misreads that order and reports the text as covered.)
 The stars twinkle out of step, each layer on its own timer. That loops for more
 than 5 seconds, so it only runs with motion on: "Pausa rörelse" in the header
 stops it (WCAG 2.2.2), and with motion off the stars stand still at full strength.
 */
-.contact__sky {
+.sky {
   position: absolute;
   z-index: 0;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  mask-image: radial-gradient(
-    ellipse 75% 100% at 0% 100%,
-    #000 25%,
-    transparent 75%
+  mask-image: var(
+    --sky-mask,
+    radial-gradient(ellipse 75% 100% at 0% 100%, #000 25%, transparent 75%)
   );
 }
 
 /*
 The patterns are painted on ::before, not on the layers themselves: axe treats
 any gradient behind text as unreadable and can't finish its contrast check, but
-it skips pseudo-elements that aren't the text's own. The halo in contact.css
-is what keeps the text readable.
+it skips pseudo-elements that aren't the text's own. Text straight on top of
+the sky needs a halo to stay readable (contact.css).
 */
-.contact__sky::before,
-.contact__stars::before {
+.sky::before,
+.sky__stars::before {
   position: absolute;
   inset: 0;
   content: "";
 }
 
-.contact__sky::before {
+.sky::before {
   background-image: radial-gradient(
-    var(--color-footer-dot) 1.6px,
+    var(--sky-dot, var(--color-footer-dot)) 1.6px,
     transparent 1.8px
   );
   background-size: 24px 24px;
 }
 
 /* Each layer: one colour, its own spacing and offset, so the stars look scattered */
-.contact__stars {
+.sky__stars {
   position: absolute;
   inset: 0;
-  animation: contact-twinkle var(--star-duration) var(--ease-in-out)
+  animation: sky-twinkle var(--star-duration) var(--ease-in-out)
     var(--star-delay) infinite;
 }
 
-.contact__stars::before {
+.sky__stars::before {
   background-image: radial-gradient(
     var(--star-color) var(--star-size),
     transparent calc(var(--star-size) + 0.3px)
@@ -63,7 +63,7 @@ is what keeps the text readable.
   background-size: var(--star-grid);
 }
 
-.contact__stars--1 {
+.sky__stars--1 {
   --star-color: var(--color-ring-yellow);
   --star-size: 2.4px;
   --star-grid: 168px 144px;
@@ -72,7 +72,7 @@ is what keeps the text readable.
   --star-delay: 0s;
 }
 
-.contact__stars--2 {
+.sky__stars--2 {
   --star-color: var(--color-ring-lilac);
   --star-size: 2.4px;
   --star-grid: 216px 192px;
@@ -81,7 +81,7 @@ is what keeps the text readable.
   --star-delay: -1.3s;
 }
 
-.contact__stars--3 {
+.sky__stars--3 {
   --star-color: var(--color-ring-sky);
   --star-size: 2.4px;
   --star-grid: 264px 240px;
@@ -90,7 +90,7 @@ is what keeps the text readable.
   --star-delay: -2.1s;
 }
 
-.contact__stars--4 {
+.sky__stars--4 {
   --star-color: var(--color-ring-yellow);
   --star-size: 2px;
   --star-grid: 240px 216px;
@@ -99,7 +99,7 @@ is what keeps the text readable.
   --star-delay: -0.6s;
 }
 
-.contact__stars--5 {
+.sky__stars--5 {
   --star-color: var(--color-ring-lilac);
   --star-size: 2px;
   --star-grid: 192px 264px;
@@ -108,7 +108,7 @@ is what keeps the text readable.
   --star-delay: -3.4s;
 }
 
-.contact__stars--6 {
+.sky__stars--6 {
   --star-color: var(--color-ring-sky);
   --star-size: 2px;
   --star-grid: 288px 168px;
@@ -117,7 +117,7 @@ is what keeps the text readable.
   --star-delay: -2.7s;
 }
 
-@keyframes contact-twinkle {
+@keyframes sky-twinkle {
   0%,
   100% {
     opacity: 1;

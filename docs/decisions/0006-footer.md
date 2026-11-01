@@ -45,7 +45,7 @@ The footer has two parts. On top, **"Här hittar du mig"**: email, LinkedIn, Ins
 | Logo mark, privacy link | `carolinelindstrom/inc/template-tags.php` (`clind_logo_mark()`, `clind_privacy_url()`) |
 | Layout and reveal | `carolinelindstrom/assets/css/layout/footer.css` |
 | Contact block, email | `carolinelindstrom/assets/css/components/contact.css` |
-| Dots and stars | `carolinelindstrom/assets/css/components/contact-sky.css` |
+| Dots and stars | `carolinelindstrom/assets/css/components/sky.css` |
 | Social links | `carolinelindstrom/assets/css/components/contact-socials.css` |
 | Footer links | `carolinelindstrom/assets/css/components/footer-nav.css` |
 | Reveal, write-in, touch animations | `carolinelindstrom/assets/js/footer.js` |

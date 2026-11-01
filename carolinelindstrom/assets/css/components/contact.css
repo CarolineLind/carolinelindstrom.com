@@ -6,7 +6,7 @@
 "Här hittar du mig" at the top of the footer (template-parts/footer/contact.php):
 email and social links on one side, the Spotify player on the other, stacked below 1000px.
 Hover and focus: the email's letters wave and the @ spins. Motion only runs with
-data-motion="on". In their own files: the dots and stars behind it (contact-sky.css)
+data-motion="on". In their own files: the dots and stars behind it (sky.css)
 and the social links (contact-socials.css).
 */
 

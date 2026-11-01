@@ -98,7 +98,6 @@ the menu stays open and the header isn't sticky (assets/css/layout/header.css).
 	var nav = document.getElementById('site-nav');
 	var progressBar = document.querySelector('.scroll-progress');
 
-
 	if (nav) {
 		nav.addEventListener('click', function (event) {
 			var opensElsewhere = event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey;
@@ -128,7 +127,6 @@ the menu stays open and the header isn't sticky (assets/css/layout/header.css).
 	menu slides shut, the last page's link hands over to the current one and the
 	compact header grows back
 	*/
-	/* The header logo also needs something for when its clicked */
 	if (root.matches('.menu-closing, .nav-handoff, .header-expanding')) {
 		requestAnimationFrame(function () {
 			requestAnimationFrame(function () {

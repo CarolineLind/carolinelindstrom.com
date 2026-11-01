@@ -26,11 +26,7 @@ $clind_socials = array(
 ?>
 <div class="contact">
 	<?php /* Decorative dots and twinkling stars behind the content */ ?>
-	<div class="contact__sky" aria-hidden="true">
-		<?php for ( $clind_star = 1; $clind_star <= 6; $clind_star++ ) : ?>
-			<span class="contact__stars contact__stars--<?php echo absint( $clind_star ); ?>"></span>
-		<?php endfor; ?>
-	</div>
+	<?php get_template_part( 'template-parts/sky' ); ?>
 
 	<div class="contact__inner container">
 		<div class="contact__main">

@@ -6,6 +6,7 @@
       "htmlcs"
     ],
     "timeout": 60000,
+    "hideElements": ".notebook, .read-more__slide:not(.read-more__slide--current)",
     "chromeLaunchConfig": {
       "args": [
         "--blink-settings=preferredColorScheme=0",

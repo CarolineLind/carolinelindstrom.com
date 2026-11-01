@@ -1,0 +1,481 @@
+/* --------------------------------------------------
+ * ------------------- READ MORE --------------------
+ * -------------------------------------------------- */
+
+/*
+"Läs vidare" on the start page (template-parts/front/read-more.php): a carousel
+of slides, each a notebook (notebook.css) beside the page's title and excerpt.
+The slides scroll sideways and snap; dots, a counter and arrows below
+(read-more.js). The slides that aren't current are faded.
+Without JavaScript the slides are simply listed one under the other.
+Below 1000 px the notebook sits above the text.
+*/
+
+/* clip: 100vw counts a classic scrollbar too, and would add a sideways scroll to the page */
+.read-more {
+  overflow-x: clip;
+  background: var(--color-bg-tint);
+}
+
+.read-more__inner {
+  padding-block: var(--space-15) var(--space-11);
+}
+
+.read-more__title {
+  margin-bottom: var(--space-10);
+}
+
+/* --------------------- SLIDES --------------------- */
+
+/* Without JavaScript: one under the other */
+.read-more__slides {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+}
+
+/*
+With JavaScript: a row that scrolls sideways and snaps to each slide. It spans
+the whole window, so slides run out to both edges, while the first one starts
+in line with the heading: the padding (and snap padding) is the distance from
+the window's edge to the container's content (.container: --container-max wide
+at most, with --gutter inside). Worked out from the tokens, not with %:
+scroll-padding's % is of the scroller itself. The scrollbar is hidden: the
+buttons, swiping and Tab move it.
+A sideways scroller clips upwards too, and an open cover tilts out above its
+slide: the room for it is padding here, taken from the heading's margin.
+*/
+.js .read-more__title {
+  margin-bottom: 0;
+}
+
+.js .read-more__slides {
+  --edge: max(var(--gutter), (100vw - var(--container-max)) / 2 + var(--gutter));
+
+  flex-direction: row;
+  margin-inline: calc(var(--edge) * -1);
+  padding: var(--space-10) var(--edge) var(--space-8);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: var(--edge);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.js .read-more__slides::-webkit-scrollbar {
+  display: none;
+}
+
+html[data-motion="on"] .read-more__slides {
+  scroll-behavior: smooth;
+}
+
+/*
+Faded until it's the current slide. Its text is low contrast meanwhile, but
+it's never fully in view until it becomes current: reaching it by Tab, swipe or
+the buttons scrolls it in and makes it current (Caroline's call, 0008). The
+accessibility tests skip it (hideElements in .pa11yci*.json).
+*/
+.js .read-more__slide {
+  flex: 0 0 min(1000px, 100% - var(--space-8));
+  opacity: .45;
+  scroll-snap-align: start;
+  transition: opacity var(--dur-slide) var(--ease-out);
+}
+
+/* ---------------------- SLIDE --------------------- */
+
+.read-more__link {
+  display: grid;
+  grid-template-columns: 400px minmax(0, 1fr);
+  gap: var(--space-10);
+  align-items: center;
+  height: 100%;
+  padding: var(--space-9) var(--space-11) var(--space-10) var(--space-10);
+  border-radius: 32px;
+  background: var(--color-card);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* The whole slide is the link: keep its text colour on hover (typography.css colours links) */
+.read-more__link:hover {
+  color: var(--color-text);
+}
+
+.read-more__stage {
+  display: flex;
+  justify-content: center;
+}
+
+/* The notebook a little bigger on wide screens (zoom scales the 3D book as one) */
+.read-more__stage .notebook {
+  margin: 4px 0 28px;
+  zoom: 1.35;
+}
+
+.js .read-more__slide--current {
+  opacity: 1;
+}
+
+/*
+The slides peeking in at the edge can't be clicked or hovered: a click there
+would follow a link the visitor can barely see. Swiping and scrolling still
+work (they land on the row), and Tab still reaches them and scrolls them in.
+*/
+.js .read-more__slide:not(.read-more__slide--current) {
+  pointer-events: none;
+}
+
+.read-more__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 46ch;
+}
+
+.read-more__name {
+  font-size: 44px;
+  line-height: 1.05;
+}
+
+.read-more__num {
+  margin-right: 14px;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0;
+  color: var(--color-muted);
+  vertical-align: .55em;
+}
+
+.read-more__text {
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--color-muted);
+}
+
+.read-more__more {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: var(--space-2);
+  padding-bottom: 2px;
+  border-bottom: 2px solid var(--more-line);
+  font-weight: var(--fw-bold);
+}
+
+.notebook--lilac .read-more__more {
+  --more-line: var(--color-ring-lilac);
+}
+
+.notebook--yellow .read-more__more,
+.notebook--dark .read-more__more {
+  --more-line: var(--color-ring-yellow);
+}
+
+.notebook--sky .read-more__more {
+  --more-line: var(--color-ring-sky);
+}
+
+/* The arrow steps forward (transform, not a wider gap, so nothing is laid out again) */
+.read-more__arrow {
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+/* ------------------- OPEN BOOK -------------------- */
+
+/*
+The notebook opens on hover and keyboard focus. On touch screens, where hover
+never happens, the current slide's notebook opens once it has settled
+(read-more.js adds --open).
+*/
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) {
+  --open: -44deg;
+}
+
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .read-more__arrow {
+  transform: translateX(6px);
+}
+
+/* Opening springs a little (--ease-book); closing doesn't (notebook.css) */
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .notebook__book,
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .notebook__cover {
+  transition-timing-function: var(--ease-book);
+}
+
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .notebook__book {
+  transform: rotateX(14deg) rotateY(-20deg);
+}
+
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .notebook__shadow {
+  filter: blur(14px);
+  transition-timing-function: var(--ease-book);
+  opacity: .6;
+  transform: translate(10px, 14px) scale(.96);
+}
+
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .notebook__band {
+  opacity: 0;
+  transition-timing-function: var(--ease-out), var(--ease-book);
+  translate: 18px 0;
+}
+
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .notebook__page {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+/* The doodle is drawn once the cover is open, then makes its move. Plays once: keyframes (0004) */
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .notebook__doodle path {
+  animation: notebook-draw var(--dur-book-draw) var(--ease-in-out) var(--dur-book-draw-delay) both;
+}
+
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .doodle__tilt {
+  animation: notebook-tilt var(--dur-doodle) var(--ease-in-out) var(--dur-book-move-delay);
+}
+
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .doodle__wink {
+  animation: notebook-wink var(--dur-doodle) var(--ease-in-out) var(--dur-book-move-delay);
+}
+
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .doodle__jump {
+  animation: notebook-jump var(--dur-doodle) var(--ease-in-out) var(--dur-book-move-delay);
+}
+
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .doodle__arms {
+  animation: notebook-arms var(--dur-doodle) var(--ease-in-out) var(--dur-book-move-delay);
+}
+
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .doodle__spin {
+  animation: notebook-spin calc(var(--dur-doodle) * 1.3) var(--ease-in-out) var(--dur-book-move-delay);
+}
+
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .doodle__pop {
+  animation: notebook-pop var(--dur-doodle) var(--ease-in-out) var(--dur-book-move-delay);
+}
+
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .doodle__sparkle {
+  animation: notebook-sparkle var(--dur-doodle) var(--ease-in-out) var(--dur-book-move-delay);
+}
+
+@keyframes notebook-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+
+@keyframes notebook-tilt {
+  50% {
+    transform: rotate(-8deg);
+  }
+}
+
+@keyframes notebook-wink {
+  40%,
+  60% {
+    transform: scaleY(.1);
+  }
+}
+
+@keyframes notebook-jump {
+  20% {
+    transform: translateY(2px) scaleY(.94);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  80% {
+    transform: translateY(1px) scaleY(.97);
+  }
+}
+
+@keyframes notebook-arms {
+  30% {
+    transform: translateY(-4px) rotate(-5deg);
+  }
+
+  60% {
+    transform: translateY(-4px) rotate(5deg);
+  }
+}
+
+@keyframes notebook-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes notebook-pop {
+  40% {
+    transform: rotate(-12deg) scale(1.15);
+  }
+
+  70% {
+    transform: rotate(6deg) scale(.97);
+  }
+}
+
+@keyframes notebook-sparkle {
+  50% {
+    opacity: .3;
+    transform: scale(1.7);
+  }
+}
+
+/* ---------------------- NAV ----------------------- */
+
+/* The buttons need JavaScript: hidden without it, so they never show without working */
+.read-more__nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+html:not(.js) .read-more__nav {
+  display: none;
+}
+
+.read-more__dots {
+  display: flex;
+  margin-right: auto;
+}
+
+/* A 44 px target around a small dot; the current one is a wide pill */
+.read-more__dot {
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--tap-min);
+  height: var(--tap-min);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.read-more__dot::before {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid var(--color-muted);
+  border-radius: var(--radius-pill);
+  content: "";
+  transition:
+    width var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-spring);
+}
+
+/* Hover and keyboard focus: the dot grows and darkens (the current one stays as it is) */
+.read-more__dot:is(:hover, :focus-visible):not([aria-current="true"])::before {
+  border-color: var(--color-text);
+  transform: scale(1.3);
+}
+
+/* The current dot isn't something to click: no pointer, no hover (it stays a button for screen readers) */
+.read-more__dot[aria-current="true"] {
+  cursor: default;
+}
+
+.read-more__dot[aria-current="true"]::before {
+  width: 32px;
+  border-color: var(--color-text);
+  background: var(--color-text);
+}
+
+.read-more__count {
+  min-width: 44px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--color-muted);
+  text-align: right;
+}
+
+.read-more__step {
+  display: inline-grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-spring);
+}
+
+.read-more__step:is(:hover, :focus-visible) {
+  border-color: var(--color-text);
+}
+
+/* Pressed: shrinks a little and springs back, like the header buttons (0004, "Feedback") */
+.read-more__step:active:not([aria-disabled="true"]) {
+  transform: scale(.96);
+}
+
+.read-more__step--prev svg {
+  rotate: 180deg;
+}
+
+/* At the first or last slide: still focusable (focus isn't lost), but quieter */
+.read-more__step[aria-disabled="true"] {
+  color: var(--color-muted);
+  cursor: default;
+}
+
+.read-more__step[aria-disabled="true"]:is(:hover, :focus-visible) {
+  border-color: var(--color-border);
+}
+
+/* --------------------- MOBILE --------------------- */
+
+@media (width <= 1000px) {
+  .read-more__link {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    justify-items: center;
+    padding: var(--space-7) var(--space-6) 36px;
+  }
+
+  .read-more__stage .notebook {
+    zoom: 1;
+  }
+
+  .read-more__copy {
+    max-width: none;
+  }
+
+  .read-more__name {
+    font-size: 32px;
+  }
+
+  .read-more__text {
+    font-size: var(--fs-body);
+  }
+}
+
+@media (width <= 720px) {
+  .js .read-more__slides {
+    gap: var(--space-4);
+  }
+
+  .js .read-more__slide {
+    flex-basis: calc(100% - var(--space-4));
+  }
+
+  .read-more__nav {
+    gap: var(--space-2);
+  }
+
+  .read-more__step {
+    width: 48px;
+    height: 48px;
+  }
+}

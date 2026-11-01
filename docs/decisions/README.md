@@ -12,3 +12,5 @@ Add a new file with the next number when a decision is made that someone might q
 | [0004](0004-motion.md) | Motion follows Material Design and Apple | 2026-10-24 |
 | [0005](0005-logo-and-favicon.md) | Hand-drawn logo, first-visit write-in and favicon | 2026-10-24 |
 | [0006](0006-footer.md) | Footer: contact, revealed bottom bar and animations on scroll | 2026-10-30 |
+| [0007](0007-start-hero.md) | Start page hero: built in the theme, words in Customize | 2026-11-01 |
+| [0008](0008-banner-and-read-more.md) | Start page keyword banner and "Läs vidare" cards | 2026-11-01 |

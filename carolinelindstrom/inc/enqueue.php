@@ -30,9 +30,12 @@ function clind_enqueue_styles() {
 		'cl-embed'      => 'assets/css/components/embed.css',
 		'cl-footer-nav' => 'assets/css/components/footer-nav.css',
 		'cl-contact'    => 'assets/css/components/contact.css',
-		'cl-sky'        => 'assets/css/components/contact-sky.css',
+		'cl-sky'        => 'assets/css/components/sky.css',
 		'cl-socials'    => 'assets/css/components/contact-socials.css',
 		'cl-start-hero' => 'assets/css/components/start-hero.css',
+		'cl-banner'     => 'assets/css/components/keyword-banner.css',
+		'cl-read-more'  => 'assets/css/components/read-more.css',
+		'cl-notebook'   => 'assets/css/components/notebook.css',
 	);
 
 	$previous = array();
@@ -43,12 +46,21 @@ function clind_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'clind_enqueue_styles' );
 
-/* The header (toggles, mobile menu) and the footer (animations on scroll): on every page, since both are */
+/*
+The header (toggles, mobile menu) and the footer (animations on scroll): on every
+page, since both are. The hero's tilt and the "Läs vidare" carousel only on
+the start page.
+*/
 function clind_enqueue_scripts() {
 	$scripts = array(
 		'clind-header' => 'assets/js/header.js',
 		'clind-footer' => 'assets/js/footer.js',
 	);
+
+	if ( is_front_page() ) {
+		$scripts['clind-start-hero'] = 'assets/js/start-hero.js';
+		$scripts['clind-read-more']  = 'assets/js/read-more.js';
+	}
 
 	foreach ( $scripts as $handle => $path ) {
 		wp_enqueue_script(

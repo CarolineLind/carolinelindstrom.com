@@ -86,6 +86,7 @@ Where the header differs from the design: `docs/decisions/0003-header.md`.
 - [x] The 28 header commits merged into one (detailed history in the local tag `header-detaljerad-historik`)
 - [ ] Tidy up: move the mobile menu out of `header.css` into `components/mobile-menu.css`
 - [ ] Tidy up: gather the page-to-page handoff (head script in `inc/enqueue.php`, inline script in `site-nav.php`) in one file in `inc/`
+- [ ] Discuss: the compact header carries over to the next page (`.header-expanding`, built by Caroline 2026-11-01) for menu links; should following the logo do the same?
 - [ ] Tidy up: rewrite 0003 into a few real decisions, and move "how the header works" into the theme README
 - [ ] Device check by Caroline: iPhone Safari, VoiceOver, 200 % text zoom
 
@@ -96,10 +97,14 @@ Where the header differs from the design: `docs/decisions/0003-header.md`.
 - [ ] Discuss: which colors the editor offers. Old content uses the editor's "black" text color, which is unreadable in dark mode (found by pa11y on Om mig, Prestanda, Tillgänglighet)
 
 ## 8. Start page (Välkommen)
-- [ ] Hero: the tilting paper, the portrait with the color shapes
-- [ ] Background effects (dots, stars, spotlight)
-- [ ] Keyword banner (endless scroll, paused on hover, hidden duplicate)
-- [ ] "Läs vidare" cards with doodle icons
+- [x] Hero: the tilting paper, the portrait with the color shapes (decision 0007)
+- [ ] Hero: more work wanted (Caroline, 2026-11-01); what exactly is still open
+- [ ] Start page content in WordPress (Caroline): remove the old hero blocks, the keyword list and the "Läs vidare" draft from Välkommen's content (the theme draws them now; until then they show twice and the page has two h1s); check Customize → "Startsidan"
+- [ ] Background effects: the stars are in the hero (shared `sky.css`); dots and spotlight from the design still open
+- [x] Keyword banner (endless scroll, paused on hover, hidden duplicate) (decision 0008)
+- [x] "Läs vidare" as a carousel of notebooks (the design of 2026-11-01, decision 0008)
+- [ ] "Läs vidare" content (Caroline): for Om mig, Tillgänglighet, Prestanda and Frontend lead, write the excerpt (the text beside the notebook) and the "Ord på bokomslaget" box; optionally build the menu "Läs vidare på startsidan" to choose and order them
+- [ ] Review (Caroline): the book's springy curve on a real device
 - [ ] Code editor section with the light-mode button
 - [x] Contact section "Här hittar du mig": in the footer on every page; email and Spotify link set in Customize → "Kontakt i sidfoten"
 - [x] Remove the "Här hittar du mig" block from the start page in WordPress (it's in the footer now)
@@ -117,7 +122,7 @@ pa11y findings in today's draft content (2026-10-23), all in the content, none i
 - [ ] 404
 
 ## 10. SEO
-- [ ] Meta description per page (a field in the editor, with a fallback)
+- [ ] Meta description per page: the page's excerpt (Caroline's choice, 2026-11-01; page excerpts are already on for "Läs vidare"), with a fallback
 - [ ] Canonical URLs
 - [ ] Open Graph and share image
 - [ ] `Person` structured data (JSON-LD), plus `WebSite`
