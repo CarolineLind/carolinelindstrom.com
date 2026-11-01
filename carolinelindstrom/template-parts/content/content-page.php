@@ -1,11 +1,8 @@
 <?php
 /* A page or a single post: title, then the block editor content */
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry container section' ); ?>>
-	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-	</header>
-
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'entry' ); ?>>
+	<!-- /* Consider if we truly want to contain every width. I think there background often vleed out inot the margin and edge of the viewport. Meanwhile the text might have padding and margin to keep it readable */ -->
 	<div class="entry-content">
 		<?php
 		the_content();

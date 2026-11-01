@@ -93,17 +93,25 @@ The strokes are hidden from the start of the delay (fill-mode both).
 
 /* -------------------- HOVER ----------------------- */
 
-/* Units are the SVG's: 24 of 180 is about 4 px at 32 px tall */
-.logo:is(:hover, :focus-visible) .logo__bracket--l {
-  transform: translateX(-24px);
+@media (width <= 720px) {
+  a.logo:hover {
+    color: unset;
+  }
 }
 
-.logo:is(:hover, :focus-visible) .logo__bracket--r {
-  transform: translateX(24px);
-}
+@media (width >= 720px) {
+  /* Units are the SVG's: 24 of 180 is about 4 px at 32 px tall */
+  .logo:is(:hover, :focus-visible) .logo__bracket--l {
+    transform: translateX(-24px);
+  }
 
-.logo:is(:hover, :focus-visible) .logo__swash {
-  stroke-dashoffset: 0;
+  .logo:is(:hover, :focus-visible) .logo__bracket--r {
+    transform: translateX(24px);
+  }
+
+  .logo:is(:hover, :focus-visible) .logo__swash {
+    stroke-dashoffset: 0;
+  }
 }
 
 /* -------------------- FORCED COLORS --------------- */

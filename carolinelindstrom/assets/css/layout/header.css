@@ -42,7 +42,7 @@ Where this differs from the design: docs/decisions/0003-header.md
   grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
   gap: 0 var(--space-2);
-  padding-block: var(--space-3);
+  padding-block: var(--space-4);
   transition: padding-block var(--dur-base) var(--ease-out);
 }
 
@@ -51,21 +51,27 @@ Scrolling down makes the sticky header compact and see-through; scrolling up
 brings it back (header.js toggles --compact). The margin makes up for the
 smaller padding, so the page never jumps. Text in the header has a halo
 (--text-halo) and buttons are solid, so they stay readable over what's behind.
+.header-expanding on <html> (set in <head> by clind_handoff_script) draws the
+next page compact from the first paint, after a menu link was followed from a
+compact header; header.js removes it so the header grows back in one transition.
 */
 @media (height >= 600px) {
+  .js.header-expanding .site-header,
   .js .site-header--compact {
-    margin-bottom: calc((var(--space-3) - var(--space-2)) * 2);
+    margin-bottom: calc((var(--space-4) - var(--space-3)) * 2);
     background: var(--color-glass);
     backdrop-filter: blur(var(--blur-glass));
   }
 
+  .js.header-expanding .site-header__inner,
   .js .site-header--compact .site-header__inner {
-    padding-block: var(--space-2);
+    padding-block: var(--space-3);
   }
 }
 
 /* Visitors who asked their system for less transparency get a solid header */
 @media (prefers-reduced-transparency: reduce) {
+  .js.header-expanding .site-header,
   .js .site-header--compact {
     background: var(--color-bg);
     backdrop-filter: none;

@@ -12,3 +12,4 @@ require get_template_directory() . '/inc/preferences.php';
 require get_template_directory() . '/inc/embeds.php';
 require get_template_directory() . '/inc/contact.php';
 require get_template_directory() . '/inc/icons.php';
+require get_template_directory() . '/inc/shortcodes.php';

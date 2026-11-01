@@ -32,6 +32,7 @@ function clind_enqueue_styles() {
 		'cl-contact'    => 'assets/css/components/contact.css',
 		'cl-sky'        => 'assets/css/components/contact-sky.css',
 		'cl-socials'    => 'assets/css/components/contact-socials.css',
+		'cl-start-hero' => 'assets/css/components/start-hero.css',
 	);
 
 	$previous = array();
@@ -64,36 +65,46 @@ function clind_enqueue_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'clind_enqueue_scripts' );
 
-/*
-Following a menu link: header.js leaves a "handoff" in sessionStorage, and this
-applies it to <html> before the new page is painted (only with motion on; runs
-after the preferences script at priority 0, which sets data-motion):
-	.menu-closing        the mobile menu was open: drawn open, then header.js lets it slide shut
-	.progress-returning  the progress bar counts down from --progress-from (how far down the last page was)
-	data-nav-from        which menu link was current on the last page (site-nav.php marks it,
-	and the current link takes over its weight, color and line)
-*/
+/**
+ * Following a menu link: header.js leaves a "handoff" in sessionStorage, and this
+ * applies it to <html> before the new page is painted (only with motion on).
+ *
+ *   .menu-closing        the mobile menu was open
+ *   .progress-returning  the progress bar counts down from --progress-from
+ *   data-nav-from        which menu link was current on the last page
+ *   .header-expanding    the previous page had a compact header
+ */
 function clind_handoff_script() {
 	?>
 	<script>
 	(function () {
 		var root = document.documentElement;
+
 		try {
 			var handoff = JSON.parse(sessionStorage.getItem('clind-handoff'));
 			sessionStorage.removeItem('clind-handoff');
+
 			if (!handoff || root.getAttribute('data-motion') !== 'on') {
 				return;
 			}
+
 			if (handoff.menu && window.matchMedia('(width <= 720px)').matches) {
 				root.classList.add('menu-closing');
 			}
+
 			if (handoff.progress > .01) {
 				root.style.setProperty('--progress-from', handoff.progress);
 				root.classList.add('progress-returning');
 			}
+
 			if (handoff.from >= 0) {
 				root.setAttribute('data-nav-from', handoff.from);
 			}
+
+			if (handoff.header) {
+				root.classList.add('header-expanding');
+			}
+
 		} catch (e) {}
 	})();
 	</script>

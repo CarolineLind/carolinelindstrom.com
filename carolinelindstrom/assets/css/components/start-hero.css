@@ -1,0 +1,197 @@
+@media (width <= 1200px) {
+  :root {
+    --section-space: var(--space-12);
+  }
+}
+
+.start-hero {
+  /* padding-inline: calc((100vw - 1200px) * 0.5); */
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: var(--border-width) solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+  max-width: unset;
+}
+.start-hero .wp-block-columns {
+  z-index: 1;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1300px;
+}
+.start-hero .wp-block-group {
+  perspective: 1400px;
+  flex: 999 1 560px;
+  min-width: 0;
+}
+
+.start-hero .wp-block-group .wp-block-group__inner-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 48px 52px 52px 64px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  background-image: repeating-linear-gradient(180deg,transparent 0 35px,color-mix(in srgb,var(--color-text) 5%,transparent) 35px 36px);
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));
+  box-shadow: calc(var(--nx,0) * -16px) calc(22px + var(--ny,0) * -10px) 50px -22px rgba(0,0,0,.7);
+  transition: transform .7s cubic-bezier(.2,.8,.2,1),box-shadow .7s cubic-bezier(.2,.8,.2,1);
+}
+.start-hero .wp-block-group .wp-block-group__inner-container::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 5%;
+  width: 2px;
+  height: 100%;
+  background-color: color-mix(in srgb,var(--color-text) 10%,transparent);
+  pointer-events: none;
+}
+
+.start-hero h1 {
+  position: relative;
+  z-index: 0;
+  font-size: clamp(56px,8.6vw,136px);
+  line-height: .92;
+  letter-spacing: -.04em;
+  font-weight: 800;
+  margin: 0;
+  /* opacity: 0; */
+  animation: up .8s cubic-bezier(.2,.8,.2,1) forwards;
+  animation-delay: .12s;
+}
+.start-hero p {
+  /* opacity: 0; */
+  animation: up .8s cubic-bezier(.2,.8,.2,1) forwards;
+  animation-delay: .25s;
+  margin: 0;
+  max-width: 600px;
+  font-size: 20px;
+  line-height: 1.6;
+}
+/* How do we style the text link best? */
+.text-link {
+  animation: up .8s cubic-bezier(.2,.8,.2,1) forwards;
+  animation-delay: .38s;
+}
+.text-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-weight: 700;
+  font-size: 18px;
+  border-bottom: 3px solid var(--line);
+  transition: gap .25s;
+    position: relative;
+  text-decoration: none;
+}
+.text-link a:hover {
+  gap: 16px;
+}
+.text-link a::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-line);
+}
+.text-link a::after{
+  /* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+</svg> */
+  content: "";
+  display: block;
+  background-image: url(data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22currentColor%22%20class%3D%22bi%20bi-arrow-right-short%22%20viewBox%3D%220%200%2016%2016%22%3E%0A%20%20%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M4%208a.5.5%200%200%201%20.5-.5h5.793L8.146%205.354a.5.5%200%201%201%20.708-.708l3%203a.5.5%200%200%201%200%20.708l-3%203a.5.5%200%200%201-.708-.708L10.293%208.5H4.5A.5.5%200%200%201%204%208%22%2F%3E%0A%3C%2Fsvg%3E);
+  background-repeat: no-repeat;
+  background-size: 1.5em;
+  background-position: center;
+  width: 1.2em;
+  height: 1.2em;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22currentColor%22%20class%3D%22bi%20bi-arrow-right-short%22%20viewBox%3D%220%200%2016%2016%22%3E%0A%20%20%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M4%208a.5.5%200%200%201%20.5-.5h5.793L8.146%205.354a.5.5%200%201%201%20.708-.708l3%203a.5.5%200%200%201%200%20.708l-3%203a.5.5%200%200%201-.708-.708L10.293%208.5H4.5A.5.5%200%200%201%204%208%22%2F%3E%0A%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+}
+.start-hero .wp-block-image {
+  position: relative;
+  /* opacity: 0; */
+  animation: up .8s cubic-bezier(.2,.8,.2,1) forwards;
+  margin-top: 56px;
+  flex: 1 1 350px;
+  max-width: 400px;
+  min-width: 0;
+  animation-delay: .3s;
+}
+.start-hero .wp-block-image img{
+  position: relative;
+  aspect-ratio: 4/5;
+  width: 100%;
+  z-index: 1;
+  border-radius: 28px;
+}
+
+.start-hero .wp-block-image::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -1.5rem;
+  left: -1.5rem;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 5rem;
+  background-color: var(--color-yellow);
+  transition: all 200ms ease-in-out;
+}
+
+.start-hero .wp-block-image::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -1rem;
+  right: -1rem;
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  background-color: var(--color-lilac);
+  transition: all 200ms ease-in-out;
+}
+
+.start-hero .wp-block-image:hover::before {
+  transform: translate(-0.5rem, -0.5rem);
+}
+
+.start-hero .wp-block-image:hover::after {
+  transform: translate(0.5rem, 0.5rem);
+}
+
+.start-hero .contact__sky {
+  mask-image: linear-gradient(90deg, transparent, transparent 42%, #000000);
+}
+
+@media (width <= 720px) {
+  .start-hero {
+    padding-block: 3rem;
+    padding-inline: var(--gutter);
+    flex-wrap: wrap;
+  }
+  .start-hero .wp-block-group {
+    width: 100%;
+  }
+  .start-hero .wp-block-group .wp-block-group__inner-container::before {
+    left: 1.5rem;
+  }
+  .start-hero .wp-block-image {
+    margin: 0.6rem;
+    max-width: unset;
+  }
+  .start-hero .contact__sky {
+    mask-image: linear-gradient( transparent, transparent 42%, #000000);
+  }
+}

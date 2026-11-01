@@ -102,7 +102,22 @@ a:hover {
 }
 
 .entry-content > * {
-  max-width: var(--measure);
+  /* max-width: var(--measure); */
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1300px; /* Figure out the real measurement later */
+}
+
+@media (width <= 1300px) {
+  .entry-content > * {
+    max-width: calc(100vw - 2rem);
+  }
+}
+
+@media (width <= 720px) {
+  .entry-content > * {
+    max-width: calc(100vw - 1rem);
+  }
 }
 
 .entry-content > * + * {

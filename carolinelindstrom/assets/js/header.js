@@ -55,7 +55,7 @@ the menu stays open and the header isn't sticky (assets/css/layout/header.css).
 		}, { passive: true });
 
 		/* A reload in the middle of a page starts compact */
-		if (lastY >= 16) {
+		if (lastY >= 16 && !root.classList.contains('header-expanding')) {
 			header.classList.add('site-header--compact');
 		}
 	}
@@ -91,11 +91,13 @@ the menu stays open and the header isn't sticky (assets/css/layout/header.css).
 	  menu:     the mobile menu was open, so the next page draws it open and slides it shut
 	  progress: how far down this page was, so the progress bar counts down from there
 	  from:     which link was current here, so weight and color (on phones the line) move over from it
+	  header:   the header was compact, so the next page draws it compact and lets it grow back
 	Not for links opened in a new tab or window.
 	*/
 	var menuButton = document.querySelector('.menu-btn');
 	var nav = document.getElementById('site-nav');
 	var progressBar = document.querySelector('.scroll-progress');
+
 
 	if (nav) {
 		nav.addEventListener('click', function (event) {
@@ -112,7 +114,8 @@ the menu stays open and the header isn't sticky (assets/css/layout/header.css).
 					progress: scrollable > 0 ? Math.min(1, window.scrollY / scrollable) : 0,
 					from: links.findIndex(function (link) {
 						return link.hasAttribute('aria-current');
-					})
+					}),
+					header: !!header && header.classList.contains('site-header--compact')
 				}));
 			} catch (e) {
 				/* Storage blocked: the next page just starts as usual */
@@ -122,12 +125,14 @@ the menu stays open and the header isn't sticky (assets/css/layout/header.css).
 
 	/*
 	Wait until the page has been painted as it was, then let it move on: the open
-	menu slides shut, and the last page's link hands over to the current one
+	menu slides shut, the last page's link hands over to the current one and the
+	compact header grows back
 	*/
-	if (root.classList.contains('menu-closing') || root.classList.contains('nav-handoff')) {
+	/* The header logo also needs something for when its clicked */
+	if (root.matches('.menu-closing, .nav-handoff, .header-expanding')) {
 		requestAnimationFrame(function () {
 			requestAnimationFrame(function () {
-				root.classList.remove('menu-closing', 'nav-handoff');
+				root.classList.remove('menu-closing', 'nav-handoff', 'header-expanding');
 				root.removeAttribute('data-nav-from');
 			});
 		});
