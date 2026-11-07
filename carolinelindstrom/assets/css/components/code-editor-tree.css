@@ -1,0 +1,115 @@
+/* --------------------------------------------------
+ * ------------- CODE EDITOR: FILE TREE -------------
+ * -------------------------------------------------- */
+
+/*
+The file tree beside the code in the code editor window (code-editor.css):
+folders, files with a coloured square, and the four pages as links.
+Hidden below 720 px (code-editor.css, MOBILE).
+*/
+
+.code-editor__side {
+  padding: var(--space-4) var(--space-3) var(--space-6);
+  border-right: var(--border-width) solid var(--color-border);
+  background: var(--color-code-side);
+  font-size: var(--fs-xs);
+}
+
+.code-editor__label {
+  margin: 0 0 10px var(--space-2);
+  color: var(--color-muted);
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+}
+
+.code-editor__tree,
+.code-editor__tree ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.code-editor__tree ul {
+  padding-left: 14px;
+}
+
+.code-editor__row {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  min-height: var(--code-row-height);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-sm);
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.code-editor__row--root {
+  color: var(--color-text);
+  font-weight: var(--fw-semibold);
+}
+
+.code-editor__row--active {
+  background: color-mix(in srgb, var(--color-ring-yellow) 16%, transparent);
+  color: var(--color-text);
+}
+
+.code-editor__row--link {
+  text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease-in-out), color var(--dur-fast) var(--ease-in-out);
+}
+
+.code-editor__row--link:hover,
+.code-editor__row--link:focus-visible {
+  background: color-mix(in srgb, var(--color-text) 8%, transparent);
+  color: var(--color-text);
+}
+
+/* The window clips its edges, so the focus ring sits just inside the link */
+.code-editor__row--link:focus-visible {
+  outline-offset: calc(var(--focus-width) * -1);
+}
+
+/* Touch screens get rows big enough to tap; the tree is shorter than the code, so the window keeps its height */
+@media (pointer: coarse) {
+  .code-editor__row {
+    min-height: var(--tap-min);
+  }
+}
+
+.code-editor__chevron {
+  flex-shrink: 0;
+  opacity: .7;
+}
+
+.code-editor__folder {
+  flex-shrink: 0;
+  color: var(--color-ring-lilac);
+}
+
+/* The coloured square before each file name */
+.code-editor__dot {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--dot-color);
+}
+
+.code-editor__dot--yellow {
+  --dot-color: var(--color-ring-yellow);
+}
+
+.code-editor__dot--lilac {
+  --dot-color: var(--color-ring-lilac);
+}
+
+.code-editor__dot--sky {
+  --dot-color: var(--color-ring-sky);
+}
+
+.code-editor__dot--muted {
+  --dot-color: var(--color-muted);
+}

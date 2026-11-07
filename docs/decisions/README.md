@@ -14,3 +14,4 @@ Add a new file with the next number when a decision is made that someone might q
 | [0006](0006-footer.md) | Footer: contact, revealed bottom bar and animations on scroll | 2026-10-30 |
 | [0007](0007-start-hero.md) | Start page hero: built in the theme, words in Customize | 2026-11-01 |
 | [0008](0008-banner-and-read-more.md) | Start page keyword banner and "Läs vidare" cards | 2026-11-01 |
+| [0009](0009-code-editor.md) | Start page code editor: light-mode button and typing | 2026-11-07 |

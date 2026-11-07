@@ -1,0 +1,50 @@
+/* --------------------------------------------------
+ * -------------- CODE EDITOR: TYPING ---------------
+ * -------------------------------------------------- */
+
+/*
+With motion on, js/code-editor.js lays an empty copy of the code over the
+real one and types it out, closing quotes and brackets ahead of the caret like
+a real editor (decision 0009). The real code is hidden with opacity, so screen
+readers still read it and it still holds the window's size.
+*/
+.code-editor__code--typing .code-editor__source {
+  opacity: 0;
+}
+
+.code-editor__copy {
+  pointer-events: none;
+}
+
+/* Nothing to press in the copy, so no big hit area either */
+.code-editor__copy .code-editor__light::before {
+  content: none;
+}
+
+.code-editor__caret {
+  display: inline-block;
+  width: .55em;
+  height: 1.2em;
+  margin-left: 1px;
+  border-radius: 1px;
+  background: var(--color-code-caret);
+  vertical-align: -.25em;
+  animation: code-editor-blink 1s steps(1) infinite;
+}
+
+/*
+The partners a real editor closes for you: ' } ] after the caret, and lines
+of their own below it. Plain text colour even when the caret is inside a
+string or keyword; the quote and line numbers keep their own classes
+*/
+.code-editor__ghost {
+  color: var(--color-text);
+  font-style: normal;
+  font-weight: var(--fw-regular);
+}
+
+@keyframes code-editor-blink {
+  50% {
+    opacity: 0;
+  }
+}

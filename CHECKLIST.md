@@ -105,7 +105,9 @@ Where the header differs from the design: `docs/decisions/0003-header.md`.
 - [x] "Läs vidare" as a carousel of notebooks (the design of 2026-11-01, decision 0008)
 - [ ] "Läs vidare" content (Caroline): for Om mig, Tillgänglighet, Prestanda and Frontend lead, write the excerpt (the text beside the notebook) and the "Ord på bokomslaget" box; optionally build the menu "Läs vidare på startsidan" to choose and order them
 - [ ] Review (Caroline): the book's springy curve on a real device
-- [ ] Code editor section with the light-mode button
+- [x] Code editor section with the light-mode button (decision 0009)
+- [x] Start page content in WordPress (Caroline): remove the old code editor draft ("carolinelindstrom.com — caroline.js", Utforskare and the file list) from Välkommen's content; the theme draws it now
+- [ ] Review (Caroline): the code editor's typing and the light button on a real device
 - [x] Contact section "Här hittar du mig": in the footer on every page; email and Spotify link set in Customize → "Kontakt i sidfoten"
 - [x] Remove the "Här hittar du mig" block from the start page in WordPress (it's in the footer now)
 - [x] Footer: Integritetspolicy, Inställningar and Till toppen with icon rings (plain rings, no scroll progress: Caroline's choice)

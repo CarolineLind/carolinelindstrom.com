@@ -104,6 +104,7 @@ Everything in the theme follows these rules as of 2026-10-30, apart from the exc
   - **Small logo:** the header's write-in (`--dur-write-*`), every time it's uncovered.
   - **Stars:** each layer twinkles in its own 3–6 s loop, only `opacity`. It loops for more than 5 seconds, which is allowed because "Pausa rörelse" stops it (WCAG 2.2.2).
   - **Bottom bar reveal:** not an animation. The bar is sticky and the page scrolls over it, so it follows the scroll and needs no motion setting.
+- **Code editor** (decision 0009): the window rises in tied to the scroll (`animation-timeline: view()`, linear, since the scroll sets the pace). The code is typed out at 50 characters a second, about 7.5 s, and the caret blinks once a second. It moves for more than 5 seconds, which is allowed because "Pausa rörelse" stops it (WCAG 2.2.2). Hover colours with `--ease-in-out` over `--dur-fast`, both ways.
 
 ## Sources
 

@@ -1,0 +1,258 @@
+/* --------------------------------------------------
+ * ------------------ CODE EDITOR -------------------
+ * -------------------------------------------------- */
+
+/*
+The code editor window on the start page (template-parts/front/code-editor.php):
+a title bar, a file tree, a tab, the code and a terminal. Below 720 px the
+file tree is hidden. The 'light' token is a button (js/code-editor.js).
+The file tree is in code-editor-tree.css, the typing in code-editor-typing.css.
+*/
+
+/* The same space above and below as other sections (smaller on phones, tokens.css) */
+.code-editor__inner {
+  padding-block: var(--section-space);
+}
+
+.code-editor__window {
+  overflow: clip;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  font-family: var(--font-mono);
+}
+
+/* Rounder squircle corners where supported; others keep the plain rounding */
+@supports (corner-shape: squircle) {
+  .code-editor__window {
+    border-radius: var(--radius-code-squircle);
+    corner-shape: squircle;
+  }
+}
+
+.code-editor__bar {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border-width) solid var(--color-border);
+  color: var(--color-muted);
+  font-size: var(--fs-code-bar);
+}
+
+.code-editor__body {
+  display: grid;
+  grid-template-columns: var(--code-side-width) minmax(0, 1fr);
+}
+
+/* ---------------------- CODE ---------------------- */
+
+.code-editor__main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.code-editor__tabs {
+  display: flex;
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.code-editor__tab {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  padding: 10px 18px;
+  border-right: var(--border-width) solid var(--color-border);
+  box-shadow: inset 0 -2px 0 var(--color-ring-yellow);
+  font-size: var(--fs-xs);
+}
+
+/*
+The source and the typing copy share one grid cell, so the copy lies exactly
+on top. No frame of its own: the window is the frame (typography.css gives
+other <pre>s one)
+*/
+.code-editor__code {
+  display: grid;
+  margin: 0;
+  padding: var(--space-7);
+  padding-bottom: calc(var(--space-7) + var(--code-empty-lines) * var(--fs-code) * var(--lh-code));
+  overflow-x: auto;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  font-family: inherit;
+  font-size: var(--fs-code);
+  line-height: var(--lh-code);
+}
+
+.code-editor__code:focus-visible {
+  outline-offset: calc(var(--focus-width) * -1);
+}
+
+.code-editor__code > code {
+  grid-area: 1 / 1;
+  min-width: max-content;
+  font: inherit;
+}
+
+.code-editor__ln {
+  display: inline-block;
+  width: var(--code-line-number-width);
+  color: var(--color-code-line-number);
+  user-select: none;
+}
+
+.code-editor__tok--keyword {
+  color: var(--color-code-keyword);
+  font-weight: var(--fw-semibold);
+}
+
+.code-editor__tok--string {
+  color: var(--color-code-string);
+}
+
+.code-editor__tok--prop {
+  color: var(--color-code-prop);
+}
+
+.code-editor__tok--comment {
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+/* ------------------ LIGHT BUTTON ------------------ */
+
+/* Looks like a token in the line; the hit area is bigger (::before). The negative margin keeps the line its normal height. Hidden until VISIBILITY below */
+.code-editor__light {
+  display: none;
+  position: relative;
+  margin: -1px calc(var(--space-1) * -1);
+  padding: 1px var(--space-1);
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  font: inherit;
+  line-height: inherit;
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-in-out);
+}
+
+/* At least --tap-min in both directions, centred on the token; it reaches into the lines around it, which hold nothing to press */
+.code-editor__light::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, var(--tap-min));
+  height: max(100%, var(--tap-min));
+  translate: -50% -50%;
+}
+
+.code-editor__light:hover,
+.code-editor__light:focus-visible {
+  background: color-mix(in srgb, var(--color-code-string) 18%, transparent);
+}
+
+.code-editor__light:focus-visible {
+  outline-offset: 2px;
+}
+
+/*
+Visibility: a button while the page is dark (and JavaScript runs), plain text
+otherwise: light mode is already on, so there's nothing left to press. Styled
+from <html>, so the right one shows on first paint.
+*/
+.js:not([data-theme="light"]) .code-editor__light {
+  display: inline;
+}
+
+.js:not([data-theme="light"]) .code-editor__light-text {
+  display: none;
+}
+
+/* -------------------- TERMINAL -------------------- */
+
+.code-editor__terminal {
+  padding: var(--space-3) var(--space-7) var(--space-6);
+  border-top: var(--border-width) solid var(--color-border);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-code-terminal);
+}
+
+.code-editor__terminal-head {
+  margin: 0 0 var(--space-1);
+  color: var(--color-muted);
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+}
+
+.code-editor__terminal-line {
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.code-editor__terminal-line--muted {
+  color: var(--color-muted);
+}
+
+.code-editor__terminal-line--ok {
+  color: var(--color-code-prop);
+}
+
+/*
+The answer to the light button holds its space from the start, so it doesn't
+push the page down when it appears (CLS). visibility also hides it from
+screen readers until then
+*/
+.code-editor__terminal-answer--waiting {
+  visibility: hidden;
+}
+
+/* Gets focus when the light button disappears; the text itself is what's announced */
+.code-editor__terminal-answer:focus {
+  outline: none;
+}
+
+/* -------------------- ENTRANCE -------------------- */
+
+/* The window rises in as it scrolls into view, tied to the scroll (only with motion on, utilities.css) */
+@supports (animation-timeline: view()) {
+  .code-editor__window {
+    animation: code-editor-rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 25%;
+  }
+}
+
+@keyframes code-editor-rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--space-8));
+  }
+}
+
+/* --------------------- MOBILE --------------------- */
+
+@media (width <= 720px) {
+  .code-editor__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .code-editor__side {
+    display: none;
+  }
+
+  .code-editor__code {
+    padding: var(--space-5) var(--space-5) calc(var(--space-6) + var(--code-empty-lines) * var(--fs-xs) * var(--lh-code));
+    font-size: var(--fs-xs);
+  }
+
+  .code-editor__terminal {
+    padding: var(--space-3) var(--space-5) var(--space-5);
+  }
+}

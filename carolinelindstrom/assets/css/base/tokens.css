@@ -52,6 +52,15 @@ Breakpoints (media queries can't read variables):
   --color-code-keyword: var(--color-lilac);
   --color-code-prop: var(--color-sky);
 
+  /*
+  The code editor window on the start page (components/code-editor.css): the
+  file tree's background, the line numbers (decoration, below 4.5:1 on
+  purpose, decision 0009) and the typing caret
+  */
+  --color-code-side: color-mix(in srgb, var(--color-bg) 45%, var(--color-surface));
+  --color-code-line-number: color-mix(in srgb, var(--color-muted) 60%, var(--color-surface));
+  --color-code-caret: var(--color-accent);
+
   /* Background dot pattern */
   --color-dot: #4C4867;
   --color-dot-hi: #E6E3FF;
@@ -178,6 +187,7 @@ Breakpoints (media queries can't read variables):
   --header-height: 69px;
 
   /* Corners */
+  --radius-xs: 6px;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
@@ -265,6 +275,22 @@ Breakpoints (media queries can't read variables):
   --dur-book-draw-delay: .35s;
   --dur-book-move-delay: 1.3s;
 
+  /*
+  The code editor window: code size and line height, the empty lines left
+  below the code (like a real editor), the file tree's width and the line
+  numbers' column. Corners are rounder where squircles are supported,
+  since a squircle looks smaller than a circle arc of the same radius
+  */
+  --fs-code: 15px;
+  --fs-code-bar: 12px;
+  --lh-code: 1.85;
+  --lh-code-terminal: 1.8;
+  --code-empty-lines: 2;
+  --code-side-width: 250px;
+  --code-row-height: 30px;
+  --code-line-number-width: 36px;
+  --radius-code-squircle: 32px;
+
   /* Stacking */
   --z-base: 1;
   --z-header: 40;
@@ -313,9 +339,10 @@ selectors that name it untouched, so it doesn't affect the site.
   --color-focus: #15161B;
 
   /* Code syntax */
-  --color-code-string: #7A5A00;
+  --color-code-string: #A8326E;
   --color-code-keyword: #4B3FA8;
   --color-code-prop: #1D5C96;
+  --color-code-caret: var(--color-lilac-strong);
 
   /* Background dot pattern */
   --color-dot: #C2BED6;

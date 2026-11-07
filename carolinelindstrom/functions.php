@@ -14,3 +14,4 @@ require get_template_directory() . '/inc/contact.php';
 require get_template_directory() . '/inc/icons.php';
 require get_template_directory() . '/inc/doodles.php';
 require get_template_directory() . '/inc/start-page.php';
+require get_template_directory() . '/inc/code-editor.php';

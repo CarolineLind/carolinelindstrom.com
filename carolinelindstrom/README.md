@@ -65,13 +65,14 @@ carolinelindstrom/
 │   ├── contact.php           Footer contact: Customizer fields, Spotify player, brand icons
 │   ├── start-page.php        Start page: Customizer fields, hero content, banner words, Läs vidare cards
 │   ├── doodles.php           Hand-drawn SVG doodles for the banner and the cards
+│   ├── code-editor.php       The code editor's lines and file tree
 │   └── template-tags.php     Small template helpers (logo, menu classes)
 ├── header.php · footer.php
 ├── front-page.php · page.php · single.php · index.php · 404.php
 ├── template-parts/
 │   ├── header/               Menu, menu button and toggles
 │   ├── footer/               Contact block and footer links
-│   ├── front/                Start page sections (hero, keyword banner, Läs vidare)
+│   ├── front/                Start page sections (hero, keyword banner, Läs vidare, code editor)
 │   ├── sky.php               Dots and twinkling stars behind a section
 │   └── content/              Page content and post lists
 └── assets/
@@ -79,7 +80,7 @@ carolinelindstrom/
     │   ├── base/             tokens, reset, typography, utilities
     │   ├── layout/           header, footer, content
     │   └── components/       One file per component
-    ├── js/                   preferences.js (dialog), header.js (toggles, mobile menu), footer.js (reveal, animations on scroll), start-hero.js and read-more.js (start page only)
+    ├── js/                   preferences.js (dialog), header.js (toggles, mobile menu), footer.js (reveal, animations on scroll), start-hero.js, read-more.js and code-editor.js (start page only)
     ├── fonts/                Self-hosted woff2 files and their licenses
     └── icons/                favicon.svg (light/dark) and its PNG versions; social/ brand icons (MIT)
 ```
@@ -136,6 +137,15 @@ Under the hero, a band of keywords glides past with a hand-drawn doodle after ea
 - **How it's built:** the carousel is a row that scrolls and snaps by itself (`read-more.css`); `read-more.js` only keeps the dots, counter and arrows in step and opens the book on touch screens. The notebook is spans in 3D (`notebook.css`). The doodles are in `inc/doodles.php`, shared with the banner.
 
 Where it differs from the design: [docs/decisions/0008-banner-and-read-more.md](../docs/decisions/0008-banner-and-read-more.md).
+
+## Start page code editor
+
+Before the footer, an editor window introduces Caroline as a JavaScript object (`caroline.js`), with a file tree and a terminal. Pressing `'light'` in the code switches to light mode, and the terminal answers. With motion on, the code types itself out when it scrolls into view.
+
+- **Change the code** in `clind_code_editor_lines()` in `inc/code-editor.php`: one string per line, `{k:…}` keyword, `{s:…}` string, `{p:…}` property, `{c:…}` comment, `{light}` the button. Spaces at the start are the indentation.
+- **How it's built:** `template-parts/front/code-editor.php` prints the code as real text in a `<pre>`. `code-editor.js` lays an `aria-hidden` copy on top and types it, closing quotes and brackets ahead of the caret like a real editor, so screen readers and visitors without JavaScript always get the whole code. The button and the plain `'light'` are both in the page; CSS shows one of them from `<html>`'s `data-theme`.
+
+Where it differs from the design: [docs/decisions/0009-code-editor.md](../docs/decisions/0009-code-editor.md).
 
 ## Fonts
 

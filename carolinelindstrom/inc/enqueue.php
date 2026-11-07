@@ -36,6 +36,9 @@ function clind_enqueue_styles() {
 		'cl-banner'     => 'assets/css/components/keyword-banner.css',
 		'cl-read-more'  => 'assets/css/components/read-more.css',
 		'cl-notebook'   => 'assets/css/components/notebook.css',
+		'cl-code'       => 'assets/css/components/code-editor.css',
+		'cl-code-tree'  => 'assets/css/components/code-editor-tree.css',
+		'cl-code-type'  => 'assets/css/components/code-editor-typing.css',
 	);
 
 	$previous = array();
@@ -48,8 +51,8 @@ add_action( 'wp_enqueue_scripts', 'clind_enqueue_styles' );
 
 /*
 The header (toggles, mobile menu) and the footer (animations on scroll): on every
-page, since both are. The hero's tilt and the "Läs vidare" carousel only on
-the start page.
+page, since both are. The hero's tilt, the "Läs vidare" carousel and the code
+editor only on the start page.
 */
 function clind_enqueue_scripts() {
 	$scripts = array(
@@ -60,6 +63,7 @@ function clind_enqueue_scripts() {
 	if ( is_front_page() ) {
 		$scripts['clind-start-hero'] = 'assets/js/start-hero.js';
 		$scripts['clind-read-more']  = 'assets/js/read-more.js';
+		$scripts['clind-code']       = 'assets/js/code-editor.js';
 	}
 
 	foreach ( $scripts as $handle => $path ) {
