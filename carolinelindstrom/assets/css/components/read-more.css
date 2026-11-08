@@ -434,6 +434,42 @@ html:not(.js) .read-more__nav {
   border-color: var(--color-border);
 }
 
+/* ------------------ SMALL LAPTOPS ----------------- */
+
+/*
+Two columns but a short window (a 13" laptop is about 720-800 px tall under the
+browser's toolbars): heading, slide and buttons didn't fit on one screen. A
+smaller book, less padding and the excerpt cut after six lines (the whole text
+is on the linked page; screen readers still read all of it). Tall desktop
+screens keep the full size.
+*/
+@media (width > 1000px) and (height <= 900px) {
+  .js .read-more__slides {
+    padding-block: var(--space-8) var(--space-6);
+  }
+
+  .read-more__link {
+    grid-template-columns: 340px minmax(0, 1fr);
+    gap: var(--space-8);
+    padding: var(--space-7) var(--space-9) var(--space-8) var(--space-8);
+  }
+
+  .read-more__stage .notebook {
+    zoom: 1.1;
+  }
+
+  .read-more__name {
+    font-size: 38px;
+  }
+
+  .read-more__text {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+  }
+}
+
 /* --------------------- MOBILE --------------------- */
 
 @media (width <= 1000px) {
