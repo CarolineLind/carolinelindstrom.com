@@ -1,0 +1,127 @@
+/* --------------------------------------------------
+ * --------------- START HERO SCROLL ----------------
+ * -------------------------------------------------- */
+
+/*
+Three numbers from 0 to 1 that the doodles (hero-shapes.css) and the portrait
+move by, set once on the hero and inherited:
+  --p   the page scroll: 0 at the top, 1 after one screen height
+  --pp  the portrait's own: 0 entering at the bottom of the screen, 1 leaving
+        at the top. On phones it sits below the paper and only comes into view
+        later, so it follows this instead of --p (--photo-p, STACKED)
+  --pb  the hero's bottom edge: 0 as the page starts to scroll past it, 1 when
+        it leaves at the top (the late doodles)
+Browsers with scroll-driven animations tie them to the scroll in CSS (Chrome,
+Edge, Safari 26+; decision 0010). Elsewhere start-hero.js writes them once per
+frame. @property lets them be animated as numbers; unregistered they'd jump.
+*/
+@property --p {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --pp {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --pb {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.start-hero {
+  --photo-p: var(--p);
+}
+
+@supports (animation-timeline: view()) {
+  .start-hero {
+    view-timeline: --start-hero;
+    timeline-scope: --start-hero-photo;
+  }
+
+  .start-hero__photo {
+    view-timeline: --start-hero-photo;
+  }
+}
+
+/* Only with motion on (utilities.css stops every animation otherwise) */
+@supports (animation-timeline: view()) {
+  html[data-motion="on"] .start-hero {
+    animation:
+      start-hero-page linear both,
+      start-hero-photo linear both,
+      start-hero-bottom linear both;
+    animation-timeline: scroll(root), --start-hero-photo, --start-hero;
+    animation-range: 0 100vh, cover 0% cover 100%, exit 0% exit 100%;
+  }
+}
+
+@keyframes start-hero-page {
+  from {
+    --p: 0;
+  }
+
+  to {
+    --p: 1;
+  }
+}
+
+@keyframes start-hero-photo {
+  from {
+    --pp: 0;
+  }
+
+  to {
+    --pp: 1;
+  }
+}
+
+@keyframes start-hero-bottom {
+  from {
+    --pb: 0;
+  }
+
+  to {
+    --pb: 1;
+  }
+}
+
+/*
+The portrait joins in, scaled like the doodles (--hero-shapes-amount): the
+photo rises a little slower and tips back, the lilac plate lags behind and
+turns the other way, the yellow dot floats off and grows a little.
+translate, rotate and scale, so the entrance's transform is left alone.
+*/
+html[data-motion="on"] .start-hero__photo {
+  translate: 0 calc(var(--photo-rise) * -1 * var(--photo-p) * var(--hero-shapes-amount));
+  rotate: calc(var(--photo-spin) * var(--photo-p) * var(--hero-shapes-amount));
+}
+
+html[data-motion="on"] .start-hero__photo::before {
+  translate:
+    calc(var(--photo-plate-x) * var(--photo-p) * var(--hero-shapes-amount))
+    calc(var(--photo-plate-y) * var(--photo-p) * var(--hero-shapes-amount));
+  rotate: calc(var(--photo-plate-spin) * var(--photo-p) * var(--hero-shapes-amount));
+}
+
+html[data-motion="on"] .start-hero__photo::after {
+  translate:
+    calc(var(--photo-dot-x) * var(--photo-p) * var(--hero-shapes-amount))
+    calc(var(--photo-dot-y) * var(--photo-p) * var(--hero-shapes-amount));
+  scale: calc(1 + var(--photo-dot-grow) * var(--photo-p) * var(--hero-shapes-amount));
+}
+
+/* --------------------- STACKED -------------------- */
+
+/* The portrait follows its own place on the screen, not the page scroll */
+@media (width <= 999px) {
+  .start-hero {
+    --photo-p: var(--pp);
+    --photo-dot-x: var(--photo-dot-x-stacked);
+    --photo-dot-y: var(--photo-dot-y-stacked);
+  }
+}

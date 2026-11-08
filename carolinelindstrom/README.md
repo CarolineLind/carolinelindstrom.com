@@ -64,7 +64,7 @@ carolinelindstrom/
 │   ├── icons.php             Favicon, home screen icon and theme-color
 │   ├── contact.php           Footer contact: Customizer fields, Spotify player, brand icons
 │   ├── start-page.php        Start page: Customizer fields, hero content, banner words, Läs vidare cards
-│   ├── doodles.php           Hand-drawn SVG doodles for the banner and the cards
+│   ├── doodles.php           Hand-drawn SVG doodles for the banner, the cards and the hero
 │   ├── code-editor.php       The code editor's lines and file tree
 │   └── template-tags.php     Small template helpers (logo, menu classes)
 ├── header.php · footer.php
@@ -119,13 +119,16 @@ Why it's built this way, and where it differs from the design: [docs/decisions/0
 
 ## Start page hero
 
-A sheet of lined paper with the page's h1, a short text and a link, next to the portrait with a lilac block and a yellow dot behind it, over twinkling stars. With motion on and a mouse, the paper tilts toward the pointer; with the link focused by keyboard it leans a little. The shapes behind the portrait step apart on hover, and on touch screens they follow the scroll (a scroll-driven animation, with `start-hero.js` as the fallback).
+A sheet of lined paper with the page's h1, a short text and a link, next to the portrait with a lilac block and a yellow dot behind it, over twinkling stars and twelve hand-drawn doodles. With motion on and a mouse, the paper tilts toward the pointer; with the link focused by keyboard it leans a little. As the page scrolls, the doodles rise and turn at different speeds and the portrait, its plate and its dot drift apart.
 
 - **Change the heading, text or link** under **Appearance → Customize → "Startsidan"**. The link goes to "Om mig" until another page is chosen.
 - **Change the portrait** by setting the start page's **featured image** in the editor. It's cropped to 4:5.
 - **How the tilt works:** `assets/js/start-hero.js` only writes where the pointer is, as `--nx` and `--ny` (−1 to 1) on `.start-hero`. `start-hero.css` turns them into the tilt, the shadow (its own layer, moved with `transform`) and the glare. Without the script, or with motion off, the paper lies flat.
 
-Why it's built in the theme and not in the editor, and where it differs from the design: [docs/decisions/0007-start-hero.md](../docs/decisions/0007-start-hero.md).
+- **How the scroll works:** `start-hero-scroll.css` animates three numbers on `.start-hero` with scroll-driven animations: `--p` (0 to 1 over the first screen of scrolling), `--pp` (the portrait passing through the window) and `--pb` (the hero's bottom edge leaving). The doodles (`hero-shapes.css`) and the portrait multiply their moves by these and by `--hero-shapes-amount`. Browsers without scroll-driven animations get the same numbers from `start-hero.js`. With motion off nothing reads them.
+- **The doodles:** one row each in `template-parts/front/hero-shapes.php`: start point and size in % of the hero (with `-m` and `-t` versions for phones and tablets), how far it rises, drifts and turns. The SVG paths are in `inc/doodles.php`.
+
+Why it's built in the theme and not in the editor, and where it differs from the design: [docs/decisions/0007-start-hero.md](../docs/decisions/0007-start-hero.md). The scrolling doodles: [0010](../docs/decisions/0010-hero-shapes.md).
 
 ## Start page banner and "Läs vidare"
 

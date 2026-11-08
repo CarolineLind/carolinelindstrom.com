@@ -12,33 +12,35 @@ function clind_asset_version( $path ) {
 function clind_enqueue_styles() {
 	/* Load order matters: fonts and tokens first, then base, layout and components */
 	$styles = array(
-		'cl-fonts'      => 'assets/css/base/fonts.css',
-		'cl-tokens'     => 'assets/css/base/tokens.css',
-		'cl-reset'      => 'assets/css/base/reset.css',
-		'cl-typography' => 'assets/css/base/typography.css',
-		'cl-utilities'  => 'assets/css/base/utilities.css',
-		'cl-header'     => 'assets/css/layout/header.css',
-		'cl-footer'     => 'assets/css/layout/footer.css',
-		'cl-content'    => 'assets/css/layout/content.css',
-		'cl-logo'       => 'assets/css/components/logo.css',
-		'cl-toggles'    => 'assets/css/components/toggles.css',
-		'cl-menu-btn'   => 'assets/css/components/menu-button.css',
-		'cl-nav-ind'    => 'assets/css/components/nav-indicator.css',
-		'cl-progress'   => 'assets/css/components/scroll-progress.css',
-		'cl-prefs'      => 'assets/css/components/preferences.css',
-		'cl-intro'      => 'assets/css/components/intro.css',
-		'cl-embed'      => 'assets/css/components/embed.css',
-		'cl-footer-nav' => 'assets/css/components/footer-nav.css',
-		'cl-contact'    => 'assets/css/components/contact.css',
-		'cl-sky'        => 'assets/css/components/sky.css',
-		'cl-socials'    => 'assets/css/components/contact-socials.css',
-		'cl-start-hero' => 'assets/css/components/start-hero.css',
-		'cl-banner'     => 'assets/css/components/keyword-banner.css',
-		'cl-read-more'  => 'assets/css/components/read-more.css',
-		'cl-notebook'   => 'assets/css/components/notebook.css',
-		'cl-code'       => 'assets/css/components/code-editor.css',
-		'cl-code-tree'  => 'assets/css/components/code-editor-tree.css',
-		'cl-code-type'  => 'assets/css/components/code-editor-typing.css',
+		'cl-fonts'       => 'assets/css/base/fonts.css',
+		'cl-tokens'      => 'assets/css/base/tokens.css',
+		'cl-reset'       => 'assets/css/base/reset.css',
+		'cl-typography'  => 'assets/css/base/typography.css',
+		'cl-utilities'   => 'assets/css/base/utilities.css',
+		'cl-header'      => 'assets/css/layout/header.css',
+		'cl-footer'      => 'assets/css/layout/footer.css',
+		'cl-content'     => 'assets/css/layout/content.css',
+		'cl-logo'        => 'assets/css/components/logo.css',
+		'cl-toggles'     => 'assets/css/components/toggles.css',
+		'cl-menu-btn'    => 'assets/css/components/menu-button.css',
+		'cl-nav-ind'     => 'assets/css/components/nav-indicator.css',
+		'cl-progress'    => 'assets/css/components/scroll-progress.css',
+		'cl-prefs'       => 'assets/css/components/preferences.css',
+		'cl-intro'       => 'assets/css/components/intro.css',
+		'cl-embed'       => 'assets/css/components/embed.css',
+		'cl-footer-nav'  => 'assets/css/components/footer-nav.css',
+		'cl-contact'     => 'assets/css/components/contact.css',
+		'cl-sky'         => 'assets/css/components/sky.css',
+		'cl-socials'     => 'assets/css/components/contact-socials.css',
+		'cl-start-hero'  => 'assets/css/components/start-hero.css',
+		'cl-hero-shapes' => 'assets/css/components/hero-shapes.css',
+		'cl-hero-scroll' => 'assets/css/components/start-hero-scroll.css',
+		'cl-banner'      => 'assets/css/components/keyword-banner.css',
+		'cl-read-more'   => 'assets/css/components/read-more.css',
+		'cl-notebook'    => 'assets/css/components/notebook.css',
+		'cl-code'        => 'assets/css/components/code-editor.css',
+		'cl-code-tree'   => 'assets/css/components/code-editor-tree.css',
+		'cl-code-type'   => 'assets/css/components/code-editor-typing.css',
 	);
 
 	$previous = array();
@@ -51,7 +53,7 @@ add_action( 'wp_enqueue_scripts', 'clind_enqueue_styles' );
 
 /*
 The header (toggles, mobile menu) and the footer (animations on scroll): on every
-page, since both are. The hero's tilt, the "Läs vidare" carousel and the code
+page, since both are. The hero's tilt and scroll fallback, the "Läs vidare" carousel and the code
 editor only on the start page.
 */
 function clind_enqueue_scripts() {

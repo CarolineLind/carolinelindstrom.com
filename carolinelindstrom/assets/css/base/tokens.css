@@ -247,12 +247,58 @@ Breakpoints (media queries can't read variables):
   --paper-perspective: 1400px;
   --dur-follow: .7s;
 
-  /* The portrait next to the paper; smaller and centred on phones */
-  --photo-max: 400px;
-  --photo-max-mobile: 260px;
+  /*
+  The portrait: a column of its own beside the paper from 1000 px, centred
+  under it below that (at most 320 px on tablets, 260 px on phones).
+  --hero-side is the space at the screen edges and between paper and portrait
+  (components/start-hero.css, WIDE), never more than --hero-gap-max between them
+  */
+  --photo-col: clamp(260px, 26vw, 360px);
 
-  /* How far the shapes behind it step apart on scroll (touch), as a multiple of the hover step */
-  --photo-apart-scroll: 2.5;
+  /*
+  The hero's h1: smaller than --fs-h1 on wide screens, where the paper shares
+  the row with the portrait, so the heading stays on two lines (Caroline's call)
+  */
+  --fs-hero-title: clamp(52px, 7vw, 112px);
+  --photo-max-tablet: 320px;
+  --photo-max-mobile: 260px;
+  --hero-side-min: 48px;
+  --hero-gap-max: 120px;
+
+  /*
+  Start page hero shapes (components/hero-shapes.css): doodles behind the paper
+  that rise and turn as the page scrolls. --hero-shapes-amount scales every
+  scroll move in the hero, the portrait's too (1 = the prototype's values;
+  Caroline chose 2). They pop in one after another when the page opens
+  */
+  --hero-shapes-amount: 2;
+  --shape-stroke: 2.4;
+
+  /*
+  A soft disc behind each shape, so it stands out from the dots in the
+  background: the page's own colour (what shows behind the sky), with a glow
+  of the same colour around it, so it hides the dots without being seen itself
+  */
+  --color-shape-halo: var(--color-bg);
+  --shape-halo-blur: 10px;
+  --dur-shape-delay: .2s;
+  --dur-shape-stagger: 90ms;
+
+  /*
+  How the portrait follows the scroll, at amount 1: the photo rises and tips
+  back, the lilac plate lags and turns the other way, the yellow dot floats off
+  and grows. Stacked (below 1000 px) the dot goes up-left instead of up
+  */
+  --photo-rise: 48px;
+  --photo-spin: -3deg;
+  --photo-plate-x: 18px;
+  --photo-plate-y: 30px;
+  --photo-plate-spin: 6deg;
+  --photo-dot-x: -22px;
+  --photo-dot-y: -90px;
+  --photo-dot-x-stacked: -36px;
+  --photo-dot-y-stacked: -30px;
+  --photo-dot-grow: .25;
 
   /*
   Start page keyword banner and "Läs vidare" doodles. The banner's loop and the

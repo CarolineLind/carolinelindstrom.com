@@ -98,6 +98,7 @@ Where the header differs from the design: `docs/decisions/0003-header.md`.
 
 ## 8. Start page (Välkommen)
 - [x] Hero: the tilting paper, the portrait with the color shapes (decision 0007)
+- [x] Hero: doodles that rise with the scroll, the portrait follows, strength 2.0 (decision 0010)
 - [ ] Hero: more work wanted (Caroline, 2026-11-01); what exactly is still open
 - [ ] Start page content in WordPress (Caroline): remove the old hero blocks, the keyword list and the "Läs vidare" draft from Välkommen's content (the theme draws them now; until then they show twice and the page has two h1s); check Customize → "Startsidan"
 - [ ] Background effects: the stars are in the hero (shared `sky.css`); dots and spotlight from the design still open

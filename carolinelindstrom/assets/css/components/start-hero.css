@@ -5,11 +5,14 @@
 /*
 The top of the start page (template-parts/front/hero.php): a sheet of lined
 paper with the h1, a short text and a link, the portrait with two colour shapes
-behind it, and the stars (sky.css) fading in towards the right.
+behind it, the stars (sky.css) fading in towards the right, and doodles that
+rise with the scroll (hero-shapes.css). How the doodles and the portrait
+follow the scroll: start-hero-scroll.css.
 With motion on and a mouse, the paper tilts toward the pointer: start-hero.js
 sets --nx and --ny (-1 to 1, where the pointer is in the hero) and everything
 below is worked out from them. Without them the paper lies flat.
-Where it differs from the design: docs/decisions/0007-start-hero.md.
+Where it differs from the design: docs/decisions/0007-start-hero.md and
+0010-hero-shapes.md.
 */
 
 .start-hero {
@@ -26,21 +29,32 @@ Where it differs from the design: docs/decisions/0007-start-hero.md.
   overflow: clip;
 }
 
+/*
+One column up to 999 px, the portrait centred under the paper (STACKED).
+From 1000 px the paper and the portrait's own column side by side (WIDE).
+No z-index here: the doodles (hero-shapes.css) must be able to lie both
+behind the paper and, on phones, on top of its edge.
+*/
 .start-hero__inner {
   position: relative;
-  z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: var(--space-11) var(--space-12);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  gap: var(--space-11);
   padding-block: var(--space-13) var(--space-15);
+}
+
+/* Above the sky and the doodles (both z-index 0) */
+.start-hero__stage,
+.start-hero__photo {
+  z-index: 1;
 }
 
 /* --------------------- PAPER ---------------------- */
 
 .start-hero__stage {
   position: relative;
-  flex: 999 1 560px;
+  width: 100%;
   min-width: 0;
   perspective: var(--paper-perspective);
 }
@@ -120,6 +134,8 @@ The lines are 5 % of the text colour, far below anything that affects contrast.
 /* The order they rise in when the page opens (ENTRANCE) */
 .start-hero__title {
   --enter-step: 3;
+
+  font-size: var(--fs-hero-title);
 }
 
 .start-hero__text {
@@ -178,32 +194,29 @@ html[data-motion="on"] .start-hero:has(.start-hero__link:focus-visible) {
 /* --------------------- PHOTO ---------------------- */
 
 /*
-A lilac block behind the portrait and a yellow dot at its corner. They step
-apart (--apart: 1) on hover. On touch screens, where hover never happens,
-scrolling does it instead (SCROLL below).
+A lilac plate behind the portrait and a yellow dot at its corner. With motion
+on they follow the scroll along with the doodles (SCROLL below).
+Stacked: centred under the paper, smaller (at most 320 px, 3/4 of the width
+on phones), so it doesn't fill the screen. WIDE gives it its own column.
 */
 .start-hero__photo {
   --enter-step: 7;
 
   position: relative;
-  flex: 1 1 300px;
+  width: min(var(--photo-max-tablet), 70%);
   min-width: 0;
-  max-width: var(--photo-max);
-  margin-top: var(--space-10);
 }
 
 .start-hero__photo::before,
 .start-hero__photo::after {
   position: absolute;
   content: "";
-  transition: transform var(--dur-slow) var(--ease-out);
 }
 
 .start-hero__photo::before {
   inset: var(--space-5) calc(var(--space-5) * -1) calc(var(--space-5) * -1) var(--space-5);
   border-radius: var(--radius-xl);
   background: var(--color-lilac);
-  transform: translate(calc(var(--apart, 0) * 6px), calc(var(--apart, 0) * 6px));
 }
 
 .start-hero__photo::after {
@@ -213,67 +226,6 @@ scrolling does it instead (SCROLL below).
   height: 88px;
   border-radius: var(--radius-pill);
   background: var(--color-yellow);
-  transform:
-    translate(calc(var(--apart, 0) * -4px), calc(var(--apart, 0) * -4px))
-    scale(calc(1 + var(--apart, 0) * .06));
-}
-
-/* Scrolling on touch screens moves them further than hover, so it's noticed (0007) */
-.start-hero__photo--apart {
-  --apart: var(--photo-apart-scroll);
-}
-
-@media (hover: hover) {
-  .start-hero__photo:hover {
-    --apart: 1;
-  }
-}
-
-/* --------------------- SCROLL --------------------- */
-
-/*
-Touch screens: the shapes follow the scroll. They step apart as the portrait
-comes up the screen, are fully apart around the middle, and go back together
-as it scrolls on out of view, the same way back up. Scroll-driven animation:
-the browser ties --apart to the portrait's place in the window, no script.
-Chrome and Edge 115+, Safari 26+ (caniuse, see 0007). Elsewhere start-hero.js
-adds .start-hero__photo--apart while the portrait is above the line a third of
-the way up the screen. Only with motion on (utilities.css stops the animation).
-@property lets --apart be animated as a number; unregistered it would jump.
-*/
-@property --apart {
-  syntax: "<number>";
-  inherits: true;
-  initial-value: 0;
-}
-
-@supports (animation-timeline: view()) {
-  @media (hover: none) {
-    .start-hero__photo {
-      view-timeline: --start-hero-photo;
-    }
-
-    /* Tied to the scroll, so no time-based transition on top */
-    .start-hero__photo::before,
-    .start-hero__photo::after {
-      transition: none;
-      animation: start-hero-apart linear both;
-      animation-timeline: --start-hero-photo;
-    }
-  }
-}
-
-/* From entering at the bottom (0 %) to leaving at the top (100 %) */
-@keyframes start-hero-apart {
-  0%,
-  100% {
-    --apart: 0;
-  }
-
-  35%,
-  65% {
-    --apart: var(--photo-apart-scroll);
-  }
 }
 
 /* Cropped to 4:5 whatever the uploaded image's shape */
@@ -307,6 +259,49 @@ everything is simply there.
   }
 }
 
+/* ---------------------- WIDE ---------------------- */
+
+/*
+The paper and the portrait's column side by side. One space, --hero-side, is
+used three times: screen edge to paper, paper to portrait, and the lilac plate
+to the other screen edge, so the doodles at the edges and in the gap get the
+same room. It is the page's own margin where the container is at its widest,
+and at least --hero-side-min, so the yellow dot never reaches the paper.
+Between paper and portrait it stops at --hero-gap-max.
+cqw: the hero's own width (container-type), so a scrollbar doesn't skew it.
+*/
+@media (width >= 1000px) {
+  .start-hero {
+    container-type: inline-size;
+  }
+
+  .start-hero__inner {
+    --hero-side: max(var(--hero-side-min), calc((100cqw - var(--container-max) + 2 * var(--gutter)) / 2));
+
+    grid-template-columns: minmax(0, 1fr) var(--photo-col);
+    place-items: start stretch;
+    max-width: none;
+    padding-right: max(var(--hero-side), env(safe-area-inset-right, 0px));
+    padding-left: max(var(--hero-side), env(safe-area-inset-left, 0px));
+    column-gap: min(var(--hero-side), var(--hero-gap-max));
+  }
+
+  /* The lilac plate pokes out to the right: keep it inside the column */
+  .start-hero__photo {
+    width: auto;
+    margin: var(--space-13) var(--space-5) 0 0;
+  }
+}
+
+/* -------------------- STACKED --------------------- */
+
+@media (width <= 999px) {
+  /* The paper lies above the portrait, so the yellow dot slides under it, never over the text */
+  .start-hero__stage {
+    z-index: 2;
+  }
+}
+
 /* --------------------- MOBILE --------------------- */
 
 @media (width <= 720px) {
@@ -327,10 +322,7 @@ everything is simply there.
     --paper-margin: var(--paper-margin-mobile);
   }
 
-  /* Below the paper: smaller, so it doesn't fill the screen (at most 3/4 of the width), and centred */
   .start-hero__photo {
-    flex-basis: 100%;
-    max-width: min(var(--photo-max-mobile), 75%);
-    margin: 0 auto;
+    width: min(var(--photo-max-mobile), 75%);
   }
 }

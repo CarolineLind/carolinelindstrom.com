@@ -1,7 +1,7 @@
 # 0007 – Start page hero: built in the theme, words in Customize
 
 - **Date:** 2026-11-01
-- **Status:** Decided, built
+- **Status:** Decided, built. The portrait's hover effect and layout were replaced by 0010
 - **Decided by:** Caroline Lindström
 
 ## In short
@@ -37,16 +37,14 @@ The template with Customize fields gives stable markup and keeps the words Carol
 | Text link: arrow, gap grows on hover | The arrow moves with `transform` on hover **and** keyboard focus | No layout work on hover; keyboard parity |
 | Background: dots, glow and stars | The footer's dots and stars (`sky.css`, shared through `template-parts/sky.php`), fading in towards the portrait | Caroline's call. The stars twinkle only with motion on (WCAG 2.2.2, as in 0006) |
 | Photo placeholder | The featured image, cropped to 4:5 with `object-fit: cover`, never lazy-loaded and fetched first (`fetchpriority="high"`) | It's the largest image on the first screen (LCP) |
-| Portrait as wide as the screen on phones, aligned left | From 720 px down: centred, at most 260 px (`--photo-max-mobile`) and 3/4 of the width | Caroline's call: full width it filled the screen and looked off-centre |
+| Portrait as wide as the screen on phones, aligned left | (0010 moved the portrait under the paper below 1000 px, at most 320 px on tablets.) From 720 px down: centred, at most 260 px (`--photo-max-mobile`) and 3/4 of the width | Caroline's call: full width it filled the screen and looked off-centre |
 | Portrait with a thin border | No border | Caroline's call |
-| The shapes behind the portrait step apart on hover | Same with a mouse. **On touch screens** they follow the scroll: apart as the portrait comes up to the middle of the screen, back together as it scrolls on out, both ways. A scroll-driven animation (`animation-timeline`) in CSS; where that isn't supported, `start-hero.js` sets them apart while the portrait is above the line a third of the way up the screen. Only with motion on. **On scroll they move 2.5 times as far as on hover** (15 px instead of 6; `--photo-apart-scroll`) | Caroline's call: on phones hover never happens, and the effect should come and go with the scroll. At the hover distance it was barely noticed while scrolling. Scroll-driven animations: Chrome and Edge 115+, Safari and iOS Safari 26+, Firefox only behind a setting visitors turn on themselves ([caniuse](https://caniuse.com/mdn-css_properties_animation-timeline_view), checked 2026-11-01). The fallback line is the footer's (0006) |
+| The shapes behind the portrait step apart on hover | **Replaced by 0010:** they follow the scroll on every device. Before that: same with a mouse. **On touch screens** they follow the scroll: apart as the portrait comes up to the middle of the screen, back together as it scrolls on out, both ways. A scroll-driven animation (`animation-timeline`) in CSS; where that isn't supported, `start-hero.js` sets them apart while the portrait is above the line a third of the way up the screen. Only with motion on. **On scroll they move 2.5 times as far as on hover** (15 px instead of 6; `--photo-apart-scroll`) | Caroline's call: on phones hover never happens, and the effect should come and go with the scroll. At the hover distance it was barely noticed while scrolling. Scroll-driven animations: Chrome and Edge 115+, Safari and iOS Safari 26+, Firefox only behind a setting visitors turn on themselves ([caniuse](https://caniuse.com/mdn-css_properties_animation-timeline_view), checked 2026-11-01). The fallback line is the footer's (0006) |
 
 ## Cost
 
 - The hero's look can't be changed in the editor, only its words and picture.
 - The tilt isn't seen on touch screens.
-- The fallback's scroll trigger (a third of the way up) is written in both `footer.js` and `start-hero.js`. If a third component needs it, move it to one shared place.
-- In browsers with scroll-driven animations the shapes move with the scroll; in the others they move all at once at the line. Both are fine, but they feel a little different.
 
 ## How to change it later
 

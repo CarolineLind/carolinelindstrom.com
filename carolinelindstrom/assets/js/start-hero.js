@@ -9,7 +9,7 @@ The sheet of paper in the start page hero tilts toward the mouse
 The CSS turns them into the tilt, the shadow and the glare.
 Only with motion on and a pointer that can hover (a mouse or trackpad): touch
 has no pointer to follow. Pausing motion in the header lays the paper flat.
-On touch screens the portrait's hover effect plays on scroll instead (PHOTO).
+Below that, a fallback that lets the doodles follow the scroll (SCROLL).
 Loaded on the start page only (inc/enqueue.php).
 */
 (function () {
@@ -74,26 +74,75 @@ Loaded on the start page only (inc/enqueue.php).
 	mouse.addEventListener('change', update);
 	update();
 
-	/* --------------------- PHOTO ---------------------- */
+	/* --------------------- SCROLL --------------------- */
 
 	/*
-	On touch screens, where hover never happens, the colour shapes behind the
-	portrait follow the scroll. Browsers with scroll-driven animations do it in
-	CSS (start-hero.css, SCROLL). Elsewhere: apart while the portrait is above the
-	line a third of the way up the screen and still in view, together when it is
-	below that line or has scrolled out at the top. Same line as footer.js.
+	The doodles and the portrait follow the scroll (hero-shapes.css,
+	start-hero-scroll.css) by three numbers on the hero: --p, --pp and --pb.
+	Browsers with scroll-driven animations set them in CSS. Elsewhere this
+	writes them, at most once per frame, with the same ranges, and only with
+	motion on (with motion off the CSS ignores them).
 	*/
-	var photo = hero.querySelector('.start-hero__photo');
-	var touch = window.matchMedia('(hover: none)');
-	var TRIGGER = 0.35;
 	var scrollDriven = window.CSS && CSS.supports('animation-timeline: view()');
+	var photo = hero.querySelector('.start-hero__photo');
 
-	if (!photo || scrollDriven || !window.IntersectionObserver) {
+	if (scrollDriven) {
 		return;
 	}
 
-	new IntersectionObserver(function (entries) {
-		var on = entries[0].isIntersecting && touch.matches && root.getAttribute('data-motion') === 'on';
-		photo.classList.toggle('start-hero__photo--apart', on);
-	}, { rootMargin: '0px 0px -' + TRIGGER * 100 + '% 0px' }).observe(photo);
+	var clamp = function (value) {
+		return Math.max(0, Math.min(1, value)).toFixed(4);
+	};
+
+	var scrollFrame = 0;
+
+	var measure = function () {
+		scrollFrame = 0;
+		var h = window.innerHeight;
+		var box = hero.getBoundingClientRect();
+		var span = Math.min(box.height, h);
+
+		/* The page: 0 at the top, 1 after one screen height */
+		hero.style.setProperty('--p', clamp(window.scrollY / h));
+
+		/* The hero's bottom edge, like CSS's "exit" range */
+		hero.style.setProperty('--pb', clamp((span - box.bottom) / span));
+
+		/*
+		The portrait, like CSS's "cover" range: 0 entering at the bottom, 1 leaving
+		at the top. From its place in the layout (offsetTop), so its own movement
+		doesn't feed back into the number
+		*/
+		if (photo) {
+			var top = photo.offsetParent.getBoundingClientRect().top + photo.offsetTop;
+			hero.style.setProperty('--pp', clamp((h - top) / (h + photo.offsetHeight)));
+		}
+	};
+
+	var onScroll = function () {
+		if (!scrollFrame) {
+			scrollFrame = window.requestAnimationFrame(measure);
+		}
+	};
+
+	var moving = false;
+
+	var follow = function () {
+		var should = root.getAttribute('data-motion') === 'on';
+		if (should === moving) {
+			return;
+		}
+		moving = should;
+		if (moving) {
+			window.addEventListener('scroll', onScroll, { passive: true });
+			window.addEventListener('resize', onScroll);
+			measure();
+		} else {
+			window.removeEventListener('scroll', onScroll);
+			window.removeEventListener('resize', onScroll);
+		}
+	};
+
+	document.addEventListener('clind:prefs', follow);
+	follow();
 })();

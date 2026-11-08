@@ -148,6 +148,7 @@ Traps that have cost time before. Add new ones when you hit them.
 - **Scroll-driven animations follow the nearest scroll container, and `overflow: hidden` makes one.** An `animation-timeline: view()` inside an `overflow: hidden` parent measures that parent, which never scrolls, so the animation stands still. Use `overflow: clip` to clip without creating a scroll container (`.start-hero`).
 - **A sideways scroller (`overflow-x: auto`) clips upwards and downwards too.** Anything that pokes out of its slides, such as an opened notebook cover, is cut off. Give the scroller padding for it (the "Läs vidare" carousel, `read-more.css`).
 - **Decorative graphics with text in them, and slides that are faded until they're current,** are skipped by the contrast tests with `hideElements` in both `.pa11yci*.json` (the "Läs vidare" notebooks, decision 0008). Add to that list only for the same reasons, and never for text the visitor reads.
+- **`reset.css` gives every `svg` `max-width: 100%`.** An SVG inside a 0-wide anchor (the hero doodles) then gets width 0 and vanishes without an error. Set `max-width: none` on it (`hero-shapes.css`).
 - **The old `CarolineTheme/` uses Windows line endings** and fails every check. It's excluded on purpose; don't fix it.
 
 ## Checklist and open decisions

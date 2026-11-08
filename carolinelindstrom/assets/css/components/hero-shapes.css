@@ -1,0 +1,148 @@
+/* --------------------------------------------------
+ * ------------------ HERO SHAPES -------------------
+ * -------------------------------------------------- */
+
+/*
+Doodles behind the start page hero's paper and portrait
+(template-parts/front/hero-shapes.php). As the page scrolls they rise, drift a
+little sideways and turn, each at its own speed, so they slide apart and give
+the hero depth. The scroll progress (--p, --pb) is set on .start-hero
+(start-hero-scroll.css). Only with motion on: with motion off they lie still
+at their start points, and the late ones stay hidden below the hero.
+Decision: docs/decisions/0010-hero-shapes.md.
+*/
+
+.hero-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/*
+Each shape is a 0 x 0 anchor at its start point. The SVG is centred on it with
+transform, and the scroll moves the anchor with the separate translate and
+rotate properties, so the SVG turns around its own centre.
+Behind the paper and the portrait (z-index 1), unless lifted (STACKED).
+Each sits on a soft disc of the page's colour (--color-shape-halo), which
+hides the dots behind it.
+*/
+.hero-shape {
+  --sp: var(--p);
+
+  position: absolute;
+  z-index: 0;
+  top: var(--y);
+  left: var(--x);
+  width: 0;
+  height: 0;
+}
+
+.hero-shape svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--size-now, var(--size));
+
+  /* The anchor is 0 px wide: lift the reset's max-width: 100% */
+  max-width: none;
+  height: auto;
+  overflow: visible;
+  border-radius: 50%;
+  background: var(--color-shape-halo);
+  box-shadow: 0 0 var(--shape-halo-blur) 0 var(--color-shape-halo);
+  transform: translate(-50%, -50%);
+  fill: none;
+  stroke: var(--shape-color);
+  stroke-width: var(--shape-stroke);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  /* The pop-in when the page opens (ENTRANCE) */
+  animation: hero-shape-pop var(--dur-slide) var(--ease-out) both;
+  animation-delay: calc(var(--i) * var(--dur-shape-stagger) + var(--dur-shape-delay));
+}
+
+/* The same line width whatever size the shape is drawn at */
+.hero-shape path {
+  vector-effect: non-scaling-stroke;
+}
+
+.hero-shape--fill svg {
+  fill: var(--shape-color);
+  stroke: none;
+}
+
+.hero-shape--yellow {
+  --shape-color: var(--color-ring-yellow);
+}
+
+.hero-shape--lilac {
+  --shape-color: var(--color-ring-lilac);
+}
+
+.hero-shape--sky {
+  --shape-color: var(--color-ring-sky);
+}
+
+/*
+The late ones start just below the hero's bottom edge, hidden by its clip, and
+follow that edge (--pb) instead of the page: they rise into view as it travels
+up the screen, so the bottom fills up while the others drift away
+*/
+.hero-shape--late {
+  --sp: var(--pb);
+}
+
+/* --------------------- SCROLL --------------------- */
+
+html[data-motion="on"] .hero-shape {
+  translate:
+    calc(var(--dx, 0px) * var(--sp) * var(--hero-shapes-amount))
+    calc(var(--rise-now, var(--rise)) * -1 * var(--sp) * var(--hero-shapes-amount));
+  rotate: calc(var(--spin) * var(--sp) * var(--hero-shapes-amount));
+}
+
+/* -------------------- ENTRANCE -------------------- */
+
+/*
+They pop in once when the page opens, one after another (enter: --ease-out).
+Whole strokes, no stroke-dasharray, which leaves gaps along a line that isn't
+drawn in. The start state is in the keyframes, so with motion off they're there.
+*/
+
+@keyframes hero-shape-pop {
+  from {
+    opacity: 0;
+    scale: .6;
+  }
+}
+
+/* --------------------- STACKED -------------------- */
+
+/* Tablets and phones, the portrait under the paper: smaller shapes in their own places */
+@media (width <= 999px) {
+  .hero-shape {
+    --size-now: var(--size-m, var(--size));
+    --rise-now: var(--rise-m, var(--rise));
+
+    top: var(--y-m, var(--y));
+    left: var(--x-m, var(--x));
+  }
+
+  /*
+  The shapes in the side margins lie on top, so they're seen beside the paper:
+  small and centred in the gutter, at most a few px over the paper's edge.
+  The paper lies at z-index 2 here (start-hero.css)
+  */
+  .hero-shape--front-m {
+    z-index: 3;
+  }
+}
+
+/* Tablets: room on both sides of the portrait, so some shapes move closer in */
+@media (721px <= width <= 999px) {
+  .hero-shape {
+    top: var(--y-t, var(--y-m, var(--y)));
+    left: var(--x-t, var(--x-m, var(--x)));
+  }
+}
