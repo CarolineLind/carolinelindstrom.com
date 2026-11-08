@@ -33,7 +33,15 @@ $clind_socials = array(
 			<h2 class="contact__title"><?php esc_html_e( 'Här hittar du mig', 'carolinelindstrom' ); ?></h2>
 
 			<?php if ( $clind_email ) : ?>
-				<a class="contact__email" href="<?php echo esc_url( 'mailto:' . $clind_email ); ?>" aria-label="<?php echo esc_attr( $clind_email ); ?>">
+				<a class="contact__email" href="<?php echo esc_url( 'mailto:' . $clind_email ); ?>">
+					<?php
+					/*
+					The name comes from the link's own text, not aria-label, so it always matches what's
+					on screen (WCAG 2.5.3, for voice control). The per-letter spans below are hidden from
+					screen readers, which would otherwise spell the address out one letter at a time.
+					*/
+					?>
+					<span class="sr-only"><?php echo esc_html( $clind_email ); ?></span>
 					<span class="contact__email-text" aria-hidden="true">
 						<?php
 						/* Two parts, before and from the @, so a long address wraps there and not mid-word */
