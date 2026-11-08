@@ -13,6 +13,9 @@ this keeps the rest in step with it:
 	Tab into a slide that isn't current scrolls to it and makes it current
 	on touch screens, where hover never happens, the current slide's notebook
 	opens once the carousel is on screen and the scrolling has stopped
+	a click on a faded slide moves the row to it (decision 0008)
+On wide screens with motion on it also pins the carousel, so that scrolling the
+page moves the row (components/read-more-pin.css, decision 0011).
 Loaded on the start page only (inc/enqueue.php). Without it the slides are a list.
 */
 (function () {
@@ -104,13 +107,12 @@ Loaded on the start page only (inc/enqueue.php). Without it the slides are a lis
 		});
 	};
 
-	/* --- PINNED (prototype, read-more-pin.css) --- */
+	/* --- PINNED (read-more-pin.css, decision 0011) --- */
 
 	/*
 	Wide screens with motion on: if the carousel fits in the window, the section
 	sticks and the page's scroll moves the row sideways. pinned: that mode is on;
-	travel: how far the row can scroll sideways, which is also how much taller
-	the section gets.
+	travel: how far the row can scroll sideways.
 	*/
 	var inner = section.querySelector('.read-more__inner');
 	var wide = window.matchMedia('(width > 1000px)');

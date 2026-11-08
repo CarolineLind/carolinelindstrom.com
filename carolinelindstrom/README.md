@@ -138,6 +138,8 @@ Under the hero, a band of keywords glides past with a hand-drawn doodle after ea
 - **Change a notebook's text** by writing the page's **excerpt** (Utdrag) in the editor, and the **words on its cover** in the box **"Ord på bokomslaget"** in the editor's sidebar (up to three, with commas).
 - **Choose and order the notebooks** with a menu at the location **"Läs vidare på startsidan"** (Appearance → Menus). The notebook's title is the menu label. Without that menu: Om mig, Tillgänglighet, Prestanda and Frontend lead.
 - **How it's built:** the carousel is a row that scrolls and snaps by itself (`read-more.css`); `read-more.js` only keeps the dots, counter and arrows in step and opens the book on touch screens. The notebook is spans in 3D (`notebook.css`). The doodles are in `inc/doodles.php`, shared with the banner.
+- **On desktop the carousel is part of the page's scroll:** with motion on, and when it fits in the window, the section sticks under the header and scrolling down moves the notebooks sideways, with a soft start and stop at each end. The movement is CSS scroll-driven animations (`read-more-pin.css`); `read-more.js` measures and writes where each stretch starts and ends, and moves things itself in browsers without scroll-driven animations. Tune the feel with `CATCH` and `RAMP` in `read-more.js`. Why it's built this way: [0011](../docs/decisions/0011-read-more-pinned-scroll.md).
+- **A click on a faded notebook** moves the carousel to it; the pointer shows which way.
 
 Where it differs from the design: [docs/decisions/0008-banner-and-read-more.md](../docs/decisions/0008-banner-and-read-more.md).
 

@@ -104,6 +104,8 @@ Where the header differs from the design: `docs/decisions/0003-header.md`.
 - [ ] Background effects: the stars are in the hero (shared `sky.css`); dots and spotlight from the design still open
 - [x] Keyword banner (endless scroll, paused on hover, hidden duplicate) (decision 0008)
 - [x] "Läs vidare" as a carousel of notebooks (the design of 2026-11-01, decision 0008)
+- [x] "Läs vidare" pinned on desktop: scrolling down moves the carousel sideways, click on a faded notebook moves to it (decision 0011)
+- [ ] Review (Caroline): the pinned "Läs vidare" in Safari and Firefox on macOS, with VoiceOver, and at 200 % text zoom and 400 % page zoom (ordinary carousel)
 - [ ] "Läs vidare" content (Caroline): for Om mig, Tillgänglighet, Prestanda and Frontend lead, write the excerpt (the text beside the notebook) and the "Ord på bokomslaget" box; optionally build the menu "Läs vidare på startsidan" to choose and order them
 - [ ] Review (Caroline): the book's springy curve on a real device
 - [x] Code editor section with the light-mode button (decision 0009)

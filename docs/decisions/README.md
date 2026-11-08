@@ -16,3 +16,4 @@ Add a new file with the next number when a decision is made that someone might q
 | [0008](0008-banner-and-read-more.md) | Start page keyword banner and "Läs vidare" cards | 2026-11-01 |
 | [0009](0009-code-editor.md) | Start page code editor: light-mode button and typing | 2026-11-07 |
 | [0010](0010-hero-shapes.md) | Start page hero: doodles that rise with the scroll | 2026-11-08 |
+| [0011](0011-read-more-pinned-scroll.md) | "Läs vidare": scrolling down moves the carousel sideways | 2026-11-08 |

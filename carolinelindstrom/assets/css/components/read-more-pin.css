@@ -3,14 +3,14 @@
  * -------------------------------------------------- */
 
 /*
-PROTOTYPE. On wide screens, with motion on, and only when the whole carousel
-fits in the window, scrolling down the page moves the slides sideways: the
-section grows by the row's sideways distance (plus a ramp at each end, where
-the row speeds up and slows down), its inside sticks under the header, and
-read-more.js sets the row's scrollLeft from how far the page has scrolled into
-the section. Nothing listens to the wheel: the page scrolls as usual, so
+On wide screens, with motion on, and only when the whole carousel fits in the
+window, scrolling down the page moves the slides sideways (decision 0011): the
+section grows by the row's sideways distance plus the soft starts and stops,
+its inside sticks under the header, and the inside and the row move with the
+page's scroll (scroll-driven animations below, or read-more.js where those
+don't work). Nothing listens to the wheel: the page scrolls as usual, so
 scrollbar, keys and trackpad all work and the visitor can always scroll past.
-read-more.js adds .read-more--pinned and --read-more-length; without it (no
+read-more.js adds .read-more--pinned and the measurements; without it (no
 JavaScript, narrow screens, motion off, too little height) this file does
 nothing and the carousel is the ordinary one in read-more.css.
 */
