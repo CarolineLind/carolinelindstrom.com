@@ -461,21 +461,69 @@ html:not(.js) .read-more__nav {
   }
 }
 
+/*
+Phones: less padding, so the slide is mostly content. The slides in a row are
+as tall as the tallest, so the content sits at the top (not centred, which left
+a gap between book and title on a slide with no excerpt), and a long excerpt
+is cut after five lines: the whole text is on the page the slide links to.
+The cut only hides it visually; screen readers still read all of it.
+*/
 @media (width <= 720px) {
   .js .read-more__slides {
-    gap: var(--space-4);
+    gap: var(--space-3);
+    padding-bottom: var(--space-5);
   }
 
   .js .read-more__slide {
-    flex-basis: calc(100% - var(--space-4));
+    flex-basis: calc(100% - var(--space-5));
   }
 
+  .read-more__link {
+    gap: var(--space-5);
+    align-content: start;
+    padding: var(--space-5) var(--space-4) var(--space-6);
+    border-radius: 24px;
+  }
+
+  .read-more__stage .notebook {
+    margin-bottom: var(--space-4);
+  }
+
+  .read-more__copy {
+    gap: var(--space-3);
+    justify-self: stretch;
+  }
+
+  .read-more__name {
+    font-size: 28px;
+  }
+
+  .read-more__text {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+  }
+
+  /*
+  Four dots, the counter and two arrows don't fit at 320 px: the arrows were
+  squeezed into ovals. The counter goes (it's aria-hidden; the dots say the
+  same) and nothing in the row may shrink below its tap target.
+  */
   .read-more__nav {
     gap: var(--space-2);
   }
 
+  .read-more__nav > * {
+    flex-shrink: 0;
+  }
+
+  .read-more__count {
+    display: none;
+  }
+
   .read-more__step {
-    width: 48px;
-    height: 48px;
+    width: var(--tap-min);
+    height: var(--tap-min);
   }
 }
