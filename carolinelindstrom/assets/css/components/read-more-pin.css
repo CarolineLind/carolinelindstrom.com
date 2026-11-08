@@ -1,0 +1,150 @@
+/* --------------------------------------------------
+ * ---------------- READ MORE: PINNED ---------------
+ * -------------------------------------------------- */
+
+/*
+PROTOTYPE. On wide screens, with motion on, and only when the whole carousel
+fits in the window, scrolling down the page moves the slides sideways: the
+section grows by the row's sideways distance (plus a ramp at each end, where
+the row speeds up and slows down), its inside sticks under the header, and
+read-more.js sets the row's scrollLeft from how far the page has scrolled into
+the section. Nothing listens to the wheel: the page scrolls as usual, so
+scrollbar, keys and trackpad all work and the visitor can always scroll past.
+read-more.js adds .read-more--pinned and --read-more-length; without it (no
+JavaScript, narrow screens, motion off, too little height) this file does
+nothing and the carousel is the ordinary one in read-more.css.
+*/
+
+/*
+The section's height and where its inside sticks are worked out by
+read-more.js (they depend on the inside's height and the window's):
+--read-more-length is the inside's own height plus the scrolling it takes;
+--read-more-top centres the inside in the window under the header, plus half a
+catch, which read-more.js glides up with translateY so it slows to a stop
+instead of halting. The inside keeps its natural height, so nothing empty
+follows it up the page when it lets go: the next section meets the buttons.
+The section's own padding gives back the room the inside has in the ordinary
+carousel (read-more.css), less what the inside keeps, so the gaps to the
+sections before and after are the same. sticky stays inside the padding, so
+it lets go before the bottom padding and that gap scrolls up with it.
+*/
+.read-more--pinned {
+  height: var(--read-more-length, auto);
+  padding-block: calc(var(--space-15) - var(--space-7)) calc(var(--space-11) - var(--space-7));
+}
+
+.read-more--pinned .read-more__inner {
+  position: sticky;
+  top: var(--read-more-top, var(--header-height));
+  padding-block: var(--space-7);
+}
+
+/*
+The page's scroll moves the row, so the row itself mustn't scroll or snap on
+its own: a sideways swipe would pull it out of step with the page, and a
+smooth scroll-behavior would make it lag behind.
+*/
+.js .read-more--pinned .read-more__slides {
+  overflow-x: hidden;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+}
+
+/* ---------------- SCROLL-DRIVEN ------------------- */
+
+/*
+Where scroll-driven animations work, the inside and the row move in CSS, in
+step with the scroll (JS that moves them lags a frame and jolted where sticky
+lets go). read-more.js adds .read-more--timeline and the stretches, measured
+on the section's view timeline from "cover 0" (its top entering the window):
+  a → b  the inside glides up and slows to a stop (the catch)
+  b → c  the row speeds up, c → d it moves 1 px per px, d → e it slows down
+  e → f  sticky has let go; the inside is held back less and less, so it
+         speeds up to the page's speed
+Each curve starts and ends at the speed of the stretch next to it, so there is
+no kink where they meet: cubic-bezier(.25, .5, .5, 1) starts at twice its
+average speed (here: the page's) and ends still; (.5, 0, .75, .5) the other
+way round. The three row stretches add up (animation-composition: add).
+*/
+@supports (animation-timeline: view()) {
+  .read-more--timeline {
+    view-timeline: --read-more block;
+  }
+
+  .read-more--timeline .read-more__inner {
+    animation:
+      read-more-catch linear both,
+      read-more-release linear both;
+    animation-timing-function: cubic-bezier(.25, .5, .5, 1), cubic-bezier(.25, .5, .5, 1);
+    animation-range:
+      cover var(--rm-a) cover var(--rm-b),
+      cover var(--rm-e) cover var(--rm-f);
+    animation-timeline: --read-more, --read-more;
+  }
+
+  /* The row doesn't scroll at all now: it's moved, and the section clips it */
+  .js .read-more--timeline .read-more__slides {
+    overflow: visible;
+    animation:
+      read-more-row-in linear both,
+      read-more-row linear both,
+      read-more-row-out linear both;
+    animation-composition: add;
+    animation-timing-function: cubic-bezier(.5, 0, .75, .5), linear, cubic-bezier(.25, .5, .5, 1);
+    animation-range:
+      cover var(--rm-b) cover var(--rm-c),
+      cover var(--rm-c) cover var(--rm-d),
+      cover var(--rm-d) cover var(--rm-e);
+    animation-timeline: --read-more, --read-more, --read-more;
+  }
+}
+
+@keyframes read-more-catch {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: 0 calc(var(--rm-catch) / -2);
+  }
+}
+
+@keyframes read-more-release {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(calc(var(--rm-catch) / 2));
+  }
+}
+
+@keyframes read-more-row-in {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: calc(var(--rm-ramp) / -2) 0;
+  }
+}
+
+@keyframes read-more-row {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: calc(var(--rm-ramp) - var(--rm-travel)) 0;
+  }
+}
+
+@keyframes read-more-row-out {
+  from {
+    translate: 0 0;
+  }
+
+  to {
+    translate: calc(var(--rm-ramp) / -2) 0;
+  }
+}

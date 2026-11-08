@@ -105,7 +105,19 @@ doodle is simply there. Only transforms, opacity and stroke-dashoffset animate.
   transform: rotateY(-90deg);
 }
 
-/* Page edges: fine stripes of paper */
+/*
+Page edges: fine stripes of paper. Closed and seen head-on they're planes seen
+edge-on, so they show nothing, but when the book moves by fractions of a pixel
+(the "Läs vidare" row, read-more-pin.css) the 3D renderer sometimes drew one as
+a light line straight through the cover. Hidden until the book tilts, like the
+page (read-more.css), and hidden again only once it has closed.
+*/
+.notebook__edge-side,
+.notebook__edge-top {
+  visibility: hidden;
+  transition: visibility 0s linear calc(var(--dur-book) + .1s);
+}
+
 .notebook__edge-side {
   top: 5px;
   bottom: 5px;

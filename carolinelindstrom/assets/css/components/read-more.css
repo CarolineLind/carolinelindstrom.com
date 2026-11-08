@@ -119,12 +119,41 @@ accessibility tests skip it (hideElements in .pa11yci*.json).
 }
 
 /*
-The slides peeking in at the edge can't be clicked or hovered: a click there
-would follow a link the visitor can barely see. Swiping and scrolling still
-work (they land on the row), and Tab still reaches them and scrolls them in.
+The links in the slides peeking in at the edge can't be clicked or hovered: a
+click there would follow a link the visitor can barely see. A click on such a
+slide moves the row to it instead (read-more.js), and the pointer is an arrow
+the way it will go, drawn like the "Föregående"/"Nästa" buttons when hovered:
+a thin ring and the same arrow in the text colour, filled with the page's
+background so it shows over the book (SVG can't read custom properties, so the
+colours are written in, once per mode), with the hotspot in the middle.
+It's a mouse and touch shortcut for
+"Föregående"/"Nästa", so a click handler on the slide's div is fine here
+(decision 0008). Tab still reaches the links and scrolls them in.
+Just after such a click (.read-more--no-hover), the new current slide's link
+ignores the pointer too, so its book doesn't open while the row is still
+gliding: it waits until the row has stopped and the pointer moves (read-more.js).
 */
-.js .read-more__slide:not(.read-more__slide--current) {
+.read-more--no-hover .read-more__link,
+.js .read-more__slide:not(.read-more__slide--current) .read-more__link {
   pointer-events: none;
+}
+
+/* Dark mode: --color-bg #15131F, --color-text #F4F2FB */
+.js .read-more__slide--after {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19.5' fill='%2315131F' stroke='%23F4F2FB' stroke-width='1'/%3E%3Cg%3E%3Cpath transform='translate(12 12) scale(.6667)' d='M5 12h14M13 6l6 6-6 6' fill='none' stroke='%23F4F2FB' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 20 20, e-resize;
+}
+
+.js .read-more__slide--before {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19.5' fill='%2315131F' stroke='%23F4F2FB' stroke-width='1'/%3E%3Cg transform='rotate(180 20 20)'%3E%3Cpath transform='translate(12 12) scale(.6667)' d='M5 12h14M13 6l6 6-6 6' fill='none' stroke='%23F4F2FB' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 20 20, w-resize;
+}
+
+/* Light mode: --color-card #FDFCF8, --color-text #1B1930 */
+.js[data-theme="light"] .read-more__slide--after {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19.5' fill='%23FDFCF8' stroke='%231B1930' stroke-width='1'/%3E%3Cg%3E%3Cpath transform='translate(12 12) scale(.6667)' d='M5 12h14M13 6l6 6-6 6' fill='none' stroke='%231B1930' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 20 20, e-resize;
+}
+
+.js[data-theme="light"] .read-more__slide--before {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19.5' fill='%23FDFCF8' stroke='%231B1930' stroke-width='1'/%3E%3Cg transform='rotate(180 20 20)'%3E%3Cpath transform='translate(12 12) scale(.6667)' d='M5 12h14M13 6l6 6-6 6' fill='none' stroke='%231B1930' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 20 20, w-resize;
 }
 
 .read-more__copy {
@@ -221,7 +250,7 @@ never happens, the current slide's notebook opens once it has settled
   translate: 18px 0;
 }
 
-:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .notebook__page {
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) :is(.notebook__page, .notebook__edge-side, .notebook__edge-top) {
   visibility: visible;
   transition-delay: 0s;
 }

@@ -37,6 +37,7 @@ function clind_enqueue_styles() {
 		'cl-hero-scroll' => 'assets/css/components/start-hero-scroll.css',
 		'cl-banner'      => 'assets/css/components/keyword-banner.css',
 		'cl-read-more'   => 'assets/css/components/read-more.css',
+		'cl-read-pin'    => 'assets/css/components/read-more-pin.css',
 		'cl-notebook'    => 'assets/css/components/notebook.css',
 		'cl-code'        => 'assets/css/components/code-editor.css',
 		'cl-code-tree'   => 'assets/css/components/code-editor-tree.css',
