@@ -109,13 +109,14 @@ Loaded on the start page only (inc/enqueue.php).
 		hero.style.setProperty('--pb', clamp((span - box.bottom) / span));
 
 		/*
-		The portrait, like CSS's "cover" range: 0 entering at the bottom, 1 leaving
-		at the top. From its place in the layout (offsetTop), so its own movement
-		doesn't feed back into the number
+		The portrait, like CSS's "entry 50% exit 100%" range: 0 when half of it
+		is in view at the bottom, 1 leaving at the top. From its place in the
+		layout (offsetTop); the container doesn't move, so this stays put
 		*/
 		if (photo) {
 			var top = photo.offsetParent.getBoundingClientRect().top + photo.offsetTop;
-			hero.style.setProperty('--pp', clamp((h - top) / (h + photo.offsetHeight)));
+			var start = h - photo.offsetHeight / 2;
+			hero.style.setProperty('--pp', clamp((start - top) / (start + photo.offsetHeight)));
 		}
 	};
 

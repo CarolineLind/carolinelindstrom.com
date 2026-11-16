@@ -44,9 +44,14 @@ behind the paper and, on phones, on top of its edge.
   padding-block: var(--space-13) var(--space-15);
 }
 
-/* Above the sky and the doodles (both z-index 0) */
+/*
+Above the sky and the doodles (both z-index 0). The portrait's container has
+no z-index of its own: the image and the plate-and-dot layer stack on their
+own, so the paper can lie between them (STACKED)
+*/
 .start-hero__stage,
-.start-hero__photo {
+.start-hero__photo-back,
+.start-hero__img {
   z-index: 1;
 }
 
@@ -77,14 +82,19 @@ behind the paper and, on phones, on top of its edge.
 
 /*
 The shadow is a layer of its own behind the paper, moved away from the pointer
-with transform. A box-shadow that changes would be repainted on every mouse move.
+with transform, so it is never repainted while the mouse moves. A filled,
+blurred shape rather than a box-shadow: a box-shadow isn't drawn under its own
+box, so when the layer slid out beside the tilted paper its hollow inside
+showed as a frame. Slightly narrower and lower than the paper, so it shows
+mostly below it.
 */
 .start-hero__shadow {
   position: absolute;
-  inset: 0;
+  inset: var(--paper-shadow-inset);
   border-radius: var(--radius-md);
-  box-shadow: 0 22px 50px -22px var(--color-paper-shadow);
-  transform: translate(calc(var(--nx, 0) * -16px), calc(var(--ny, 0) * -10px));
+  background: var(--color-paper-shadow);
+  filter: blur(var(--paper-shadow-blur));
+  transform: translate(calc(var(--nx, 0) * -12px), calc(var(--ny, 0) * -6px));
   transition: transform var(--dur-follow) var(--ease-out);
 }
 
@@ -171,55 +181,86 @@ html[data-motion="on"] .start-hero:has(.start-hero__link:focus-visible) {
 /* ---------------------- LINK ---------------------- */
 
 .start-hero__link {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--space-3);
   min-height: var(--tap-min);
-  border-bottom: 3px solid var(--color-line);
   font-size: 18px;
   font-weight: var(--fw-bold);
   text-decoration: none;
 }
 
-/* The arrow steps forward (transform, not a wider gap, so nothing is laid out again) */
+/*
+On hover and focus the arrow steps forward and the underline grows with it.
+The design widens the gap; here the arrow moves with transform and the line
+is drawn --link-step longer than the link with that end clipped off, so
+nothing is laid out again. A border, not a background, so it shows in forced
+colours too.
+*/
+.start-hero__link::after {
+  position: absolute;
+  right: calc(var(--link-step) * -1);
+  bottom: 0;
+  left: 0;
+  border-bottom: 3px solid var(--color-line);
+  clip-path: inset(0 var(--link-step) 0 0);
+  content: "";
+  transition: clip-path var(--dur-fast) var(--ease-out);
+}
+
 .start-hero__arrow {
   flex-shrink: 0;
   transition: transform var(--dur-fast) var(--ease-out);
 }
 
+.start-hero__link:is(:hover, :focus-visible)::after {
+  clip-path: inset(0);
+}
+
 .start-hero__link:is(:hover, :focus-visible) .start-hero__arrow {
-  transform: translateX(6px);
+  transform: translateX(var(--link-step));
 }
 
 /* --------------------- PHOTO ---------------------- */
 
 /*
-A lilac plate behind the portrait and a yellow dot at its corner. With motion
-on they follow the scroll along with the doodles (SCROLL below).
+A lilac plate behind the portrait and a yellow dot at its corner, on a layer of
+their own (.start-hero__photo-back) the size of the image. The container never
+moves: the image and that layer get the same entrance and scroll moves, so
+they move as one (start-hero-scroll.css) but can stack apart.
 Stacked: centred under the paper, smaller (at most 320 px, 3/4 of the width
 on phones), so it doesn't fill the screen. WIDE gives it its own column.
 */
 .start-hero__photo {
-  --enter-step: 7;
-
   position: relative;
   width: min(var(--photo-max-tablet), 70%);
   min-width: 0;
 }
 
-.start-hero__photo::before,
-.start-hero__photo::after {
+.start-hero__photo-back {
+  position: absolute;
+  inset: 0;
+}
+
+.start-hero__photo-back,
+.start-hero__img {
+  --enter-step: 7;
+}
+
+.start-hero__photo-back::before,
+.start-hero__photo-back::after {
   position: absolute;
   content: "";
 }
 
-.start-hero__photo::before {
+.start-hero__photo-back::before {
   inset: var(--space-5) calc(var(--space-5) * -1) calc(var(--space-5) * -1) var(--space-5);
   border-radius: var(--radius-xl);
   background: var(--color-lilac);
 }
 
-.start-hero__photo::after {
+.start-hero__photo-back::after {
   top: -26px;
   left: -26px;
   width: 88px;
@@ -231,7 +272,7 @@ on phones), so it doesn't fill the screen. WIDE gives it its own column.
 /* Cropped to 4:5 whatever the uploaded image's shape */
 .start-hero__img {
   position: relative;
-  z-index: 1;
+  display: block;
   width: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
@@ -247,7 +288,8 @@ on (utilities.css); the start state lives in the keyframes, so with motion off
 everything is simply there.
 */
 .start-hero__paper > :not(.start-hero__lines),
-.start-hero__photo {
+.start-hero__photo-back,
+.start-hero__img {
   animation: start-hero-up var(--dur-slide) var(--ease-out) both;
   animation-delay: calc(var(--dur-stagger) * var(--enter-step, 0));
 }
@@ -275,9 +317,13 @@ cqw: the hero's own width (container-type), so a scrollbar doesn't skew it.
     container-type: inline-size;
   }
 
-  .start-hero__inner {
+  /* The doodles on wide screens are placed in the same margin (hero-shapes.css) */
+  .start-hero__inner,
+  .hero-shapes {
     --hero-side: max(var(--hero-side-min), calc((100cqw - var(--container-max) + 2 * var(--gutter)) / 2));
+  }
 
+  .start-hero__inner {
     grid-template-columns: minmax(0, 1fr) var(--photo-col);
     place-items: start stretch;
     max-width: none;
@@ -293,12 +339,43 @@ cqw: the hero's own width (container-type), so a scrollbar doesn't skew it.
   }
 }
 
+/* ---------------------- TALL ---------------------- */
+
+/*
+On desktop the hero grows with the screen, so the hero and the keyword banner
+(.start-top, front-page.php) fill the first screen, up to --hero-screen-max.
+The paper and the portrait are centred in it; the doodles spread out with it,
+as they're placed in % of the hero, and more show on tall screens
+(hero-shapes.css). Lower screens keep the hero's own height.
+*/
+@media (width >= 1000px) {
+  .start-top {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(min(100svh, var(--hero-screen-max)) - var(--header-height-top));
+  }
+
+  .start-top > .start-hero {
+    display: grid;
+    flex: 1 0 auto;
+    align-content: center;
+  }
+}
+
 /* -------------------- STACKED --------------------- */
 
 @media (width <= 999px) {
-  /* The paper lies above the portrait, so the yellow dot slides under it, never over the text */
+  /*
+  As the portrait rises with the scroll, it floats over the paper's bottom
+  edge, but the yellow dot and the lilac plate slide under it (Caroline's
+  call): portrait, paper, then dot and plate. The side-margin doodles lie at 3
+  */
   .start-hero__stage {
     z-index: 2;
+  }
+
+  .start-hero__img {
+    z-index: 4;
   }
 }
 

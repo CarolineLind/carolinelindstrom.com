@@ -6,9 +6,10 @@
 Three numbers from 0 to 1 that the doodles (hero-shapes.css) and the portrait
 move by, set once on the hero and inherited:
   --p   the page scroll: 0 at the top, 1 after one screen height
-  --pp  the portrait's own: 0 entering at the bottom of the screen, 1 leaving
-        at the top. On phones it sits below the paper and only comes into view
-        later, so it follows this instead of --p (--photo-p, STACKED)
+  --pp  the portrait's own: 0 until half of it is in view at the bottom of
+        the screen, 1 as it leaves at the top. On phones it sits below the
+        paper and only comes into view later, so it follows this instead of
+        --p (--photo-p, STACKED)
   --pb  the hero's bottom edge: 0 as the page starts to scroll past it, 1 when
         it leaves at the top (the late doodles)
 Browsers with scroll-driven animations tie them to the scroll in CSS (Chrome,
@@ -56,7 +57,7 @@ frame. @property lets them be animated as numbers; unregistered they'd jump.
       start-hero-photo linear both,
       start-hero-bottom linear both;
     animation-timeline: scroll(root), --start-hero-photo, --start-hero;
-    animation-range: 0 100vh, cover 0% cover 100%, exit 0% exit 100%;
+    animation-range: 0 100vh, entry 50% exit 100%, exit 0% exit 100%;
   }
 }
 
@@ -96,19 +97,20 @@ photo rises a little slower and tips back, the lilac plate lags behind and
 turns the other way, the yellow dot floats off and grows a little.
 translate, rotate and scale, so the entrance's transform is left alone.
 */
-html[data-motion="on"] .start-hero__photo {
+html[data-motion="on"] .start-hero__photo-back,
+html[data-motion="on"] .start-hero__img {
   translate: 0 calc(var(--photo-rise) * -1 * var(--photo-p) * var(--hero-shapes-amount));
   rotate: calc(var(--photo-spin) * var(--photo-p) * var(--hero-shapes-amount));
 }
 
-html[data-motion="on"] .start-hero__photo::before {
+html[data-motion="on"] .start-hero__photo-back::before {
   translate:
     calc(var(--photo-plate-x) * var(--photo-p) * var(--hero-shapes-amount))
     calc(var(--photo-plate-y) * var(--photo-p) * var(--hero-shapes-amount));
   rotate: calc(var(--photo-plate-spin) * var(--photo-p) * var(--hero-shapes-amount));
 }
 
-html[data-motion="on"] .start-hero__photo::after {
+html[data-motion="on"] .start-hero__photo-back::after {
   translate:
     calc(var(--photo-dot-x) * var(--photo-p) * var(--hero-shapes-amount))
     calc(var(--photo-dot-y) * var(--photo-p) * var(--hero-shapes-amount));
@@ -117,10 +119,15 @@ html[data-motion="on"] .start-hero__photo::after {
 
 /* --------------------- STACKED -------------------- */
 
-/* The portrait follows its own place on the screen, not the page scroll */
+/*
+The portrait follows its own place on the screen, not the page scroll. It
+starts straight, so the visitor sees it straight first (Caroline's call): --pp
+waits until half of it is in view, and on tall screens, where it's in view as
+the page opens, the move eases in over the first quarter screen of scrolling
+*/
 @media (width <= 999px) {
   .start-hero {
-    --photo-p: var(--pp);
+    --photo-p: calc(var(--pp) * min(1, var(--p) * 4));
     --photo-dot-x: var(--photo-dot-x-stacked);
     --photo-dot-y: var(--photo-dot-y-stacked);
   }

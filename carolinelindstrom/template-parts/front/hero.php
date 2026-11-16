@@ -42,6 +42,8 @@ $clind_hero = clind_hero_content();
 
 		<?php if ( has_post_thumbnail() ) : ?>
 			<div class="start-hero__photo">
+				<?php /* The lilac plate and the yellow dot, a layer of their own so they can lie under the paper while the portrait lies over it (start-hero.css, STACKED) */ ?>
+				<div class="start-hero__photo-back" aria-hidden="true"></div>
 				<?php
 				/* The largest image on the first screen: never lazy, fetched first (LCP). sizes follows --photo-col, --photo-max-tablet and --photo-max-mobile */
 				the_post_thumbnail(

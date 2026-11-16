@@ -93,6 +93,58 @@ up the screen, so the bottom fills up while the others drift away
   --sp: var(--pb);
 }
 
+/*
+Extra shapes for wide screens, where the side margins grow faster than the
+percentages above (hero-side is about 344 px a side at 1920 px). They are
+placed across the margin (--mx: 0 at the screen edge, 1 at the content), so
+they fill it at every width. wide from 1440 px, wider from 1800 px.
+--hero-side is set for this layer in start-hero.css (WIDE).
+*/
+.hero-shape--wide,
+.hero-shape--wider {
+  display: none;
+  left: calc(var(--hero-side) * var(--mx));
+}
+
+.hero-shape--right {
+  left: calc(100% - var(--hero-side) * var(--mx));
+}
+
+@media (width >= 1440px) {
+  .hero-shape--wide {
+    display: block;
+  }
+}
+
+@media (width >= 1800px) {
+  .hero-shape--wider {
+    display: block;
+  }
+}
+
+/*
+Extra shapes for tall screens, where the hero grows with the screen
+(start-hero.css, TALL): they fill the bands above and below the paper and the
+portrait, in % of the hero like the first twelve. tall from 1000 px high,
+taller from 1300 px; desktop only.
+*/
+.hero-shape--tall,
+.hero-shape--taller {
+  display: none;
+}
+
+@media (width >= 1000px) and (height >= 1000px) {
+  .hero-shape--tall {
+    display: block;
+  }
+}
+
+@media (width >= 1000px) and (height >= 1300px) {
+  .hero-shape--taller {
+    display: block;
+  }
+}
+
 /* --------------------- SCROLL --------------------- */
 
 html[data-motion="on"] .hero-shape {
@@ -136,6 +188,12 @@ drawn in. The start state is in the keyframes, so with motion off they're there.
   */
   .hero-shape--front-m {
     z-index: 3;
+  }
+
+  /* No disc here: on top of the paper's edge it would cover the paper */
+  .hero-shape--front-m svg {
+    background: none;
+    box-shadow: none;
   }
 }
 

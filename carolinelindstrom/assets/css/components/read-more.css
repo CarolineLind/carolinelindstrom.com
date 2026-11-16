@@ -185,13 +185,29 @@ gliding: it waits until the row has stopped and the pointer moves (read-more.js)
 }
 
 .read-more__more {
+  position: relative;
   display: inline-flex;
   align-self: flex-start;
   align-items: center;
   gap: var(--space-2);
-  padding-bottom: 2px;
-  border-bottom: 2px solid var(--more-line);
+  padding-bottom: 4px;
   font-weight: var(--fw-bold);
+}
+
+/*
+The underline grows with the arrow on hover and focus: drawn --link-step
+longer than the text with that end clipped off (as the hero's link,
+start-hero.css), so nothing is laid out again
+*/
+.read-more__more::after {
+  position: absolute;
+  right: calc(var(--link-step) * -1);
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid var(--more-line);
+  clip-path: inset(0 var(--link-step) 0 0);
+  content: "";
+  transition: clip-path var(--dur-fast) var(--ease-out);
 }
 
 .notebook--lilac .read-more__more {
@@ -207,7 +223,7 @@ gliding: it waits until the row has stopped and the pointer moves (read-more.js)
   --more-line: var(--color-ring-sky);
 }
 
-/* The arrow steps forward (transform, not a wider gap, so nothing is laid out again) */
+/* The arrow steps forward with the line (transform, not a wider gap, so nothing is laid out again) */
 .read-more__arrow {
   transition: transform var(--dur-fast) var(--ease-out);
 }
@@ -224,7 +240,11 @@ never happens, the current slide's notebook opens once it has settled
 }
 
 :is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .read-more__arrow {
-  transform: translateX(6px);
+  transform: translateX(var(--link-step));
+}
+
+:is(.read-more__link:is(:hover, :focus-visible), .read-more__slide--open .read-more__link) .read-more__more::after {
+  clip-path: inset(0);
 }
 
 /* Opening springs a little (--ease-book); closing doesn't (notebook.css) */

@@ -199,6 +199,12 @@ Breakpoints (media queries can't read variables):
   --focus-width: 3px;
   --focus-offset: 4px;
 
+  /*
+  "Läs mer" links: on hover and focus the arrow steps forward this far and the
+  underline grows by the same, as in the design (start-hero.css, read-more.css)
+  */
+  --link-step: 6px;
+
   /* Motion. Which curve and duration to use when: docs/decisions/0004-motion.md */
   --ease-out: cubic-bezier(.2, .8, .2, 1);
   --ease-in: cubic-bezier(.3, 0, 1, 1);
@@ -247,6 +253,10 @@ Breakpoints (media queries can't read variables):
   --paper-perspective: 1400px;
   --dur-follow: .7s;
 
+  /* The paper's shadow: a blurred shape, inset from the paper (top, sides, bottom) */
+  --paper-shadow-inset: 24px 16px -14px;
+  --paper-shadow-blur: 22px;
+
   /*
   The portrait: a column of its own beside the paper from 1000 px, centred
   under it below that (at most 320 px on tablets, 260 px on phones).
@@ -266,12 +276,21 @@ Breakpoints (media queries can't read variables):
   --hero-gap-max: 120px;
 
   /*
+  From 1000 px the hero and the keyword banner fill the first screen together,
+  up to a screen this tall (Caroline's call). The header's height at the top of
+  the page is fixed here: --header-height follows the header as it shrinks
+  while scrolling, which would make the hero jump
+  */
+  --hero-screen-max: 1440px;
+  --header-height-top: 77px;
+
+  /*
   Start page hero shapes (components/hero-shapes.css): doodles behind the paper
   that rise and turn as the page scrolls. --hero-shapes-amount scales every
   scroll move in the hero, the portrait's too (1 = the prototype's values;
-  Caroline chose 2). They pop in one after another when the page opens
+  Caroline chose 2.5). They pop in one after another when the page opens
   */
-  --hero-shapes-amount: 2;
+  --hero-shapes-amount: 2.5;
   --shape-stroke: 2.4;
 
   /*

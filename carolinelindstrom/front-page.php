@@ -13,8 +13,11 @@ get_header();
 
 while ( have_posts() ) {
 	the_post();
+	/* The hero and the banner fill the first screen together on desktop (start-hero.css, TALL) */
+	echo '<div class="start-top">';
 	get_template_part( 'template-parts/front/hero' );
 	get_template_part( 'template-parts/front/banner' );
+	echo '</div>';
 	get_template_part( 'template-parts/front/read-more' );
 	get_template_part( 'template-parts/front/code-editor' );
 
