@@ -230,9 +230,9 @@ covered; shown at once when it opens, hidden only once the cover has closed.
 .notebook__title {
   font-family: var(--font-display);
   font-size: 19px;
-  font-weight: var(--fw-heavy);
+  font-weight: var(--fw-display);
   line-height: 1.15;
-  letter-spacing: var(--ls-tight);
+  letter-spacing: var(--ls-display);
   white-space: nowrap;
 }
 

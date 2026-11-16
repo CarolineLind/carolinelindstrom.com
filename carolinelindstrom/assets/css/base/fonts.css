@@ -3,18 +3,18 @@
  * -------------------------------------------------- */
 
 /*
-Self-hosted, trimmed fonts. Why they look the way they do (fixed optical size,
+Self-hosted, trimmed fonts. Why they look the way they do (one heading weight,
 limited weights, limited characters): docs/decisions/0001-self-hosted-fonts.md
 Rebuild with tools/fonts/subset-fonts.sh.
 */
 
 /* ------------------- WEB FONTS -------------------- */
 
-/* Headings. Optical size fixed at 96 (the "large text" shape). */
+/* Headings. One weight (500) only: the design sets every heading in it */
 @font-face {
-  font-family: 'Bricolage Grotesque';
-  src: url('../../fonts/bricolage-grotesque.woff2') format('woff2');
-  font-weight: 400 800;
+  font-family: 'EB Garamond';
+  src: url('../../fonts/eb-garamond.woff2') format('woff2');
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
@@ -40,27 +40,16 @@ Rebuild with tools/fonts/subset-fonts.sh.
 /* -------------------- FALLBACKS ------------------- */
 
 /*
-System fonts resized to take up the same space as the web fonts, so text
+System fonts (Times New Roman for the serif headings) resized to take up the same space as the web fonts, so text
 doesn't jump when the web fonts arrive. Values from tools/fonts/fallback-metrics.py.
 */
 
 @font-face {
-  font-family: 'Bricolage Grotesque Fallback';
-  src: local('Arial'), local('ArialMT');
-  font-weight: 400 599;
-  size-adjust: 95.07%;
-  ascent-override: 97.83%;
-  descent-override: 28.40%;
-  line-gap-override: 0%;
-}
-
-@font-face {
-  font-family: 'Bricolage Grotesque Fallback';
-  src: local('Arial Bold'), local('Arial-BoldMT');
-  font-weight: 600 800;
-  size-adjust: 93.60%;
-  ascent-override: 99.36%;
-  descent-override: 28.85%;
+  font-family: 'EB Garamond Fallback';
+  src: local('Times New Roman'), local('TimesNewRomanPSMT');
+  size-adjust: 97.83%;
+  ascent-override: 102.94%;
+  descent-override: 30.46%;
   line-gap-override: 0%;
 }
 

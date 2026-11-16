@@ -11,7 +11,7 @@
 	flashes white between pages. Same colors as --color-bg in tokens.css.
 	*/
 	?>
-	<style>html{color-scheme:dark;background:#15131F}html[data-theme="light"]{color-scheme:light;background:#FBFAF6}</style>
+	<style>html{color-scheme:dark;background:#15131F}html[data-theme="light"]{color-scheme:light;background:#FFF}</style>
 	<?php wp_head(); ?>
 </head>
 <?php /* id="top": the footer's "Till toppen" link scrolls here */ ?>

@@ -240,7 +240,8 @@ out of what screen readers read.
     padding-left: var(--space-5);
     font-family: var(--font-display);
     font-size: 24px;
-    font-weight: var(--fw-bold);
+    font-weight: var(--fw-display);
+    letter-spacing: var(--ls-display);
     color: var(--color-text);
   }
 

@@ -57,9 +57,21 @@ hides the dots behind it.
   stroke-linecap: round;
   stroke-linejoin: round;
 
+  /*
+  The disc fades with the page when the theme changes (same curve and duration
+  as body in typography.css). Without this it switches at once while the page
+  behind it still fades, and shows as a dark or light blob for a moment
+  */
+  transition:
+    background-color var(--dur-slow) var(--ease-out),
+    box-shadow var(--dur-slow) var(--ease-out);
+
   /* The pop-in when the page opens (ENTRANCE) */
   animation: hero-shape-pop var(--dur-slide) var(--ease-out) both;
   animation-delay: calc(var(--i) * var(--dur-shape-stagger) + var(--dur-shape-delay));
+
+  /* Held back while the first-visit intro covers the page (intro.css) */
+  animation-play-state: var(--entrance-play, running);
 }
 
 /* The same line width whatever size the shape is drawn at */

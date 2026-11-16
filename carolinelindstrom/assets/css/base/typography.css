@@ -23,7 +23,8 @@ body {
 h1, h2, h3, h4,
 .h1, .h2, .h3 {
   font-family: var(--font-display);
-  font-weight: var(--fw-heavy);
+  font-weight: var(--fw-display);
+  letter-spacing: var(--ls-display);
   line-height: var(--lh-heading);
   text-wrap: balance;
 }
@@ -31,24 +32,19 @@ h1, h2, h3, h4,
 h1, .h1 {
   font-size: var(--fs-h1);
   line-height: var(--lh-display);
-  letter-spacing: var(--ls-h1);
 }
 
 h2, .h2 {
   font-size: var(--fs-h2);
-  letter-spacing: var(--ls-h2);
 }
 
 h3, .h3 {
   font-size: var(--fs-h3);
-  letter-spacing: var(--ls-h2);
   line-height: 1.05;
 }
 
 h4 {
   font-size: var(--fs-h4);
-  font-weight: var(--fw-bold);
-  letter-spacing: 0;
   line-height: var(--lh-snug);
 }
 

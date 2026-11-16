@@ -137,7 +137,7 @@ is parsed. JetBrains Mono is left out: it's only used for small labels.
 crossorigin is required for fonts, even from the same domain.
 */
 function clind_preload_fonts() {
-	foreach ( array( 'bricolage-grotesque', 'dm-sans' ) as $font ) {
+	foreach ( array( 'eb-garamond', 'dm-sans' ) as $font ) {
 		printf(
 			'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
 			esc_url( get_template_directory_uri() . '/assets/fonts/' . $font . '.woff2' )

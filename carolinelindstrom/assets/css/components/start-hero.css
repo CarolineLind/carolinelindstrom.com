@@ -292,6 +292,9 @@ everything is simply there.
 .start-hero__img {
   animation: start-hero-up var(--dur-slide) var(--ease-out) both;
   animation-delay: calc(var(--dur-stagger) * var(--enter-step, 0));
+
+  /* Held back while the first-visit intro covers the page (intro.css) */
+  animation-play-state: var(--entrance-play, running);
 }
 
 @keyframes start-hero-up {

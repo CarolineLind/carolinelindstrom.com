@@ -154,7 +154,7 @@ Where it differs from the design: [docs/decisions/0009-code-editor.md](../docs/d
 
 ## Fonts
 
-Bricolage Grotesque (headings), DM Sans (body text) and JetBrains Mono (labels and code) are self-hosted in `assets/fonts/` and trimmed to 99 KB in total. The trimming means they differ slightly from the design in a few places (fixed optical size, no italics, a limited set of characters). The reasons, the full list of differences and how to rebuild the files are in [docs/decisions/0001-self-hosted-fonts.md](../docs/decisions/0001-self-hosted-fonts.md). The build tools are in `tools/fonts/` at the repo root.
+EB Garamond (headings), DM Sans (body text) and JetBrains Mono (labels and code) are self-hosted in `assets/fonts/` and trimmed to 84 KB in total. The trimming means they differ slightly from the design in a few places (headings in one weight, 500, no italics, a limited set of characters). The reasons, the full list of differences and how to rebuild the files are in [docs/decisions/0001-self-hosted-fonts.md](../docs/decisions/0001-self-hosted-fonts.md). The build tools are in `tools/fonts/` at the repo root.
 
 ## Design
 

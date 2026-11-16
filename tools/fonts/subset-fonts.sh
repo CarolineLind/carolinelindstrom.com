@@ -52,7 +52,7 @@ subset() {
 	printf '%-40s %6s bytes\n' "$out" "$(wc -c < "$OUT/$out" | tr -d ' ')"
 }
 
-subset bricolage-grotesque-latin-opsz96-wght400-800.woff2 bricolage-grotesque.woff2
+subset eb-garamond-latin-wght500.woff2                     eb-garamond.woff2
 subset dm-sans-latin-wght400-700.woff2                    dm-sans.woff2
 subset jetbrains-mono-latin-wght400-600.woff2             jetbrains-mono.woff2
 

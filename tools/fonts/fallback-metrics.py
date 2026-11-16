@@ -3,7 +3,7 @@
 #--------------------------------------------------#
 #
 # Calculates size-adjust and ascent/descent/line-gap overrides so a system
-# font (Arial, Courier New) takes up the same space as each web font.
+# font (Times New Roman, Arial, Courier New) takes up the same space as each web font.
 # Text then doesn't jump when the web font arrives (layout shift, CLS).
 # Paste the printed values into carolinelindstrom/assets/css/base/fonts.css.
 #
@@ -31,8 +31,7 @@ FREQ = {
 
 # Web font, the weight it's mostly used at, and the system font to match
 PAIRS = [
-    ("Bricolage Grotesque", "bricolage-grotesque.woff2", 400, "Arial.ttf", "Arial"),
-    ("Bricolage Grotesque", "bricolage-grotesque.woff2", 800, "Arial Bold.ttf", "Arial Bold"),
+    ("EB Garamond", "eb-garamond.woff2", 500, "Times New Roman.ttf", "Times New Roman"),
     ("DM Sans", "dm-sans.woff2", 400, "Arial.ttf", "Arial"),
     ("DM Sans", "dm-sans.woff2", 700, "Arial Bold.ttf", "Arial Bold"),
     ("JetBrains Mono", "jetbrains-mono.woff2", 400, "Courier New.ttf", "Courier New"),

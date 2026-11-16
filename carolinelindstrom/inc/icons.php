@@ -20,7 +20,7 @@ function clind_icons() {
 	<link rel="icon" href="<?php echo esc_url( $icons . 'favicon.svg?ver=' . clind_asset_version( 'assets/icons/favicon.svg' ) ); ?>" type="image/svg+xml">
 	<link rel="apple-touch-icon" href="<?php echo esc_url( $icons . 'apple-touch-icon.png' ); ?>">
 	<?php /* Browser bars on phones: the page background, --color-bg in tokens.css */ ?>
-	<meta name="theme-color" content="#FBFAF6" media="(prefers-color-scheme: light)">
+	<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
 	<meta name="theme-color" content="#15131F" media="(prefers-color-scheme: dark)">
 	<?php
 }

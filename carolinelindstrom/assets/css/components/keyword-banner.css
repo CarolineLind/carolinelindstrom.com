@@ -44,7 +44,8 @@ Only transform (the track) and stroke-dashoffset (thin doodle strokes) animate.
   padding: var(--space-7) var(--space-5);
   font-family: var(--font-display);
   font-size: var(--fs-banner);
-  font-weight: var(--fw-bold);
+  font-weight: var(--fw-display);
+  letter-spacing: var(--ls-display);
   white-space: nowrap;
 }
 

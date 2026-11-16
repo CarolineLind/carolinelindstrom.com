@@ -37,6 +37,7 @@ Why the fonts look the way they do: `docs/decisions/0001-self-hosted-fonts.md`.
 - [x] Remove Google Fonts from `enqueue.php`, `setup.php` (editor) and the preconnect hints
 - [x] Check the total stays under 100 KB (99.1 KB)
 - [x] Block editor shows the site's fonts and sizes in light mode
+- [x] Headings in EB Garamond 500 and the design's new light palette (white, cool blue-lilac greys), 2026-11-16
 - [x] Look at the site and the editor: headings, body text, åäö, italics, light background in the editor
 
 ## 4. Tools (same setup in VS Code)

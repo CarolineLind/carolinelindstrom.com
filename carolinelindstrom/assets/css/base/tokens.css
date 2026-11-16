@@ -81,8 +81,9 @@ Breakpoints (media queries can't read variables):
 
   /*
   "Läs vidare" notebooks (components/notebook.css). The slide behind each book
-  is --color-card. Paper and label are light in both modes, so the pens that
-  write on the page are fixed too (the design's; the book is decoration, 0008)
+  is --color-card. Paper and label are light in both modes (the paper a cooler
+  white in light mode), so the pens that write on the page are fixed too
+  (the design's; the book is decoration, 0008)
   */
   --color-card: #15131F;
   --color-notebook-paper: #F6F2E8;
@@ -125,12 +126,12 @@ Breakpoints (media queries can't read variables):
     -1.5px 1.5px var(--color-bg);
 
   /* Font families. The fonts and their size-matched fallbacks live in fonts.css */
-  --font-display: 'Bricolage Grotesque', 'Bricolage Grotesque Fallback', system-ui, sans-serif;
+  --font-display: 'EB Garamond', 'EB Garamond Fallback', 'Times New Roman', serif;
   --font-body: 'DM Sans', 'DM Sans Fallback', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, monospace;
 
   /* Font sizes */
-  --fs-h1: clamp(56px, 8.6vw, 136px);
+  --fs-h1: clamp(60px, 9.2vw, 146px);
   --fs-h2: clamp(36px, 4.4vw, 60px);
   --fs-h3: clamp(28px, 2.5vw, 36px);
   --fs-h4: 20px;
@@ -147,6 +148,9 @@ Breakpoints (media queries can't read variables):
   --fw-bold: 700;
   --fw-heavy: 800;
 
+  /* The heading font has this one weight only: anything heavier would be a faked bold (0001) */
+  --fw-display: 500;
+
   /* Line heights */
   --lh-display: .92;
   --lh-heading: 1;
@@ -155,8 +159,7 @@ Breakpoints (media queries can't read variables):
   --lh-lead: 1.6;
 
   /* Letter spacing */
-  --ls-h1: -.04em;
-  --ls-h2: -.03em;
+  --ls-display: -.02em;
   --ls-tight: -.02em;
   --ls-label: .08em;
 
@@ -229,11 +232,18 @@ Breakpoints (media queries can't read variables):
   --dur-write-delay: .25s;
   --dur-intro-content-delay: 1.9s;
   --dur-intro-content: 1.6s;
+
+  /* How long after the content veil starts to slide the start page hero rises in (intro.css, ENTRANCE) */
+  --dur-intro-hero-delay: .6s;
   --intro-fade: 100vh;
   --dur-write-bracket-l: .28s;
   --dur-write-word: 1s;
   --dur-write-bracket-r: .3s;
   --dur-write-pause: .12s;
+
+  /* The menu and buttons fade in while the logo writes, a while after the header veil has gone (intro.css) */
+  --dur-intro-menu-delay: .9s;
+  --dur-intro-menu: 1.8s;
 
   /* Logo */
   --logo-height: 32px;
@@ -269,7 +279,7 @@ Breakpoints (media queries can't read variables):
   The hero's h1: smaller than --fs-h1 on wide screens, where the paper shares
   the row with the portrait, so the heading stays on two lines (Caroline's call)
   */
-  --fs-hero-title: clamp(52px, 7vw, 112px);
+  --fs-hero-title: clamp(56px, 7.5vw, 120px);
   --photo-max-tablet: 320px;
   --photo-max-mobile: 260px;
   --hero-side-min: 48px;
@@ -381,12 +391,12 @@ selectors that name it untouched, so it doesn't affect the site.
 .editor-styles-wrapper {
   color-scheme: light;
 
-  /* Surfaces and text */
-  --color-bg: #FBFAF6;
+  /* Surfaces and text: white with cool, blue-lilac greys (the design's light palette "B3a + lila footer") */
+  --color-bg: #FFF;
   --color-surface: #FFF;
-  --color-border: #DAD7E8;
-  --color-text: #1B1930;
-  --color-muted: #55526B;
+  --color-border: #E3E4EE;
+  --color-text: #181A33;
+  --color-muted: #4B4D6E;
 
   /* Accents for strokes, dots and underlines */
   --color-ring-yellow: #D9A900;
@@ -410,7 +420,7 @@ selectors that name it untouched, so it doesn't affect the site.
   --color-code-caret: var(--color-lilac-strong);
 
   /* Background dot pattern */
-  --color-dot: #C2BED6;
+  --color-dot: #CDCFE2;
   --color-dot-hi: #7D77A6;
 
   /* Footer */
@@ -420,14 +430,16 @@ selectors that name it untouched, so it doesn't affect the site.
   --color-footer-dot: #B9B4E6;
   --color-footer-bar: #E6E3FB;
 
-  /* A section set apart, and the notebooks' slides and shadow */
-  --color-bg-tint: #F7F5EF;
-  --color-card: #FDFCF8;
-  --color-notebook-shadow: rgb(60 45 20 / 28%);
+  /* A section set apart, and the notebooks' slides, paper and shadow */
+  --color-bg-tint: #F7F8FE;
+  --color-card: #FFF;
+  --color-notebook-paper: #F8F8FC;
+  --color-notebook-edge: #DAD9E8;
+  --color-notebook-shadow: rgb(50 40 110 / 22%);
 
   /* Start page hero paper: a soft, tinted shadow on the light background */
   --color-paper-shadow: rgb(40 30 80 / 28%);
 
-  /* See-through header: 40 % of --color-bg, about #FBFAF666 */
+  /* See-through header: 40 % of --color-bg, about #FFFFFF66 */
   --color-glass: color-mix(in srgb, var(--color-bg) 40%, transparent);
 }

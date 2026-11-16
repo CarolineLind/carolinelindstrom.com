@@ -98,12 +98,13 @@ Consider all of these in every change. **WCAG 2.2 AA is the acceptance criterion
 
 ## The design
 
-The design is a Claude Design canvas: https://claude.ai/code/artifact/336f61ad-6f3b-42f1-8d72-1d7744ad5516
+The design is a Claude Design canvas: https://claude.ai/artifact/NEVPYM5KNrVfHH48N1dXSK
 
 - Read it with the Artifact tool's `read` action. List its files first; each artboard is `project/<Name>.dc.html`.
 - `Main.dc.html` is the start page (dark mode by default; `MainLight`, `Mobile` and `MobileMenu` reuse it). The other pages are `OmMig`, `Tillganglighet`, `Prestanda` and `FrontendLead`. The `*Lab`, `Banner*` and `Read*` boards are experiments, not decisions.
 - The design is a guide, not a contract. When the design conflicts with the quality bar, the quality bar wins: tell Caroline about the conflict.
 - The design uses `.cl` / `.cl.light` classes. In the theme these become `:root` and `[data-theme="light"]`.
+- Light mode's colours are chosen with `Main`'s `lightPalette` prop (`pal-*` classes); the `Light*` boards show the alternatives. Headings use `.hf-garamond` (EB Garamond 500).
 
 ## Local environment
 
@@ -149,6 +150,7 @@ Traps that have cost time before. Add new ones when you hit them.
 - **A sideways scroller (`overflow-x: auto`) clips upwards and downwards too.** Anything that pokes out of its slides, such as an opened notebook cover, is cut off. Give the scroller padding for it (the "Läs vidare" carousel, `read-more.css`).
 - **Decorative graphics with text in them, and slides that are faded until they're current,** are skipped by the contrast tests with `hideElements` in both `.pa11yci*.json` (the "Läs vidare" notebooks, decision 0008). Add to that list only for the same reasons, and never for text the visitor reads.
 - **`reset.css` gives every `svg` `max-width: 100%`.** An SVG inside a 0-wide anchor (the hero doodles) then gets width 0 and vanishes without an error. Set `max-width: none` on it (`hero-shapes.css`).
+- **Anything painted in the page's colour (`--color-bg`) on top of the page must fade with it** when the theme changes: `body` fades its background over `--dur-slow`, so a layer that switches at once shows as a dark or light blob for a moment. Give it the same `transition` (the shape discs, `hero-shapes.css`).
 - **The old `CarolineTheme/` uses Windows line endings** and fails every check. It's excluded on purpose; don't fix it.
 
 ## Checklist and open decisions

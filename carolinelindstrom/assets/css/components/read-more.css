@@ -147,13 +147,13 @@ gliding: it waits until the row has stopped and the pointer moves (read-more.js)
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19.5' fill='%2315131F' stroke='%23F4F2FB' stroke-width='1'/%3E%3Cg transform='rotate(180 20 20)'%3E%3Cpath transform='translate(12 12) scale(.6667)' d='M5 12h14M13 6l6 6-6 6' fill='none' stroke='%23F4F2FB' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 20 20, w-resize;
 }
 
-/* Light mode: --color-card #FDFCF8, --color-text #1B1930 */
+/* Light mode: --color-card #FFFFFF, --color-text #181A33 */
 .js[data-theme="light"] .read-more__slide--after {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19.5' fill='%23FDFCF8' stroke='%231B1930' stroke-width='1'/%3E%3Cg%3E%3Cpath transform='translate(12 12) scale(.6667)' d='M5 12h14M13 6l6 6-6 6' fill='none' stroke='%231B1930' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 20 20, e-resize;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19.5' fill='%23FFFFFF' stroke='%23181A33' stroke-width='1'/%3E%3Cg%3E%3Cpath transform='translate(12 12) scale(.6667)' d='M5 12h14M13 6l6 6-6 6' fill='none' stroke='%23181A33' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 20 20, e-resize;
 }
 
 .js[data-theme="light"] .read-more__slide--before {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19.5' fill='%23FDFCF8' stroke='%231B1930' stroke-width='1'/%3E%3Cg transform='rotate(180 20 20)'%3E%3Cpath transform='translate(12 12) scale(.6667)' d='M5 12h14M13 6l6 6-6 6' fill='none' stroke='%231B1930' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 20 20, w-resize;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19.5' fill='%23FFFFFF' stroke='%23181A33' stroke-width='1'/%3E%3Cg transform='rotate(180 20 20)'%3E%3Cpath transform='translate(12 12) scale(.6667)' d='M5 12h14M13 6l6 6-6 6' fill='none' stroke='%23181A33' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 20 20, w-resize;
 }
 
 .read-more__copy {

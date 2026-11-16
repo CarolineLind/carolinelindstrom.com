@@ -93,10 +93,26 @@ script (inc/preferences.php), shared through window.clindPrefs.
 	off; the veils are then hidden.
 	*/
 	function openIntro() {
+		var root = document.documentElement;
+
+		/* The hero's entrance waits until the content veil starts to slide (intro.css, ENTRANCE) */
+		function release() {
+			root.classList.remove('intro-waiting');
+		}
+		root.classList.add('intro-waiting');
+		document.addEventListener('clind:prefs', release, { once: true });
+
 		var veils = ['header', 'content'].map(function (part) {
 			var veil = document.createElement('div');
 			veil.className = 'intro-veil intro-veil--' + part;
 			veil.setAttribute('aria-hidden', 'true');
+			veil.addEventListener('animationstart', function (event) {
+				if (event.animationName === 'intro-slide') {
+					/* A token in seconds (tokens.css), so the veil is a little way down first */
+					var wait = parseFloat(getComputedStyle(root).getPropertyValue('--dur-intro-hero-delay')) || 0;
+					window.setTimeout(release, wait * 1000);
+				}
+			});
 			veil.addEventListener('animationend', function () {
 				veil.remove();
 			});
@@ -105,6 +121,7 @@ script (inc/preferences.php), shared through window.clindPrefs.
 		});
 		/* In case animationend never comes */
 		window.setTimeout(function () {
+			release();
 			veils.forEach(function (veil) {
 				veil.remove();
 			});
@@ -113,6 +130,12 @@ script (inc/preferences.php), shared through window.clindPrefs.
 		var logo = document.querySelector('.logo');
 		if (logo) {
 			logo.classList.add('logo--write');
+		}
+
+		/* The menu and buttons fade in while the logo writes (intro.css) */
+		var header = document.querySelector('.site-header');
+		if (header) {
+			header.classList.add('site-header--intro');
 		}
 	}
 
