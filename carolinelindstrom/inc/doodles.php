@@ -13,6 +13,8 @@ the same numbers, whatever its real length. Colour comes from the CSS (stroke).
 	(winks), figure (jumps, arms up), arrow (spins), star (pops, sparkles).
 	Start page hero, rising with the scroll (components/hero-shapes.css): the
 	banner's four plus a lone star, sun, pen ring, cloud, blob and squiggle.
+	"Om mig" hero, rocking beside the polaroids (components/about-hero.css):
+	sparkle, flower and face.
 Groups with a class (.doodle__wink and so on) are the parts that move.
 */
 
@@ -33,6 +35,8 @@ function clind_doodles() {
 		'cloud'     => array( 64, 64, '0 0 64 64', '<path pathLength="1" d="M17 44 C 8 44, 6 34, 14 32 C 12 22, 24 18, 28 24 C 32 14, 48 16, 46 28 C 56 28, 58 44, 46 44 C 36 44, 26 45, 15 44"/>' ),
 		'blob'      => array( 64, 64, '0 0 64 64', '<path d="M33 8 C 47 7, 57 18, 56 32 C 55 47, 44 57, 30 56 C 17 55, 8 45, 9 31 C 10 17, 20 9, 33 8 Z"/>' ),
 		'squiggle'  => array( 64, 64, '0 0 64 64', '<path pathLength="1" d="M4 32 C 8 22, 12 22, 16 32 S 24 42, 28 32 S 36 22, 40 32 S 48 42, 52 32 S 58 24, 60 30"/>' ),
+		/* "Om mig" hero, beside the polaroids (template-parts/about/hero.php) */
+		'flower'    => array( 92, 92, '0 0 64 64', '<path pathLength="1" d="M30.3 22.8 C 24.6 12.7, 41.5 13.9, 34.4 23.0"/><path pathLength="1" d="M36.1 24.3 C 42.2 16.4, 47.3 30.3, 37.5 28.2"/><path pathLength="1" d="M36.8 30.6 C 47.6 33.2, 34.4 44.3, 33.7 33.2"/><path pathLength="1" d="M30.3 33.2 C 29.0 42.7, 18.0 33.5, 27.2 30.6"/><path pathLength="1" d="M26.5 28.6 C 16.5 32.0, 21.0 16.4, 27.7 24.6"/><path pathLength="1" d="M32 24 C 35 24, 36.5 26, 36.5 28 C 36.5 31, 34.5 32.5, 32 32.5 C 29 32.5, 27.5 30.5, 27.5 28 C 27.5 25.5, 29.5 24, 32.5 24"/><path pathLength="1" d="M32 33 C 31 44, 33 52, 31 62"/><path pathLength="1" d="M31.5 52 C 36 46, 43 47, 44 50 C 40 55, 35 55, 31.5 52"/>' ),
 		'star'      => array( 84, 84, '0 0 64 64', '<g class="doodle__pop"><path pathLength="1" d="M31 5 Q 35.5 13, 38.5 22.5 Q 48 22, 57 24.5 Q 50.5 30.5, 43.5 36 Q 46 45.5, 48 55.5 Q 39.5 50.5, 32.5 44.5 Q 24.5 50, 15.5 54 Q 18 45, 21 36.5 Q 13.5 30, 6.5 23 Q 16 23.5, 25.5 22.5 Q 28.5 12.5, 33 3.5"/></g><g class="doodle__sparkle"><path pathLength="1" d="M52 4 C 52.5 7, 52 9.5, 52.5 13 M 48.5 9 C 51 8.5, 53.5 9, 56.5 8.5"/></g>' ),
 	);
 }

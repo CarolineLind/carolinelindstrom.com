@@ -64,15 +64,18 @@ carolinelindstrom/
 │   ├── icons.php             Favicon, home screen icon and theme-color
 │   ├── contact.php           Footer contact: Customizer fields, Spotify player, brand icons
 │   ├── start-page.php        Start page: Customizer fields, hero content, banner words, Läs vidare cards
+│   ├── about-page.php        Om mig: Customizer fields for the hero
+│   ├── page-meta.php         Word count and reading time for the row above a page
 │   ├── doodles.php           Hand-drawn SVG doodles for the banner, the cards and the hero
 │   ├── code-editor.php       The code editor's lines and file tree
 │   └── template-tags.php     Small template helpers (logo, menu classes)
 ├── header.php · footer.php
-├── front-page.php · page.php · single.php · index.php · 404.php
+├── front-page.php · page.php · page-om-mig.php · single.php · index.php · 404.php
 ├── template-parts/
 │   ├── header/               Menu, menu button and toggles
 │   ├── footer/               Contact block and footer links
 │   ├── front/                Start page sections (hero, keyword banner, Läs vidare, code editor)
+│   ├── about/                The Om mig hero
 │   ├── sky.php               Dots and twinkling stars behind a section
 │   └── content/              Page content and post lists
 └── assets/
@@ -129,6 +132,19 @@ A sheet of lined paper with the page's h1, a short text and a link, next to the 
 - **The doodles:** one row each in `template-parts/front/hero-shapes.php`: start point and size in % of the hero (with `-m` and `-t` versions for phones and tablets), how far it rises, drifts and turns. The SVG paths are in `inc/doodles.php`.
 
 Why it's built in the theme and not in the editor, and where it differs from the design: [docs/decisions/0007-start-hero.md](../docs/decisions/0007-start-hero.md). The scrolling doodles: [0010](../docs/decisions/0010-hero-shapes.md).
+
+## "Om mig" hero
+
+The h1 and a short text beside a pile of three taped polaroids, with a sparkle, a flower and a smiling face rocking around them. The pile spreads on hover and when its button has focus; each polaroid can be dragged with a mouse or a finger; "Blanda bilderna" scatters them.
+
+- **Change the heading, text, pictures or captions** under **Appearance → Customize → "Om mig"**. A picture's alt text is written in the media library; without one it counts as decoration. Without a picture the polaroid shows an empty photo area.
+- **How it's built:** `page-om-mig.php` (WordPress picks it by the slug `om-mig`) prints the hero from `template-parts/about/hero.php`, then the page's editor content. `about-hero.css` places everything in the design's px times `--u`, so the pile scales with its width. `about-hero.js` only drags and shuffles: where a polaroid has moved to is `--dx`/`--dy` (the CSS `translate`), kept inside the hero.
+
+Why it's built this way, and where it differs from the design: [docs/decisions/0012-about-hero.md](../docs/decisions/0012-about-hero.md).
+
+## Reading time and dates
+
+Every page (not the start page) shows reading time and word count above its content ("6–9 minuter · 1 438 ord") and the publish and update dates below it, from `template-parts/content/page-meta.php`. Use it in a new page template with `get_template_part( 'template-parts/content/page-meta', null, array( 'part' => 'reading' ) )`, or `'dates'`. The reading speeds are in `inc/page-meta.php`.
 
 ## Start page banner and "Läs vidare"
 

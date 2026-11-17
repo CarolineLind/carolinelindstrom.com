@@ -42,6 +42,8 @@ function clind_enqueue_styles() {
 		'cl-code'        => 'assets/css/components/code-editor.css',
 		'cl-code-tree'   => 'assets/css/components/code-editor-tree.css',
 		'cl-code-type'   => 'assets/css/components/code-editor-typing.css',
+		'cl-page-meta'   => 'assets/css/components/page-meta.css',
+		'cl-about-hero'  => 'assets/css/components/about-hero.css',
 	);
 
 	$previous = array();
@@ -55,7 +57,7 @@ add_action( 'wp_enqueue_scripts', 'clind_enqueue_styles' );
 /*
 The header (toggles, mobile menu) and the footer (animations on scroll): on every
 page, since both are. The hero's tilt and scroll fallback, the "Läs vidare" carousel and the code
-editor only on the start page.
+editor only on the start page; the polaroids' drag and shuffle only on Om mig.
 */
 function clind_enqueue_scripts() {
 	$scripts = array(
@@ -67,6 +69,10 @@ function clind_enqueue_scripts() {
 		$scripts['clind-start-hero'] = 'assets/js/start-hero.js';
 		$scripts['clind-read-more']  = 'assets/js/read-more.js';
 		$scripts['clind-code']       = 'assets/js/code-editor.js';
+	}
+
+	if ( is_page( 'om-mig' ) ) {
+		$scripts['clind-about-hero'] = 'assets/js/about-hero.js';
 	}
 
 	foreach ( $scripts as $handle => $path ) {

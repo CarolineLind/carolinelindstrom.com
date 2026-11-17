@@ -121,7 +121,13 @@ Where the header differs from the design: `docs/decisions/0003-header.md`.
 
 ## 9. Other pages
 pa11y findings in today's draft content (2026-10-23), all in the content, none in the theme: text colors with too little contrast, iframes without `title`, image links without alt text, an inline SVG with its own colors. Run `npm run test:a11y` again as each page is rebuilt.
-- [ ] Om mig (two design versions: timeline and story; choose one)
+- [ ] Om mig: the story version (OmMigB) chosen, built section by section
+  - [x] Hero: polaroids that spread, drag and shuffle; words and images in Customize → "Om mig" (decision 0012)
+  - [ ] Review (Caroline): dragging the polaroids on a real phone; does a thumb on a polaroid get in the way of scrolling?
+  - [ ] Om mig content in WordPress (Caroline): remove the old hero (cover block with the h1 "Vem är jag då?" and the text); until then the page has two h1s. Add the three pictures and their alt text in Customize → "Om mig"
+  - [ ] "Vägen hit" (story with the facts column). The design's light palette there (warm beige) is wrong and needs adjusting
+  - [ ] Verktyg, Utanför skärmen
+- [x] Reading time and word count above every page, publish and update dates below (decision 0012)
 - [ ] Tillgänglighet
 - [ ] Prestanda
 - [ ] Frontend lead
