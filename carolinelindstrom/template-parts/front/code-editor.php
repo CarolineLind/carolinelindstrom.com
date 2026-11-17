@@ -4,7 +4,9 @@ The code editor window on the start page (components/code-editor.css,
 js/code-editor.js): a short "about me" as a JavaScript object, with a file
 tree beside it and a terminal below. The pages in the tree are real links;
 the other files are just text. The 'light' token is a button that switches to
-light mode, and the terminal answers. The lines live in inc/code-editor.php.
+light mode, and the terminal answers; once it has, it also answers when the
+theme goes back to dark (or light again) from the header. The lines live in
+inc/code-editor.php.
 With motion on, the code is typed out when it scrolls into view. The real code
 is always there for screen readers and without JavaScript; the typing is a
 copy on top of it (decision 0009).
@@ -72,9 +74,15 @@ $clind_lines = clind_code_editor_lines();
 						<p class="code-editor__terminal-head" aria-hidden="true">Terminal</p>
 						<p class="code-editor__terminal-line">$ node caroline.js</p>
 						<p class="code-editor__terminal-line code-editor__terminal-line--muted"><?php esc_html_e( '✓ Allt laddat. Välkommen in!', 'carolinelindstrom' ); ?></p>
-						<div class="code-editor__terminal-answer code-editor__terminal-answer--waiting" tabindex="-1">
-							<p class="code-editor__terminal-line">$ caroline.tema = 'light'</p>
-							<p class="code-editor__terminal-line code-editor__terminal-line--ok"><?php esc_html_e( 'Ljust läge på. Vill du tillbaka till mörkt? Knappen finns högst upp på sidan.', 'carolinelindstrom' ); ?></p>
+						<div class="code-editor__terminal-answers">
+							<div class="code-editor__terminal-answer code-editor__terminal-answer--waiting" tabindex="-1" data-code-editor-answer="light">
+								<p class="code-editor__terminal-line code-editor__terminal-line--command">$ caroline.tema = 'light'</p>
+								<p class="code-editor__terminal-line code-editor__terminal-line--ok"><?php esc_html_e( 'Ljust läge på.', 'carolinelindstrom' ); ?> <span class="code-editor__terminal-hint"><?php esc_html_e( 'Vill du tillbaka till mörkt? Knappen finns högst upp på sidan.', 'carolinelindstrom' ); ?></span></p>
+							</div>
+							<div class="code-editor__terminal-answer code-editor__terminal-answer--waiting" tabindex="-1" data-code-editor-answer="dark">
+								<p class="code-editor__terminal-line code-editor__terminal-line--command">$ caroline.tema = 'dark'</p>
+								<p class="code-editor__terminal-line code-editor__terminal-line--ok"><?php esc_html_e( 'Mörkt läge igen.', 'carolinelindstrom' ); ?></p>
+							</div>
 						</div>
 					</div>
 				</div>

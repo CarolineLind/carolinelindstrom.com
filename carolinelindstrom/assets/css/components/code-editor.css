@@ -202,14 +202,54 @@ from <html>, so the right one shows on first paint.
 
 .code-editor__terminal-line--ok {
   color: var(--color-code-prop);
+  transition: opacity var(--dur-base) var(--ease-out);
 }
 
 /*
-The answer to the light button holds its space from the start, so it doesn't
-push the page down when it appears (CLS). visibility also hides it from
-screen readers until then
+The terminal's answers (light and dark) share one grid cell, so the longer
+one holds the space from the start and nothing pushes the page down when
+either appears (CLS). visibility also hides a waiting one from screen readers
 */
+.code-editor__terminal-answers {
+  display: grid;
+}
+
+.code-editor__terminal-answer {
+  grid-area: 1 / 1;
+}
+
 .code-editor__terminal-answer--waiting {
+  visibility: hidden;
+}
+
+/*
+With motion on, js/code-editor.js types the command out on an aria-hidden
+copy laid over the real text (which screen readers read), then the output
+fades in like a command's printout
+*/
+.code-editor__terminal-line--command {
+  position: relative;
+}
+
+.code-editor__terminal-answer--typing .code-editor__terminal-line--command > .code-editor__terminal-real {
+  opacity: 0;
+}
+
+.code-editor__terminal-typed {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.code-editor__terminal-answer--typing .code-editor__terminal-line--ok {
+  opacity: 0;
+}
+
+/*
+The way back to dark is told only the first time. Hidden with visibility, so
+it still holds its space (the terminal doesn't shrink) but isn't read out
+*/
+.code-editor__terminal-answer--repeat .code-editor__terminal-hint {
   visibility: hidden;
 }
 

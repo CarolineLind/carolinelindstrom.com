@@ -7,7 +7,11 @@ The code editor window on the start page (template-parts/front/code-editor.php).
   The 'light' token: switches to light mode through window.clindPrefs, like the
   header's toggle, and the terminal answers (its lines already hold their
   space, so nothing shifts). The button then disappears (CSS), so focus moves
-  to the answer, which is read out.
+  to the answer, which is read out. From then on the terminal follows the
+  theme: back to dark from the header, it answers 'dark'. The way back to
+  dark is told only the first time; after that, light just says it's on. With motion on, the
+  command is typed out on an aria-hidden copy and the output fades in (well
+  under a second); the real text is there for screen readers all along.
   Typing: with motion on, the code is typed out when it scrolls into view. A
   copy is laid over the real code and typed; the real code stays readable for
   screen readers underneath (decision 0009). It takes about seven seconds:
@@ -27,17 +31,123 @@ The code editor window on the start page (template-parts/front/code-editor.php).
 	/* ------------------ LIGHT BUTTON ------------------ */
 
 	var lightButton = editor.querySelector('[data-code-editor-light]');
-	var answer = editor.querySelector('.code-editor__terminal-answer');
+	var answers = {
+		light: editor.querySelector('[data-code-editor-answer="light"]'),
+		dark: editor.querySelector('[data-code-editor-answer="dark"]')
+	};
 	var prefsApi = window.clindPrefs;
 
-	if (lightButton && answer && prefsApi) {
+	/* Terminal characters per millisecond (40 a second), and the pause before the output */
+	var TERMINAL_SPEED = .04;
+	var OUTPUT_DELAY = 250;
+	var shown = null;
+	var run = 0;
+
+	/* The command's text in a span of its own, so the typed copy can lie over it */
+	Object.keys(answers).forEach(function (theme) {
+		var command = answers[theme] && answers[theme].querySelector('.code-editor__terminal-line--command');
+		if (command) {
+			var real = document.createElement('span');
+			real.className = 'code-editor__terminal-real';
+			real.textContent = command.textContent;
+			command.textContent = '';
+			command.appendChild(real);
+		}
+	});
+
+	/* Type the command, then print the output. Without motion it's all there at once */
+	function typeAnswer(answer) {
+		var command = answer.querySelector('.code-editor__terminal-line--command');
+		var text = command.textContent;
+		var mine = ++run;
+
+		if (root.getAttribute('data-motion') !== 'on') {
+			return;
+		}
+
+		var typed = document.createElement('span');
+		typed.className = 'code-editor__terminal-typed';
+		typed.setAttribute('aria-hidden', 'true');
+		var typedText = document.createTextNode('');
+		var caret = document.createElement('span');
+		caret.className = 'code-editor__caret';
+		typed.appendChild(typedText);
+		typed.appendChild(caret);
+		command.appendChild(typed);
+		answer.classList.add('code-editor__terminal-answer--typing');
+
+		function stop() {
+			typed.remove();
+			answer.classList.remove('code-editor__terminal-answer--typing');
+		}
+
+		var started;
+
+		/* A newer answer, or motion paused, ends this one at once */
+		function frame(now) {
+			if (mine !== run || root.getAttribute('data-motion') !== 'on') {
+				stop();
+				return;
+			}
+			started = started || now;
+			var count = Math.min(text.length, Math.round((now - started) * TERMINAL_SPEED));
+			typedText.nodeValue = text.slice(0, count);
+			if (count < text.length) {
+				requestAnimationFrame(frame);
+				return;
+			}
+			setTimeout(function () {
+				if (mine === run) {
+					stop();
+				}
+			}, OUTPUT_DELAY);
+		}
+
+		requestAnimationFrame(frame);
+	}
+
+	function showAnswer(theme, focus) {
+		var answer = answers[theme];
+		if (!answer || theme === shown) {
+			return;
+		}
+		Object.keys(answers).forEach(function (other) {
+			answers[other].classList.toggle('code-editor__terminal-answer--waiting', other !== theme);
+			answers[other].classList.remove('code-editor__terminal-answer--typing');
+			answers[other].querySelectorAll('.code-editor__terminal-typed').forEach(function (typed) {
+				typed.remove();
+			});
+		});
+		/* Each answer's hint only the first time it's shown */
+		if (answer.hasAttribute('data-code-editor-seen')) {
+			answer.classList.add('code-editor__terminal-answer--repeat');
+		}
+		answer.setAttribute('data-code-editor-seen', '');
+		shown = theme;
+		typeAnswer(answer);
+		if (focus) {
+			answer.focus();
+		}
+	}
+
+	if (lightButton && answers.light && answers.dark && prefsApi) {
 		lightButton.addEventListener('click', function () {
 			var prefs = Object.assign({}, prefsApi.config.defaults, prefsApi.read());
 			prefs.theme = 'light';
 			prefsApi.save(prefs);
-			answer.classList.remove('code-editor__terminal-answer--waiting');
-			answer.focus();
+			showAnswer('light', true);
 		});
+
+		/*
+		Once the terminal has answered, it follows the theme however it changes
+		(the header's toggle, the dialog, the device). Focus stays where it is:
+		the visitor pressed something else
+		*/
+		new MutationObserver(function () {
+			if (shown) {
+				showAnswer(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark', false);
+			}
+		}).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
 	}
 
 	/* --------------------- TYPING --------------------- */
