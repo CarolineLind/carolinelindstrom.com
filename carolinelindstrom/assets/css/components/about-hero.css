@@ -124,6 +124,7 @@ they move independently
   margin: 0;
   padding: calc(12 * var(--u)) calc(12 * var(--u)) calc(16 * var(--u));
   border-radius: var(--radius-xs);
+  outline: 1px solid var(--color-polaroid-outline);
   background: var(--color-polaroid);
   box-shadow: 0 22px 40px -18px var(--color-polaroid-shadow);
   transform: rotate(var(--tilt));

@@ -370,10 +370,12 @@ Breakpoints (media queries can't read variables):
   "Om mig" hero (components/about-hero.css): the page's h1, three taped
   polaroids that spread on hover and can be dragged, and doodles that rock
   slowly beside them (--dur-bob, paused with motion off). The polaroid is
-  light in both modes, like the notebooks: its caption ink is fixed with it
+  white in both modes, like a real photo: its caption ink is fixed with it.
+  The outline only shows in light mode, where white meets the light page
   */
   --fs-about-title: clamp(52px, 8.6vw, 138px);
-  --color-polaroid: #F4F2FB;
+  --color-polaroid: #FFF;
+  --color-polaroid-outline: transparent;
   --color-polaroid-text: #15131F;
   --color-polaroid-empty: #2A2740;
   --color-polaroid-shadow: rgb(0 0 0 / 75%);
@@ -457,9 +459,10 @@ selectors that name it untouched, so it doesn't affect the site.
   /* Start page hero paper: a soft, tinted shadow on the light background */
   --color-paper-shadow: rgb(40 30 80 / 28%);
 
-  /* "Om mig" polaroids: a soft, tinted shadow and a light empty photo area */
+  /* "Om mig" polaroids: a soft, tinted shadow, a light empty photo area and a thin outline */
   --color-polaroid-empty: #E3E1F0;
   --color-polaroid-shadow: rgb(40 30 80 / 28%);
+  --color-polaroid-outline: #00000024;
 
   /* See-through header: 40 % of --color-bg, about #FFFFFF66 */
   --color-glass: color-mix(in srgb, var(--color-bg) 40%, transparent);
