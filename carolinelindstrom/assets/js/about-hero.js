@@ -5,7 +5,8 @@
 /*
 The polaroids in the "Om mig" hero (components/about-hero.css):
 	Drag: with a mouse, pen or finger. The polaroid follows the pointer, comes
-	to the top of the pile and stays where it is let go, kept inside the hero.
+	to the top of the pile and stays where it is let go, at most half off the
+	hero's sides (so it can always be grabbed back).
 	Only the polaroids take the touch (touch-action in the CSS), so a finger
 	anywhere else scrolls the page.
 	"Blanda bilderna": scatters the pile, the alternative to dragging for the
@@ -27,6 +28,7 @@ Loaded on Om mig only (inc/enqueue.php).
 	var shuffle = pile.querySelector('[data-about-shuffle]');
 	var order = photos.slice();
 	var drag = null;
+	var DRAG_OVERHANG = .5;
 
 	var offset = function (photo, name) {
 		return parseFloat(photo.style.getPropertyValue(name)) || 0;
@@ -57,19 +59,22 @@ Loaded on Om mig only (inc/enqueue.php).
 
 	/*
 	How far the polaroid may be moved (its --dx and --dy) and stay inside the
-	hero, measured from where it lies now. The box includes the tilt
+	hero, measured from where it lies now. The box includes the tilt.
+	overhang (0 to 1): how much of its width may go past the hero's sides,
+	where the hero clips it (overflow-x: clip), so the page never scrolls sideways
 	*/
-	var limits = function (photo) {
+	var limits = function (photo, overhang) {
 		var box = photo.getBoundingClientRect();
 		var area = hero.getBoundingClientRect();
 		var dx = offset(photo, '--dx');
 		var dy = offset(photo, '--dy');
+		var out = box.width * (overhang || 0);
 
 		return {
 			dx: dx,
 			dy: dy,
-			left: dx + area.left - box.left,
-			right: dx + area.right - box.right,
+			left: dx + area.left - box.left - out,
+			right: dx + area.right - box.right + out,
 			up: dy + area.top - box.top,
 			down: dy + area.bottom - box.bottom
 		};
@@ -92,7 +97,8 @@ Loaded on Om mig only (inc/enqueue.php).
 			photo: photo,
 			x: event.clientX,
 			y: event.clientY,
-			room: limits(photo)
+			/* Up to half off the screen's side, with half left to grab it back by */
+			room: limits(photo, DRAG_OVERHANG)
 		};
 	};
 
