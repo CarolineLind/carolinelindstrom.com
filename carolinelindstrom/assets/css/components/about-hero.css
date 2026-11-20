@@ -165,6 +165,7 @@ anywhere else still scrolls the page (Caroline's call)
   transition: transform var(--dur-slide) var(--ease-spring);
 }
 
+
 .about-hero__photo--1 {
   --top: 60;
   --left: 0;
@@ -256,6 +257,23 @@ anywhere else still scrolls the page (Caroline's call)
   vector-effect: non-scaling-stroke;
 }
 
+/*
+The doodles can be dragged too (Caroline's call), like the polaroids (DRAGGING
+above). The whole box takes the pointer, not just the thin lines, so they are
+easy to grab. translate moves them; the rocking stays on transform
+*/
+.js .about-hero__doodle {
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  translate: var(--dx, 0) var(--dy, 0);
+}
+
+.about-hero__doodle[data-dragging] {
+  cursor: grabbing;
+}
+
 .about-hero__doodle--sparkle {
   --top: -44;
   --left: 404;
@@ -305,8 +323,8 @@ with motion on and stops with the motion toggle (utilities.css)
 .about-hero__shuffle {
   position: absolute;
 
-  /* Over the polaroids, which about-hero.js stacks at 4 to 6 */
-  z-index: 7;
+  /* Over the polaroids and doodles, which about-hero.js stacks from 4 up to 9 */
+  z-index: 10;
   bottom: calc(-1 * var(--space-11));
   left: 0;
   display: inline-flex;

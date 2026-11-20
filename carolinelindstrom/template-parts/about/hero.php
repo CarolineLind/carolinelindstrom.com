@@ -2,7 +2,7 @@
 /*
 The "Om mig" hero (components/about-hero.css, js/about-hero.js): the page's h1
 and a short text beside a pile of three taped polaroids, with doodles around
-them. The pile spreads on hover and focus; with a mouse each polaroid can be
+them. The pile spreads on hover and focus; with a mouse each polaroid and doodle can be
 dragged, on touch too, and "Blanda bilderna" scatters them (the alternative to
 dragging for keyboard and single taps, see docs/decisions/0012-about-hero.md).
 Words and images come from Customize → "Om mig" (inc/about-page.php).
