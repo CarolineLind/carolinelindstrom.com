@@ -10,6 +10,25 @@ polaroid can be dragged, and "Blanda bilderna" scatters them (js/about-hero.js).
 Decision: docs/decisions/0012-about-hero.md.
 */
 
+/* --------------------- DOTS ----------------------- */
+
+/*
+The reading time and the hero share a field of dots (the sky without stars,
+sky.css), fading in towards the right as in the design. The sky lies at
+z-index 0, so the content above it gets 1
+*/
+.about-top {
+  --sky-mask: linear-gradient(90deg, transparent 45%, #000 85%);
+  --sky-dot: var(--color-dot);
+
+  position: relative;
+}
+
+.about-top > :not(.sky) {
+  position: relative;
+  z-index: var(--z-base);
+}
+
 /*
 overflow-x: clip keeps a dragged or spread polaroid from widening the page,
 without making a scroll container (CLAUDE.md, Gotchas), and lets them poke out
